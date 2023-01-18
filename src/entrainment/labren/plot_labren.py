@@ -33,17 +33,3 @@ def plot_labren(id_1_index = 72272, id_2_index = 1,
     
     plt.legend(fontsize = 8)
     plt.show()
-
-# plot_labren(
-#     id_1_index = 72272, id_2_index = 1,
-#     label_1 = "Nascente do rio Ailã (Lat.: $5.272$)",
-#     label_2 = "Arroio Chuí (Lat.: $- 33.752$)",
-#     by = "month"
-#     )
-
-# plot_labren(
-#     id_1_index = 72272, id_2_index = 1,
-#     label_1 = "Nascente do rio Ailã (Lat.: $5.272$)",
-#     label_2 = "Arroio Chuí (Lat.: $- 33.752$)",
-#     by = "season"
-#     )

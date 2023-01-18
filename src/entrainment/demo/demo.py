@@ -35,6 +35,3 @@ def plot_exact(f, lam_c, k, tau, lam_0 = 0, lam_n = 10,
     ax.set_ylabel("$f(\\lambda, \\lambda_{c}, k, \\tau)$")
     ax.set_title(title, fontsize = 10)
     plt.show()
-
-# plot_exact(f_exact, lam_c = 5, k = 2, tau = 22, lam_0 = 0, lam_n = 10)
-# plot_exact(f_exact, lam_c = 5, k = 2, tau = 26, lam_0 = 0, lam_n = 10)

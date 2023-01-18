@@ -1,14 +1,16 @@
 ## Learn more at 
 ## https://setuptools.pypa.io/en/latest/userguide/miscellaneous.html
+## https://packaging.python.org/en/latest/guides/using-manifest-in/
 
-graft entrainment
+graft src
 # graft tests
 # graft docs
 # `-> adds all files inside a directory
 
-prune qmd
+prune .github
 # `-> remove all files inside a directory
 
+inclur CHANGELOG.md
 include CITATION.cff
 include MANIFEST.in
 include pyproject.toml

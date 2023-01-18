@@ -66,11 +66,3 @@ def run_model(
             )
     
     return(turtles)
-
-# labren(72272)
-# x = run_model(
-#     labren_id = 72272, by = "season", n_cycles = 2, repetitions = 100
-#     )
-
-# labren(1)
-# x = run_model(labren_id = 1, by = "season", n_cycles = 2, repetitions = 100)

@@ -3,11 +3,10 @@ message: "If you use this software, please cite it as below."
 type: software
 license: MIT
 title: >-
-  Rule-based model of the light/dark cycle entrainment
-  phenomenon
+  A rule-based model of the 24h light/dark cycle entrainment phenomenon
 version: 0.0.0.9000
 abstract: >-
-  `entrainment` is a rule-based model created on Python to
+  {entrainment} is a rule-based model created on Python to
   test and demonstrate the 24h light/dark cycle entrainment
   phenomenon.
 authors:
@@ -17,7 +16,9 @@ authors:
     orcid: "https://orcid.org/0000-0001-7782-759X"
 preferred-citation:
   type: unpublished
-  title: "'entrainment': a rule-based 24h light/dark entrainment model"
+  title: >-
+    {entrainment}: A rule-based model of the 24h light/dark cycle entrainment
+    phenomenon
   authors:
   - given-names: Daniel
     family-names: Vartanian
