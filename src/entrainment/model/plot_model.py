@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+from ..labren import labren
 
 def plot_model(turtles, lam_c, labren_id, n_cycles, repetitions):
     if len(turtles) == 13:

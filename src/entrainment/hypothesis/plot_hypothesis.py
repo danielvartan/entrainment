@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-def plot_hypothesis(key, p_value, x = north, y = south, 
+def plot_hypothesis(key, p_value, x, y, 
                     x_name = "Nascente do rio Ailã (Lat.: $5.272$)", 
                     y_name = "Arroio Chuí (Lat.: $- 33.752$)", 
                     lam_c = 4727.833, n_cycles = 3, repetitions = 100):

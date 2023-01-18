@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from .labren import labren
 
 def plot_labren(id_1_index = 72272, id_2_index = 1,
                 label_1 = "Nascente do rio Ailã (Lat.: $5.272$)",

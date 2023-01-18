@@ -4,4 +4,5 @@ __all__ = ["reorder"]
 
 # # Test
 # 
-# entrainment.utils.reorder([1, 2, 3], 1)
+# import numpy as np
+# entrainment.utils.reorder([1, 2, 3], np.random.choice([1, 2, 3]))

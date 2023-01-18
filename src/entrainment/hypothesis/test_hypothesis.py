@@ -1,7 +1,8 @@
 import numpy as np
 from scipy import stats
+from .plot_hypothesis import plot_hypothesis
 
-def test_hypothesis(key, x = north, y = south, 
+def test_hypothesis(key, x, y, 
                     x_name = "Nascente do rio Ailã (Lat.: $5.272$)", 
                     y_name = "Arroio Chuí (Lat.: $- 33.752$)", 
                     lam_c = 4727.833, n_cycles = 3, repetitions = 100):
@@ -32,14 +33,14 @@ def test_hypothesis(key, x = north, y = south,
     
     print(summary_y)
 
-    ttest = stats.ttest_ind(x, y)
-    ttest_stats = round(ttest.pvalue, 5)
+    t_test = stats.ttest_ind(x, y)
+    t_test_stats = round(t_test.pvalue, 5)
     
     print(stats.ttest_ind(x, y))
     print(line)
     
     plot_hypothesis(
-        key, ttest_stats, x, y, x_name, y_name, lam_c, n_cycles,repetitions
+        key, t_test_stats, x, y, x_name, y_name, lam_c, n_cycles,repetitions
         )
     
-    return(ttest)
+    return(t_test)

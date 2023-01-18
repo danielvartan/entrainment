@@ -1,10 +1,16 @@
 import numpy as np
+from .average_turtles import average_turtles
+from .create_turtles import create_turtles
+from .entrain import entrain_turtles
+from .plot_model import plot_model
+from ..labren import labren
+from ..utils import reorder
 
-# np.array(labren(72272)["ts"]).mean() ~ 4727.833
-def run_model(
-    n = 10 ** 3, tau_range = (23.5, 24.6), tau_mean = 24.15, tau_sd = 0.2, 
+# np.array(entrainment.labren.labren(72272)["ts"]).mean() ~ 4727.833
+def run(
+    n = 10**3, tau_range = (23.5, 24.6), tau_mean = 24.15, tau_sd = 0.2, 
     k_range = (0.001, 0.01), k_mean = 0.001, k_sd = 0.005, lam_c = 4727.833, 
-    lam_c_tol = 1000, labren_id = 1, by = "month", n_cycles = 3, start_at = 0, 
+    lam_c_tol = 1000, labren_id = 1, by = "season", n_cycles = 3, start_at = 0, 
     repetitions = 10 ** 2, plot = True
     ):
     turtles_0 = create_turtles(
