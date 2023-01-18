@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: 'To cite package "entrainment" in publications use:'
+type: software
+license: MIT
+title: >-
+  Rule-based model of the light/dark cycle entrainment
+  phenomenon
+version: 0.0.0.9000
+abstract: >-
+  `entrainment` is a rule-based model created on Python to
+  test and demonstrate the 24h light/dark cycle entrainment
+  phenomenon.
+authors:
+  - given-names: Daniel
+    family-names: Vartanian
+    email: danvatan@gmail.com
+    orcid: "https://orcid.org/0000-0001-7782-759X"
+    affiliation: University of Sao Paulo
+preferred-citation:
+  type: unpublished
+  title: 'entrainment': a rule-based 24h light/dark entrainment model 
+  authors:
+  - given-names: Daniel
+    family-names: Vartanian
+    email: danvatan@gmail.com
+    orcid: "https://orcid.org/0000-0001-7782-759X"
+    affiliation: University of Sao Paulo
+  year: "2023"
+  url: "https://github.com/danielvartan/entrainment"
+  notes: "(v. 0.0.0.9000). Lifecycle: experimental"
+repository-code: "https://github.com/danielvartan/entrainment"
+url: "https://github.com/danielvartan/entrainment"
+contact:
+  - given-names: Daniel
+    family-names: Vartanian
+    email: danvatan@gmail.com
+    orcid: "https://orcid.org/0000-0001-7782-759X"
+    affiliation: University of Sao Paulo
+keywords:
+  - entrainment
+  - chronobiology
+  - model
+  - complex system
+  - python

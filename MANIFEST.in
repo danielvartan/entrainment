@@ -1,0 +1,18 @@
+## Learn more at 
+## https://setuptools.pypa.io/en/latest/userguide/miscellaneous.html
+
+graft entrainment
+# graft tests
+# graft docs
+# `-> adds all files inside a directory
+
+prune qmd
+# `-> remove all files inside a directory
+
+include CITATION.cff
+include MANIFEST.in
+include pyproject.toml
+# `-> matches file paths relative to the root of the project
+
+# global-exclude *_test.py
+# `-> matches file names (regardless of directory)

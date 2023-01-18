@@ -1,10 +1,15 @@
 import numpy as np
 import pandas as pd
+from importlib.resources import files
 
-def labren(id, name = None, by = "month",
-           file = "./data/labren/global_horizontal_means.csv"):
+global_horizontal_means = (
+    files("entrainment.data")
+    .joinpath("global_horizontal_means.csv")
+    )
+
+def labren(id, name = None, by = "month"):
     data = (
-        pd.read_csv(filepath_or_buffer  = file, sep = ";")
+        pd.read_csv(filepath_or_buffer = global_horizontal_means, sep = ";")
         .rename(str.lower, axis = "columns")
         .loc[[id - 1]]
     )
