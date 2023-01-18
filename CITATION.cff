@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: 'To cite package "entrainment" in publications use:'
+message: "If you use this software, please cite it as below."
 type: software
 license: MIT
 title: >-
@@ -15,10 +15,9 @@ authors:
     family-names: Vartanian
     email: danvatan@gmail.com
     orcid: "https://orcid.org/0000-0001-7782-759X"
-    affiliation: University of Sao Paulo
 preferred-citation:
   type: unpublished
-  title: 'entrainment': a rule-based 24h light/dark entrainment model 
+  title: "'entrainment': a rule-based 24h light/dark entrainment model"
   authors:
   - given-names: Daniel
     family-names: Vartanian
@@ -30,12 +29,6 @@ preferred-citation:
   notes: "(v. 0.0.0.9000). Lifecycle: experimental"
 repository-code: "https://github.com/danielvartan/entrainment"
 url: "https://github.com/danielvartan/entrainment"
-contact:
-  - given-names: Daniel
-    family-names: Vartanian
-    email: danvatan@gmail.com
-    orcid: "https://orcid.org/0000-0001-7782-759X"
-    affiliation: University of Sao Paulo
 keywords:
   - entrainment
   - chronobiology
