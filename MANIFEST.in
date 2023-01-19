@@ -3,7 +3,6 @@
 ## https://packaging.python.org/en/latest/guides/using-manifest-in/
 
 graft src
-graft docs
 # graft tests
 # `-> adds all files inside a directory
 

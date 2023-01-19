@@ -1,3 +1,4 @@
+"""Tools to explore the entrainment dynamics."""
 from .demo import f_exact
 from .demo import exact
 from .demo import plot_exact

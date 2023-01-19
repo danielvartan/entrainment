@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "doc/source/_static/README-",
+  fig.path = "docs/source/_static/README-",
   out.width = "100%"
 )
 ```
@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://choosealicense.com/licenses/mit/)
+[![Documentation Status](https://readthedocs.org/projects/entrainment/badge/?version=latest)](https://entrainment.readthedocs.io/en/latest/?badge=latest)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)
 <!-- badges: end -->
 
@@ -36,27 +37,27 @@ In case you don't feel comfortable with Python, we strongly recommend checking J
 
 You can install `entrainment` from GitHub with:
 
-```{eval = FALSE}
-py -m pip install git+https://github.com/danielvartan/entrainment.git#egg=entrainment
+```{bash, eval = FALSE}
+pip install git+https://github.com/danielvartan/entrainment.git#egg=entrainment
 ```
 
 We don't intend to publish this package to [PyPI](https://pypi.org/).
 
 ## Usage
 
-The `entrainment` package comes with 5 subpackages:
+`entrainment` comes with 5 subpackages:
 
-* `demo`: A subpackage to plot the entrainment dynamics.
-* `hypothesis`: A subpackage with tools for hypothesis testing.
-* `labren`: A subpackage to access LABREN's global horizontal solar irradiation model.
-* `model`: A subpackage with the entrainment model.
-* `utils`: A subpackage with some utility tools.
+* `demo`: Tools to plot the entrainment dynamics.
+* `hypothesis`: Tools for hypothesis testing.
+* `labren`: Tools for accessing [LABREN's global horizontal solar irradiation model](http://labren.ccst.inpe.br/atlas_2017.html).
+* `model`: The entrainment model.
+* `utils`: Utility tools.
 
-<!-- You can learn more about each subpackage and its functions on the package documentation website. -->
+You can learn more about each subpackage and its functions on the package documentation website.
 
 The following example illustrates how to run the model.
 
-Please note in this example all of the model arguments are assigned. You don't need to assign values to all arguments, you can just use the default values. Check `run()` documentation to learn more.
+Please note that in this example all of the model arguments are assigned. You don't need to assign values to all arguments, you can just use the default values. Check `run()` documentation to learn more.
 
 ```{python}
 import entrainment.model as model

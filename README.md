@@ -38,30 +38,31 @@ audit students).
 
 You can install `entrainment` from GitHub with:
 
-``` eval
-py -m pip install git+https://github.com/danielvartan/entrainment.git#egg=entrainment
+``` bash
+pip install git+https://github.com/danielvartan/entrainment.git#egg=entrainment
 ```
 
 We don’t intend to publish this package to [PyPI](https://pypi.org/).
 
 ## Usage
 
-The `entrainment` package comes with 5 subpackages:
+`entrainment` comes with 5 subpackages:
 
-- `demo`: A subpackage to plot the entrainment dynamics.
-- `hypothesis`: A subpackage with tools for hypothesis testing.
-- `labren`: A subpackage to access LABREN’s global horizontal solar
-  irradiation model.
-- `model`: A subpackage with the entrainment model.
-- `utils`: A subpackage with some utility tools.
+- `demo`: Tools to plot the entrainment dynamics.
+- `hypothesis`: Tools for hypothesis testing.
+- `labren`: Tools for accessing [LABREN’s global horizontal solar
+  irradiation model](http://labren.ccst.inpe.br/atlas_2017.html).
+- `model`: The entrainment model.
+- `utils`: Utility tools.
 
-<!-- You can learn more about each subpackage and its functions on the package documentation website. -->
+You can learn more about each subpackage and its functions on the
+package documentation website.
 
 The following example illustrates how to run the model.
 
-Please note in this example all of the model arguments are assigned. You
-don’t need to assign values to all arguments, you can just use the
-default values. Check `run()` documentation to learn more.
+Please note that in this example all of the model arguments are
+assigned. You don’t need to assign values to all arguments, you can just
+use the default values. Check `run()` documentation to learn more.
 
 ``` python
 import entrainment.model as model
@@ -85,7 +86,7 @@ turtles = model.run(
     )
 ```
 
-<img src="doc/source/_static/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="docs/source/_static/README-unnamed-chunk-3-1.png" width="100%" />
 
 ## Citation
 

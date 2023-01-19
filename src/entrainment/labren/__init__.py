@@ -1,3 +1,4 @@
+"""Tools for accessing LABREN's global horizontal solar irradiation model."""
 from .labren import labren
 from .plot_labren import plot_labren
 

@@ -1,3 +1,4 @@
+"""The entrainment model."""
 from .average_turtles import average_turtles
 from .create_turtles import create_turtles
 from .entrain import entrain

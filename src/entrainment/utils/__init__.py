@@ -1,3 +1,4 @@
+"""Utility tools."""
 from .utils import reorder
 
 __all__ = ["reorder"]
