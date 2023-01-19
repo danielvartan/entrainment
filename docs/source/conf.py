@@ -13,13 +13,14 @@ sys.path.append(os.path.abspath('../../src/entrainment/'))
 
 # -- Project information -----------------------------------------------------
 
+import entrainment
+import sphinx_bootstrap_theme
+
 project = 'entrainment'
 copyright = '2023, Daniel Vartanian'
 author = 'Daniel Vartanian'
-version = "0.0.0.9000" # The short X.Y version.
+version = entrainment.__version__ # The short X.Y version.
 # release = "" # The full version, including alpha/beta/rc tags.
-
-import sphinx_bootstrap_theme
 
 # -- General configuration ---------------------------------------------------
 
