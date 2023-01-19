@@ -4,3 +4,4 @@ pandas
 scipy
 seaborn
 setuptools
+sphinx_bootstrap_theme
