@@ -33,7 +33,7 @@ Tools for hypothesis testing.
 
 ## LABREN (`entrainment.labren`)
 
-Tools for accessing LABREN's global horizontal solar irradiation model.
+Tools for accessing [LABREN's global horizontal solar irradiation model]((http://labren.ccst.inpe.br/atlas_2017.html)).
 
 ```{eval-rst}
 .. autofunction:: labren.labren
