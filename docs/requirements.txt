@@ -1,7 +1,10 @@
 matplotlib
+myst_parser
 numpy
 pandas
 scipy
 seaborn
 setuptools
 sphinx_bootstrap_theme
+sphinx_design
+sphinx_copybutton

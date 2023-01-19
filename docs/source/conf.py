@@ -25,14 +25,16 @@ version = "0.0.0.9000"
 
 # -- General configuration ---------------------------------------------------
 
+# Don't forget to update the `requirements.txt` with the pakages extensions.
+
 extensions = [
+    "myst_parser",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.viewcode",
     'sphinx.ext.intersphinx',
-    "sphinx_design",
     "sphinx_copybutton",
-    "myst_parser",
+    "sphinx_design",
 ]
 
 def setup(app):
