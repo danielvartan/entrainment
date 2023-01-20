@@ -4,10 +4,13 @@ import seaborn as sns
 from ..labren import labren
 
 def plot_model(turtles, lam_c, labren_id, n_cycles, repetitions):
+    """Plot the entrainment model."""
     if len(turtles) == 13:
         colors = sns.color_palette("tab10", 12)
-    else:
+    elif len(turtles) == 5:
         colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
+    else:
+        colors = ["red"]
     
     n = len(turtles[list(turtles)[0]])
     lat = labren(labren_id)["lat"]
@@ -47,3 +50,5 @@ def plot_model(turtles, lam_c, labren_id, n_cycles, repetitions):
     
     plt.legend(fontsize = 8)
     plt.show()
+    
+    return None

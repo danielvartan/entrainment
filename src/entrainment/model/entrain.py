@@ -1,6 +1,7 @@
 import numpy as np
 
 def entrain(lam, lam_c, k, tau, tau_ref = 24):
+    """Compute the (un)entrainment function."""
     logi_f = (tau_ref - tau) / (1 + np.exp(1) ** (- k * (lam - lam_c)))
     out = tau + logi_f
     error = np.random.uniform(low = 0, high = 1) * np.abs(out - tau)
@@ -10,9 +11,10 @@ def entrain(lam, lam_c, k, tau, tau_ref = 24):
     else:
         out = out + error
     
-    return(out)
+    return out
 
 def entrain_turtles(turtles, turtles_0, lam, lam_c, lam_c_tol):
+    """Entrain turtles/subjects."""
     n = len(turtles)
     out = []
     
@@ -28,4 +30,4 @@ def entrain_turtles(turtles, turtles_0, lam, lam_c, lam_c_tol):
         
         out.append({"tau": tau_i, "k": k})
     
-    return(out)
+    return out

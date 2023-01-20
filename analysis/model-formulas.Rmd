@@ -1,0 +1,78 @@
+---
+output: github_document
+knit: (function(inputFile, encoding) {
+  out_dir <- "../docs/source/";
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = out_dir)
+  })
+---
+
+<!-- model-formulas.md is generated from model-formulas.Rmd. Please edit that file -->
+
+```{r}
+#| label = "setup",
+#| include = FALSE
+
+knitr::opts_knit$set(root.dir = "../docs/source/")
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "_static/model-formulas_",
+  out.width = "100%"
+)
+```
+
+```{r}
+#| label = "toctree",
+#| results = "asis",
+#| echo = FALSE
+
+file <- "model-formulas"
+
+cat(paste0(
+    "```{toctree}", "\n",
+    ":maxdepth: 2", "\n",
+    ":hidden:", "\n",
+    "\n",
+    file, "\n",
+    "```"
+))
+```
+
+# Model formulas
+
+* Logistic function
+
+$$
+f(x) = \cfrac{L}{1 + e^{-k (x - x_{0})}}
+$$
+
+* Entrainment function
+
+$$
+\text{Entrain}(\lambda, \lambda_{c}, k, \tau) = \tau +  \cfrac{24 - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
+$$
+
+* Unentrainment function
+
+$$
+\text{Unentrain}(\lambda, \lambda_{c}, k, \tau, \tau_{0}) = \tau +  \cfrac{\tau_{0} - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
+$$
+
+* General (un)entrainment function
+
+
+$$
+\text{(un)Entrain}(\lambda, \lambda_{c}, k, \tau, \tau_{\text{ref}}) = \tau +  \cfrac{\tau_{\text{ref}} - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
+$$
+
+$$
+\text{Entrain}(\lambda, \lambda_{c}, k, \tau, \tau_{\text{ref}}) = 
+\overbrace{\tau + \cfrac{\tau_{\text{ref}} - \tau}{1 + e^{-k (\lambda - \lambda_{c})}}}^{F_{- E}} \pm E
+$$
+
+* Error term
+
+$$
+E = P_{unifom}(0, 1) \times |F_{- E} - \tau|
+$$

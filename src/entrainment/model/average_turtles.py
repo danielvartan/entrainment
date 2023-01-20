@@ -2,6 +2,7 @@ import functools
 import numpy as np
 
 def average_turtles(turtles_n):
+    """Average turtles/subjects values after n repetitions"""
     n = len(turtles_n)
     keys = list(turtles_n[list(turtles_n)[0]])
     out = {}
@@ -30,4 +31,4 @@ def average_turtles(turtles_n):
         
         out[i] = turtles_i
         
-    return(out)
+    return out

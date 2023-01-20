@@ -7,7 +7,7 @@ reference
 
 # Function reference
 
-The `entrainment` package comes with 5 subpackages. Use the pattern  `entrainment.<subpackage>.<function>` to access the API from each subpackage.
+The `entrainment` package comes with 4 subpackages. Use the pattern  `entrainment.<subpackage>.<function>` to access the API from each subpackage.
 
 If you are only interested in one subpackage, you can import it directly using a command like:
 
@@ -20,22 +20,12 @@ import entrainment.model as model
 The entrainment model.
 
 ```{eval-rst}
-.. autofunction:: model.run
-.. autofunction:: model.plot_model
-.. autofunction:: model.create_turtles
-.. autofunction:: model.entrain
-.. autofunction:: model.entrain_turtles
-.. autofunction:: model.average_turtles
-```
-
-## Hypothesis (`entrainment.hypothesis`)
-
-Tools for hypothesis testing.
-
-```{eval-rst}
-.. autofunction:: hypothesis.analyze_data
-.. autofunction:: hypothesis.test_hypothesis
-.. autofunction:: hypothesis.plot_hypothesis
+.. autofunction:: entrainment.model.run_model
+.. autofunction:: entrainment.model.plot_model
+.. autofunction:: entrainment.model.create_turtles
+.. autofunction:: entrainment.model.entrain
+.. autofunction:: entrainment.model.entrain_turtles
+.. autofunction:: entrainment.model.average_turtles
 ```
 
 ## LABREN (`entrainment.labren`)
@@ -43,8 +33,18 @@ Tools for hypothesis testing.
 Tools for accessing [LABREN's global horizontal solar irradiation model](http://labren.ccst.inpe.br/atlas_2017.html).
 
 ```{eval-rst}
-.. autofunction:: labren.labren
-.. autofunction:: labren.plot_labren
+.. autofunction:: entrainment.labren.labren
+.. autofunction:: entrainment.labren.plot_labren
+```
+
+## Hypothesis (`entrainment.hypothesis`)
+
+Tools for hypothesis testing.
+
+```{eval-rst}
+.. autofunction:: entrainment.hypothesis.analyze_data
+.. autofunction:: entrainment.hypothesis.test_hypothesis
+.. autofunction:: entrainment.hypothesis.plot_hypothesis
 ```
 
 ## Demo (`entrainment.demo`)
@@ -52,15 +52,15 @@ Tools for accessing [LABREN's global horizontal solar irradiation model](http://
 Tools to explore the entrainment dynamics.
 
 ```{eval-rst}
-.. autofunction:: demo.f_exact
-.. autofunction:: demo.exact
-.. autofunction:: demo.plot_exact
+.. autofunction:: entrainment.demo.f_exact
+.. autofunction:: entrainment.demo.exact
+.. autofunction:: entrainment.demo.plot_exact
 ```
 
 ## Utils (`entrainment.utils`)
 
-Utilitary tools.
+Utility tools.
 
 ```{eval-rst}
-.. autofunction:: utils.reorder
+.. autofunction:: entrainment.utils.reorder
 ```

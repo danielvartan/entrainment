@@ -5,11 +5,27 @@
 
 # -- Path setup --------------------------------------------------------------
 
-import os
-import sys
+import os, shutil, sys
 
-sys.path.append(os.path.abspath('../../src/entrainment/'))
-# sys.path.append("../../src/entrainment/")
+sys.path.append(os.path.abspath("../../src/entrainment/"))
+
+# -- Fixes and Tweaks ---------------------------------------------------------
+
+shutil.copyfile("../../README.md", "index.md")
+
+delete = [""]
+
+for i in delete:
+    for j in os.listdir():
+        if os.path.isfile(j):
+            con = open(j, "rt")
+            data = con.read()
+            data = data.replace(i, "")
+            con.close()
+            
+            con = open(j, "wt")
+            con.write(data)
+            con.close()
 
 # -- Project information -----------------------------------------------------
 
@@ -42,6 +58,9 @@ def setup(app):
 
 source_suffix = [".rst", ".md"]
 
+# Enable todo output
+todo_include_todos = True
+
 # -- Internationalization ------------------------------------------------
 # specifying the natural language populates some key tags
 language = "en"
@@ -69,9 +88,6 @@ myst_enable_extensions = ["colon_fence", "substitution"]
 # a list of builtin themes.
 html_theme = "bootstrap" # "alabaster"
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-# html_logo = "_static/logo.svg"
-# html_favicon = "_static/logo.svg"
-# html_sourcelink_suffix = ""
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.
@@ -91,6 +107,7 @@ html_theme_options = {
     # an arbitrary url.
     'navbar_links': [
         ("Reference", "reference"),
+        ("Latitude hypothesis", "hypothesis-test"),
         ("Contributing", "contributing"),
         ("Changelog", "changelog"),
     ],
@@ -115,11 +132,11 @@ html_theme_options = {
     # will break.
     #
     # Values: "true" (default) or "false"
-    'globaltoc_includehidden': "true",
+    'globaltoc_includehidden': "false",
 
     # HTML navbar class (Default: "navbar") to attach to <div> element.
     # For black navbar, do "navbar navbar-inverse"
-    'navbar_class': "navbar navbar-inverse",
+    'navbar_class': "navbar",
 
     # Fix navigation bar to top of page?
     # Values: "true" (default) or "false"
@@ -147,6 +164,14 @@ html_theme_options = {
     'bootstrap_version': "3",
 }
 
+# Custom sidebar templates, maps document names to template names.
+html_sidebars = {
+    'index': ['localtoc.html'],
+    'hypothesis-test': ['localtoc.html'],
+    'contributing': ['localtoc.html'],
+    'changelog': ['localtoc.html']
+    }
+
 myst_heading_anchors = 2
 myst_substitutions = {"rtd": "[Read the Docs](https://readthedocs.org/)"}
 
@@ -158,9 +183,21 @@ html_context = {
     "doc_path": "docs",
 }
 
+# (Optional) Logo. Should be small enough to fit the navbar (ideally 24x24).
+# Path should be relative to the ``_static`` files directory.
+# html_logo = "my_logo.png"
+
+# The name of an image file (within the static path) to use as favicon of the
+# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# pixels large.
+#html_favicon = None
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
-todo_include_todos = True
+
+# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+# using the given strftime format.
+#html_last_updated_fmt = '%b %d, %Y'

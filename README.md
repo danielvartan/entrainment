@@ -52,11 +52,11 @@ We don’t intend to publish this package to [PyPI](https://pypi.org/).
 
 `entrainment` comes with 5 subpackages:
 
-- `demo`: Tools to plot the entrainment dynamics.
-- `hypothesis`: Tools for hypothesis testing.
+- `model`: The entrainment model.
 - `labren`: Tools for accessing [LABREN’s global horizontal solar
   irradiation model](http://labren.ccst.inpe.br/atlas_2017.html).
-- `model`: The entrainment model.
+- `hypothesis`: Tools for hypothesis testing.
+- `demo`: Tools to plot the entrainment dynamics.
 - `utils`: Utility tools.
 
 You can learn more about each subpackage and its functions on the
@@ -90,7 +90,7 @@ turtles = model.run_model(
     )
 ```
 
-<img src="docs/source/_static/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="docs/source/_static/readme_usage-example-1.png" alt="24h light/dark cycle entrainment of a population located at the south of Brazil by season" width="100%" />
 
 ## Citation
 

@@ -9,10 +9,10 @@ def test_hypothesis(key, x, y,
     x = [i["tau"] for i in np.array(x[key])]
     y = [i["tau"] for i in np.array(y[key])]
     
-    line = "\n---------------------------------------------------------\n"
+    line = "---------------------------------------------------------\n"
     print(line)
     
-    title = ("\n[Groups: {x_name}/{y_name} | Key: {key}]\n")\
+    title = ("[Groups: {x_name}/{y_name} | Key: {key}]\n")\
              .format(x_name = x_name, y_name = y_name, key = key.title())
              
     print(title)
@@ -37,10 +37,10 @@ def test_hypothesis(key, x, y,
     t_test_stats = round(t_test.pvalue, 5)
     
     print(stats.ttest_ind(x, y))
-    print(line)
+    print("\n", line, sep = "")
     
     plot_hypothesis(
         key, t_test_stats, x, y, x_name, y_name, lam_c, n_cycles,repetitions
         )
     
-    return(t_test)
+    return t_test

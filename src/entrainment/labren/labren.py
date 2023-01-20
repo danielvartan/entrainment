@@ -8,6 +8,7 @@ global_horizontal_means = (
     )
 
 def labren(id, name = None, by = "month"):
+    """Retrieve LABREN's global horizontal solar irradiation"""
     data = (
         pd.read_csv(filepath_or_buffer = global_horizontal_means, sep = ";")
         .rename(str.lower, axis = "columns")
@@ -47,4 +48,14 @@ def labren(id, name = None, by = "month"):
         
         out["ts"] = [out[i.lower()] for i in labels]
     
-    return(out)
+    if by == "year":
+        keys = ["name", "id", "country", "lon", "lat", "annual"]
+        data = out
+        out = {}
+        
+        for i, j in enumerate(data):
+            if j in keys: out[j] = data[j]
+        
+        out["ts"] = out["annual"]
+    
+    return out

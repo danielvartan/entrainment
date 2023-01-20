@@ -9,7 +9,7 @@ def plot_hypothesis(key, p_value, x, y,
 
     title = ("Key = {key}, N = ${n}$, $\\lambda_c = {lam_c}$, " +\
              "Cycles = ${n_cycles}$, " +\
-             "Repetitions = ${repetitions}$, P-value = {p_value}")\
+             "Repetitions = ${repetitions}$, p-value = {p_value}")\
              .format(key = key.title(), n = str(n), lam_c = str(lam_c), 
                      n_cycles = str(n_cycles), repetitions = str(repetitions), 
                      p_value = str(p_value))
@@ -29,3 +29,5 @@ def plot_hypothesis(key, p_value, x, y,
     
     plt.legend(fontsize = 8)
     plt.show()
+    
+    return None

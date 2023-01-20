@@ -3,6 +3,7 @@ import numpy as np
 def create_turtles(n = 10**2, tau_range = (23.5, 24.6), tau_mean = 24.15, 
                    tau_sd = 0.2, k_range = (0.001, 0.01), k_mean = 0.001, 
                    k_sd = 0.005):
+    """Create turtles/subjects for the entrainment model."""
     turtles = []
     
     for i in range(n):
@@ -16,4 +17,4 @@ def create_turtles(n = 10**2, tau_range = (23.5, 24.6), tau_mean = 24.15,
         
         turtles.append({"tau": tau, "k": k})
     
-    return(turtles)
+    return turtles

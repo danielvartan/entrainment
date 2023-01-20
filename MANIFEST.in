@@ -7,12 +7,20 @@ graft src
 # `-> adds all files inside a directory
 
 prune .github
+prune analysis
+prune docs
 # `-> remove all files inside a directory
 
-inclur CHANGELOG.md
+include CHANGELOG.md
 include CITATION.cff
+include CODE_OF_CONDUCT.md
+include CONTRIBUTING.md
+include LICENSE
 include MANIFEST.in
 include pyproject.toml
+include README.md
+exclude README.Rmd
+exclude README.qmd
 # `-> matches file paths relative to the root of the project
 
 # global-exclude *_test.py

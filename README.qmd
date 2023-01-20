@@ -1,20 +1,14 @@
 ---
-output: github_document
+lang: en
+format: gfm
+fig-format: png
+identifier-prefix: "README-"
+output-file: README
+output-ext: md
+jupyter: python3
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r}
-#| label = "setup",
-#| include = FALSE
-
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "docs/source/_static/readme_",
-  out.width = "100%"
-)
-```
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
 # entrainment
 
@@ -52,10 +46,10 @@ We don't intend to publish this package to [PyPI](https://pypi.org/).
 
 `entrainment` comes with 5 subpackages:
 
-* `model`: The entrainment model.
-* `labren`: Tools for accessing [LABREN's global horizontal solar irradiation model](http://labren.ccst.inpe.br/atlas_2017.html).
-* `hypothesis`: Tools for hypothesis testing.
 * `demo`: Tools to plot the entrainment dynamics.
+* `hypothesis`: Tools for hypothesis testing.
+* `labren`: Tools for accessing [LABREN's global horizontal solar irradiation model](http://labren.ccst.inpe.br/atlas_2017.html).
+* `model`: The entrainment model.
 * `utils`: Utility tools.
 
 You can learn more about each subpackage and its functions on the [package documentation website](https://entrainment.readthedocs.io).
@@ -65,8 +59,7 @@ The following example illustrates how to run the model.
 Please note that in this example all of the model arguments are assigned. You don't need to assign values to all arguments, you can just use the default values. Check `run_model()` documentation to learn more.
 
 ```{python}
-#| label = "usage-example",
-#| fig.alt = "24h light/dark cycle entrainment of a population located at the south of Brazil by season"
+#| fig-alt: "Modeled 24h light/dark cycle entrainment of a population located at the south of Brazil by season"
 
 import entrainment.model as model
 

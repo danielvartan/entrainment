@@ -28,3 +28,5 @@ def analyze_data(group, key, name):
     ax.hist(data, density = True, edgecolor = "black", color = "red")
     ax.set_title(title, fontsize = 8)
     plt.show()
+    
+    return None

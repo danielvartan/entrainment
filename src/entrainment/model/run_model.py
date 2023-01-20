@@ -13,25 +13,31 @@ def run_model(
     lam_c_tol = 1000, labren_id = 1, by = "season", n_cycles = 3, start_at = 0, 
     repetitions = 10 ** 2, plot = True
     ):
+    """Compute the entrainment model."""
     turtles_0 = create_turtles(
         n, tau_range, tau_mean, tau_sd, k_range, k_mean, k_sd
         )
     
-    if (by == "month"):
+    if by == "month":
         labels = [
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", 
             "Oct", "Nov", "Dec"
             ]
         
-        labren_data = labren(labren_id)["ts"]
+        labren_data = labren(labren_id, by = "month")["ts"]
         cycle = 12
-    else:
+    elif by == "season":
         labels = ["Summer", "Autumn", "Winter", "Spring"]
         labren_data = labren(labren_id, by = "season")["ts"]
         cycle = 4
+    else:
+        labels = ["Annual"]
+        labren_data = [labren(labren_id, by = "year")["ts"]]
+        cycle = 1
     
-    labels = reorder(labels, start_at)
-    labren_data = reorder(labren_data, start_at)
+    if by != "year":
+        labels = reorder(labels, start_at)
+        labren_data = reorder(labren_data, start_at)
     
     if not n_cycles == 1:
         labels_0, labren_data_0 = tuple(labels), tuple(labren_data)
@@ -67,8 +73,6 @@ def run_model(
         turtles = average_turtles(turtles_n)
 
     if plot == True: 
-        plot_model(
-            turtles, lam_c, labren_id, n_cycles, repetitions
-            )
+        plot_model(turtles, lam_c, labren_id, n_cycles, repetitions)
     
-    return(turtles)
+    return turtles

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def f_exact(lam, lam_c, k, tau, tau_ref = 24):
-    """Compute the (un)entrainment function.
+    """Compute the exact (un)entrainment function.
     
     ``f_exact()`` computes the entrainment or unentrainment function of the
     ``entrainment`` model, but without its random error (:math:`E`) term
@@ -21,10 +21,10 @@ def f_exact(lam, lam_c, k, tau, tau_ref = 24):
     
     Where:
     
-    * :math:`\\lambda` = Global horizontal irradiation mean value present in the
-      environment.
+    * :math:`\\lambda` = Global horizontal solar irradiation mean value present
+      in the environment.
     * :math:`\\lambda_{c}` = Threshold/critial value of the global horizontal 
-      irradiation, indicating the onset of the entrainment phenomenon.
+      solar irradiation, indicating the onset of the entrainment phenomenon.
     * :math:`k` = Exposure factor, indicating the subject's sensibility to
       entrainment. It gives the slope of the sigmoid.
     * :math:`\\tau` = The actual subject's circadian phenotype (period) given 
@@ -37,10 +37,10 @@ def f_exact(lam, lam_c, k, tau, tau_ref = 24):
         You can see the complete entrainment funtion in 
         :func:`entrainment.model.entrain`.
     
-    :param lam: Global horizontal irradiation mean value present in the 
+    :param lam: Global horizontal solar irradiation mean value present in the 
         environment. See :func:`entrainment.labrem.labrem` to learn more.
     :type lam: int, float
-    :param lam_c: Tthreshold/critial value of the global horizontal 
+    :param lam_c: Tthreshold/critial value of the global horizontal solar
         irradiation, indicating the onset of the entrainment phenomenon.
     :type lam_c: int, float
     :param k: Exposure factor, indicating the subject's sensibility to
@@ -95,7 +95,7 @@ def f_exact(lam, lam_c, k, tau, tau_ref = 24):
     logi_f = (tau_ref - tau) / (1 + np.exp(1) ** (- k * (lam - lam_c)))
     out = tau + logi_f
 
-    return(out)
+    return out
 
 def exact(lam_c, k, tau, lam_0 = 0, lam_n = 10, h = 10 ** (- 3)):
     """Compute points in an interval of the (un)entrainment function."""
@@ -127,3 +127,5 @@ def plot_exact(lam_c, k, tau, lam_0 = 0, lam_n = 10,
     ax.set_ylabel("$f(\\lambda, \\lambda_{c}, k, \\tau)$")
     ax.set_title(title, fontsize = 10)
     plt.show()
+    
+    return None
