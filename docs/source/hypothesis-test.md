@@ -36,11 +36,12 @@ equator have a stronger solar
 to theory, should generate a greater propensity for synchronizing the
 circadian rhythms of these populations to the light-dark cycle, reducing
 the amplitude and the diversity of circadian phenotypes. This would also
-give these populations a morning character when compared to populations
-living far from the equator, in which the opposite would occur, i.e., a
-greater amplitude and diversity of circadian phenotypes and an evening
-character when compared to populations living near the equator.
-([Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
+give these populations a morning characteristic when compared to
+populations living far from the equator, in which the opposite would
+occur, i.e., a greater amplitude and diversity of circadian phenotypes
+and an evening characteristic when compared to populations living near
+the equator. ([Roenneberg et al.,
+2003](https://doi.org/10.1177/0748730402239679)).
 
 <img src="_static/roenneberg_2003_figure-7.png" alt="Hypothetical distribution of chronotypes (circadian phenotypes) for populations exposed to a strong (black) solar zeitgeber and a weak (striped) zeitgeber based on mid-sleep phase." width="100%" />
 
@@ -220,11 +221,11 @@ test = hypothesis.test_hypothesis("unentrain", north_by_season, south_by_season)
 #> 
 #> [Groups: Nascente do rio Ailã (Lat.: $5.272$)/Arroio Chuí (Lat.: $- 33.752$) | Key: Unentrain]
 #> 
-#> Mean = 24.148227085718556, SD = 0.19650046519480024
+#> Mean = 24.148956622488033, SD = 0.20089022154800826
 #> 
-#> Mean = 24.14679807587657, SD = 0.20114931282478551
+#> Mean = 24.142102404602348, SD = 0.19413530109507066
 #> 
-#> Ttest_indResult(statistic=0.1606210797012681, pvalue=0.8724080887828088)
+#> Ttest_indResult(statistic=0.7754735779602957, pvalue=0.43815164486698677)
 #> 
 #> ---------------------------------------------------------
 ```
@@ -243,11 +244,11 @@ test = hypothesis.test_hypothesis("summer", north_by_season, south_by_season)
 #> 
 #> [Groups: Nascente do rio Ailã (Lat.: $5.272$)/Arroio Chuí (Lat.: $- 33.752$) | Key: Summer]
 #> 
-#> Mean = 24.024280239400195, SD = 0.03265924602301128
+#> Mean = 24.024107738242076, SD = 0.03308899643913498
 #> 
-#> Mean = 24.020559743184382, SD = 0.030711322346360537
+#> Mean = 24.01872757520563, SD = 0.028356273835321695
 #> 
-#> Ttest_indResult(statistic=2.623046135936239, pvalue=0.008781011666444356)
+#> Ttest_indResult(statistic=3.902296619578766, pvalue=9.844017029565495e-05)
 #> 
 #> ---------------------------------------------------------
 ```
@@ -266,11 +267,11 @@ test = hypothesis.test_hypothesis("autumn", north_by_season, south_by_season)
 #> 
 #> [Groups: Nascente do rio Ailã (Lat.: $5.272$)/Arroio Chuí (Lat.: $- 33.752$) | Key: Autumn]
 #> 
-#> Mean = 24.021813130950715, SD = 0.029531060061261882
+#> Mean = 24.021612227284702, SD = 0.029959336278508466
 #> 
-#> Mean = 24.045583591164068, SD = 0.0685462727649525
+#> Mean = 24.041320690755814, SD = 0.06308976264690241
 #> 
-#> Ttest_indResult(statistic=-10.066220109211955, pvalue=2.767505168329134e-23)
+#> Ttest_indResult(statistic=-8.919077870098498, pvalue=1.0368520344800255e-18)
 #> 
 #> ---------------------------------------------------------
 ```
@@ -289,11 +290,11 @@ test = hypothesis.test_hypothesis("winter", north_by_season, south_by_season)
 #> 
 #> [Groups: Nascente do rio Ailã (Lat.: $5.272$)/Arroio Chuí (Lat.: $- 33.752$) | Key: Winter]
 #> 
-#> Mean = 24.019621049381588, SD = 0.02717614764850009
+#> Mean = 24.01933894161954, SD = 0.02760051071983717
 #> 
-#> Mean = 24.039876526523862, SD = 0.05892821439468387
+#> Mean = 24.03641618598445, SD = 0.05437413318704833
 #> 
-#> Ttest_indResult(statistic=-9.865715953839173, pvalue=1.8921696962040086e-22)
+#> Ttest_indResult(statistic=-8.851692244151065, pvalue=1.8576107113985023e-18)
 #> 
 #> ---------------------------------------------------------
 #> 
@@ -316,11 +317,11 @@ test = hypothesis.test_hypothesis("spring", north_by_season, south_by_season)
 #> 
 #> [Groups: Nascente do rio Ailã (Lat.: $5.272$)/Arroio Chuí (Lat.: $- 33.752$) | Key: Spring]
 #> 
-#> Mean = 24.01760264358326, SD = 0.024781315990454734
+#> Mean = 24.01721820276164, SD = 0.025123682129557855
 #> 
-#> Mean = 24.024678030653686, SD = 0.037283632542338595
+#> Mean = 24.02241331494933, SD = 0.034288624390522306
 #> 
-#> Ttest_indResult(statistic=-4.995331037863096, pvalue=6.384223279299174e-07)
+#> Ttest_indResult(statistic=-3.8628648531583276, pvalue=0.00011563529988626542)
 #> 
 #> ---------------------------------------------------------
 ```
@@ -339,11 +340,11 @@ test = hypothesis.test_hypothesis("annual", north_by_year, south_by_year)
 #> 
 #> [Groups: Nascente do rio Ailã (Lat.: $5.272$)/Arroio Chuí (Lat.: $- 33.752$) | Key: Annual]
 #> 
-#> Mean = 24.060742172371864, SD = 0.08153014986941497
+#> Mean = 24.06811990250252, SD = 0.08450441162729444
 #> 
-#> Mean = 24.089941858605336, SD = 0.1223413194735612
+#> Mean = 24.091486013908767, SD = 0.12117065919361852
 #> 
-#> Ttest_indResult(statistic=-6.277514018299399, pvalue=4.208097272080075e-10)
+#> Ttest_indResult(statistic=-4.99929465549762, pvalue=6.255975518088075e-07)
 #> 
 #> ---------------------------------------------------------
 ```

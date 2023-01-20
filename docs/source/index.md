@@ -82,7 +82,7 @@ turtles = model.run_model(
     lam_c = 4727.833, # Critical lambda value
     lam_c_tol = 1000, # Critical lambda tolerance
     labren_id = 1, # LABREN id of the global horizontal irradiation means
-    by = "season", # Series resolution (choices: "month", "season")
+    by = "season", # Series resolution (choices: "month", "season", "year")
     n_cycles = 2, # Number of cycles to run
     start_at = 0, # Index number indicating the start of the series
     repetitions = 100, # Number of repetitions
@@ -90,7 +90,7 @@ turtles = model.run_model(
     )
 ```
 
-<img src="_static/readme_usage-example-1.png" alt="24h light/dark cycle entrainment of a population located at the south of Brazil by season" width="100%" />
+<img src="docs/source/_static/readme_usage-example-1.png" alt="24h light/dark cycle entrainment of a population located at the south of Brazil by season" width="100%" />
 
 ## Citation
 

@@ -166,10 +166,11 @@ html_theme_options = {
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
-    'index': ['localtoc.html'],
-    'hypothesis-test': ['localtoc.html'],
-    'contributing': ['localtoc.html'],
-    'changelog': ['localtoc.html']
+    "index": ["localtoc.htmlv],
+    "reference": ["localtoc.htmlv],
+    "hypothesis-test": ["localtoc.htmlv],
+    "contributing": ["localtoc.htmlv],
+    "changelog": ["localtoc.htmlv],
     }
 
 myst_heading_anchors = 2

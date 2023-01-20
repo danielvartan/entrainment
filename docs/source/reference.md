@@ -1,10 +1,3 @@
-```{toctree}
-:maxdepth: 2
-:hidden:
-
-reference
-```
-
 # Function reference
 
 The `entrainment` package comes with 4 subpackages. Use the pattern  `entrainment.<subpackage>.<function>` to access the API from each subpackage.

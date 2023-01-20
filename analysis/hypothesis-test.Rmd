@@ -57,7 +57,7 @@ knitr::include_graphics("_static/pidwirny_2019_figure-6i-3.png")
 
 > Figure source: Pidwirny ([2019](http://www.physicalgeography.net/fundamentals/6i.html)).
 
-Thus, it is understood by deduction that the regions close to the equator have a stronger solar [zeitgeber](https://en.wikipedia.org/wiki/Zeitgeber), which, according to theory, should generate a greater propensity for synchronizing the circadian rhythms of these populations to the light-dark cycle, reducing the amplitude and the diversity of circadian phenotypes. This would also give these populations a morning character when compared to populations living far from the equator, in which the opposite would occur, i.e., a greater amplitude and diversity of circadian phenotypes and an evening character when compared to populations living near the equator. ([Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
+Thus, it is understood by deduction that the regions close to the equator have a stronger solar [zeitgeber](https://en.wikipedia.org/wiki/Zeitgeber), which, according to theory, should generate a greater propensity for synchronizing the circadian rhythms of these populations to the light-dark cycle, reducing the amplitude and the diversity of circadian phenotypes. This would also give these populations a morning characteristic when compared to populations living far from the equator, in which the opposite would occur, i.e., a greater amplitude and diversity of circadian phenotypes and an evening characteristic when compared to populations living near the equator. ([Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
 
 ```{r}
 #| label = "Roenneberg et al. (2003) (Figure 7)",
