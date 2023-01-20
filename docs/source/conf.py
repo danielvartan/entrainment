@@ -40,7 +40,7 @@ extensions = [
 def setup(app):
     app.add_css_file("custom.css")
 
-source_suffix = ['.rst', '.md']
+source_suffix = [".rst", ".md"]
 
 # -- Internationalization ------------------------------------------------
 # specifying the natural language populates some key tags

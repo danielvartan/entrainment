@@ -4,10 +4,10 @@ from .create_turtles import create_turtles
 from .entrain import entrain
 from .entrain import entrain_turtles
 from .plot_model import plot_model
-from .run import run
+from .run_model import run_model
 
 __all__ = ["average_turtles", "create_turtles", "entrain", "entrain_turtles",
-           "plot_model", "run"]
+           "plot_model", "run_model"]
 
 # # Test
 # 
@@ -22,17 +22,17 @@ __all__ = ["average_turtles", "create_turtles", "entrain", "entrain_turtles",
 #     )
 # 
 # entrainment.model.plot_model(
-#     turtles = entrainment.model.run(labren_id = 1000, plot = False,
+#     turtles = entrainment.model.run_model(labren_id = 1000, plot = False,
 #                                     repetitions = 10),
 #     lam_c = 4727.833, labren_id = 1000, n_cycles = 3, repetitions = 10
 # )
 # 
 # entrainment.labren.labren(72272)
-# x = entrainment.model.run(
+# x = entrainment.model.run_model(
 #     labren_id = 72272, by = "season", n_cycles = 2, repetitions = 100
 #     )
 # 
 # entrainment.labren.labren(1)
-# x = entrainment.model.run(
+# x = entrainment.model.run_model(
 #     labren_id = 1, by = "season", n_cycles = 2, repetitions = 100
 #     )

@@ -11,7 +11,7 @@ def f_exact(lam, lam_c, k, tau, tau_ref = 24):
     **Guidelines**
     
     The (un)entrainment function computation without its error (:math:`E`) term
-    is given as  follows.Note that the (un)entrainment function is a logistic 
+    is given as  follows. Note that the (un)entrainment function is a logistic 
     function.
     
     .. math::
@@ -38,7 +38,7 @@ def f_exact(lam, lam_c, k, tau, tau_ref = 24):
         :func:`entrainment.model.entrain`.
     
     :param lam: Global horizontal irradiation mean value present in the 
-        environment. See :func:`.labrem.labrem` to learn more.
+        environment. See :func:`entrainment.labrem.labrem` to learn more.
     :type lam: int, float
     :param lam_c: Tthreshold/critial value of the global horizontal 
         irradiation, indicating the onset of the entrainment phenomenon.
@@ -68,16 +68,24 @@ def f_exact(lam, lam_c, k, tau, tau_ref = 24):
     >>> entrainment.demo.f_exact(lam, lam_c, k, tau, tau_ref)
     22.000670700260933
     
+    >>> lam = 1
+    >>> lam_c = 5
+    >>> k = 2
     >>> tau = 26
+    >>> tau_ref = 24
     >>> entrainment.demo.f_exact(lam, lam_c, k, tau, tau_ref)
     25.99932929973906
     
+    >>> lam = 1
+    >>> lam_c = 5
     >>> k = 0.1
     >>> tau = 26
     >>> tau_ref = 10
     >>> entrainment.demo.f_exact(lam, lam_c, k, tau, tau_ref)
     19.579002561799232
     
+    >>> lam = 1
+    >>> lam_c = 5
     >>> k = 0.1
     >>> tau = 26
     >>> tau_ref = 35

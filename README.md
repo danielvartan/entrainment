@@ -18,6 +18,8 @@ MIT](https://img.shields.io/badge/license-MIT-green)](https://choosealicense.com
 Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)
 <!-- badges: end -->
 
+<!-- TODO: Add Code Coverage, Build check, fair-software.eu, and CII Best Practices -->
+
 ## Overview
 
 `entrainment` is a rule-based model created on Python to test and to
@@ -58,19 +60,19 @@ We don’t intend to publish this package to [PyPI](https://pypi.org/).
 - `utils`: Utility tools.
 
 You can learn more about each subpackage and its functions on the
-package documentation website.
+[package documentation website](https://entrainment.readthedocs.io).
 
 The following example illustrates how to run the model.
 
 Please note that in this example all of the model arguments are
 assigned. You don’t need to assign values to all arguments, you can just
-use the default values. Check `run()` documentation to learn more.
+use the default values. Check `run_model()` documentation to learn more.
 
 ``` python
 import entrainment.model as model
 
-turtles = model.run(
-    n = 10 ** 3, # Number of turtles/subjects to create
+turtles = model.run_model(
+    n = 10**3, # Number of turtles/subjects to create
     tau_range = (23.5, 24.6), # Limits for assigning Tau values
     tau_mean = 24.15, # Mean value for the Tau distribution
     tau_sd = 0.2, # Standard deviation value for the Tau distribution
