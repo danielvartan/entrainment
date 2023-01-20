@@ -19,8 +19,10 @@ include LICENSE
 include MANIFEST.in
 include pyproject.toml
 include README.md
+
+exclude .gitignore
+exclude .readthedocs.yaml
 exclude README.Rmd
-exclude README.qmd
 # `-> matches file paths relative to the root of the project
 
 # global-exclude *_test.py
