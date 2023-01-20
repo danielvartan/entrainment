@@ -5,10 +5,6 @@ helps, and credit will always be given.
 
 Please note that this package is released with a [Contributor Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/). By contributing to this project, you agree to abide by its terms.
 
-- [Types of Contributions](#types-of-contributions)
-- [Contributor Setup](#setting-up-the-code-for-local-development)
-- [Contributor Guidelines](#contributor-guidelines)
-
 ## Types of Contributions
 
 You can contribute in many ways:

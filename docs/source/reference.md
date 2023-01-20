@@ -9,7 +9,7 @@ reference
 
 The `entrainment` package comes with 5 subpackages. Use the pattern  `entrainment.<subpackage>.<function>` to access the API from each subpackage.
 
-You are only interested in one subpackage, you can import it directly using a command like:
+If you are only interested in one subpackage, you can import it directly using a command like:
 
 ``` python
 import entrainment.model as model
