@@ -1,11 +1,11 @@
-matplotlib >= 3.6.3
-myst_parser >= 0.18.1
-numpy >= 1.24.1
-pandas >= 1.5.2
-scipy >= 1.10.0
-seaborn >= 0.12.2
-setuptools >= 66.0.0
-sphinx >= 5.3.0
-sphinx_bootstrap_theme >= 0.8.1
-sphinx_design >= 0.3.0
-sphinx_copybutton >= 0.5.1
+matplotlib
+myst_parser
+numpy
+pandas
+scipy
+seaborn
+setuptools
+sphinx
+sphinx_bootstrap_theme
+sphinx_design
+sphinx_copybutton
