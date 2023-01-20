@@ -91,6 +91,7 @@ html_theme_options = {
     # an arbitrary url.
     'navbar_links': [
         ("Reference", "reference"),
+        ("Contributing", "changelog"),
         ("Changelog", "changelog"),
     ],
 

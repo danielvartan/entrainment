@@ -114,9 +114,8 @@ A BibTeX entry for LaTeX users is
 
 We welcome contributions, including bug reports.
 
-Please note that this package is released with a [Contributor Code of
-Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
-By contributing to this project, you agree to abide by its terms.
+Take a moment to review our [Guidelines for
+Contributing](https://entrainment.readthedocs.io/en/latest/contributing.html).
 
 ## Acknowledgments
 
