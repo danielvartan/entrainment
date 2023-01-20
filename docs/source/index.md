@@ -90,7 +90,7 @@ turtles = model.run_model(
     )
 ```
 
-<img src="docs/source/_static/readme_usage-example-1.png" alt="24h light/dark cycle entrainment of a population located at the south of Brazil by season" width="100%" />
+<img src="_static/readme_usage-example-1.png" alt="24h light/dark cycle entrainment of a population located at the south of Brazil by season" width="100%" />
 
 ## Citation
 

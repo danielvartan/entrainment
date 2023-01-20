@@ -13,11 +13,11 @@ sys.path.append(os.path.abspath("../../src/entrainment/"))
 
 shutil.copyfile("../../README.md", "index.md")
 
-delete = [""]
+delete = ["docs/source/"]
 
 for i in delete:
     for j in os.listdir():
-        if os.path.isfile(j):
+        if j != "conf.py" and os.path.isfile(j):
             con = open(j, "rt")
             data = con.read()
             data = data.replace(i, "")
@@ -166,11 +166,11 @@ html_theme_options = {
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
-    "index": ["localtoc.htmlv],
-    "reference": ["localtoc.htmlv],
-    "hypothesis-test": ["localtoc.htmlv],
-    "contributing": ["localtoc.htmlv],
-    "changelog": ["localtoc.htmlv],
+    "index": ["localtoc.html"],
+    "reference": ["localtoc.html"],
+    "hypothesis-test": ["localtoc.html"],
+    "contributing": ["localtoc.html"],
+    "changelog": ["localtoc.html"],
     }
 
 myst_heading_anchors = 2

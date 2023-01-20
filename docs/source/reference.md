@@ -1,6 +1,6 @@
 # Function reference
 
-The `entrainment` package comes with 4 subpackages. Use the pattern  `entrainment.<subpackage>.<function>` to access the API from each subpackage.
+The `entrainment` package comes with 5 subpackages. Use the pattern  `entrainment.<subpackage>.<function>` to access the API from each subpackage.
 
 If you are only interested in one subpackage, you can import it directly using a command like:
 
