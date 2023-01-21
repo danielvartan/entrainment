@@ -9,9 +9,9 @@ from ..utils import reorder
 # np.array(entrainment.labren.labren(72272)["ts"]).mean() ~ 4727.833
 def run_model(
     n = 10**3, tau_range = (23.5, 24.6), tau_mean = 24.15, tau_sd = 0.2, 
-    k_range = (0.001, 0.01), k_mean = 0.001, k_sd = 0.005, lam_c = 4727.833, 
-    lam_c_tol = 1000, labren_id = 1, by = "season", n_cycles = 3, start_at = 0, 
-    repetitions = 10 ** 2, plot = True
+    k_range = (0.001, 0.01), k_mean = 0.001, k_sd = 0.005, lam_c = 3750, 
+    labren_id = 1, by = "season", n_cycles = 3, start_at = 0, 
+    repetitions = 10**2, plot = True
     ):
     """Compute the entrainment model."""
     turtles_0 = create_turtles(
@@ -51,7 +51,7 @@ def run_model(
             key = list(turtles)[-1]
             lam = labren_data[i]
             turtles_i = entrain_turtles(
-                turtles[key], turtles_0, lam, lam_c, lam_c_tol
+                turtles[key], turtles_0, lam, lam_c
                 )
             turtles[labels[i].lower()] = turtles_i
     else:
@@ -64,7 +64,7 @@ def run_model(
                 key = list(turtles_i)[-1]
                 lam = labren_data[j]
                 turtles_j = entrain_turtles(
-                    turtles_i[key], turtles_0, lam, lam_c, lam_c_tol
+                    turtles_i[key], turtles_0, lam, lam_c,
                     )
                 turtles_i[labels[j].lower()] = turtles_j
             

@@ -77,13 +77,12 @@ turtles = model.run_model(
     k_range = (0.001, 0.01), # Limits for assigning the k values
     k_mean = 0.001, # Mean value for the k distribution
     k_sd = 0.005, # Standard deviation value for the k distribution
-    lam_c = 4727.833, # Critical lambda value
-    lam_c_tol = 1000, # Critical lambda tolerance
+    lam_c = 3750, # Critical lambda value
     labren_id = 1, # LABREN id of the global horizontal irradiation means
     by = "season", # Series resolution (choices: "month", "season", "year")
-    n_cycles = 2, # Number of cycles to run
+    n_cycles = 3, # Number of cycles to run
     start_at = 0, # Index number indicating the start of the series
-    repetitions = 100, # Number of repetitions
+    repetitions = 10**2, # Number of repetitions
     plot = True # Boolean value indicating if the function must plot the results
     )
 ```

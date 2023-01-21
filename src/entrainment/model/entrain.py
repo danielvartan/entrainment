@@ -13,7 +13,7 @@ def entrain(lam, lam_c, k, tau, tau_ref = 24):
     
     return out
 
-def entrain_turtles(turtles, turtles_0, lam, lam_c, lam_c_tol):
+def entrain_turtles(turtles, turtles_0, lam, lam_c):
     """Entrain turtles/subjects."""
     n = len(turtles)
     out = []
@@ -23,7 +23,7 @@ def entrain_turtles(turtles, turtles_0, lam, lam_c, lam_c_tol):
         tau = turtles[i]["tau"]
         k = turtles[i]["k"]
         
-        if (lam >= (lam_c - lam_c_tol)):
+        if (lam >= lam_c):
             tau_i = entrain(lam, lam_c, k, tau, tau_ref = 24)
         else:
             tau_i = entrain(lam, lam_c, k, tau, tau_ref = tau_0)
