@@ -5,7 +5,9 @@ from .entrain import entrain_turtles
 from .plot_model import plot_model
 from ..labren import labren
 from ..utils import reorder
+from collections import namedtuple
 
+# TODO: Change dict to namedtuple (change labren functions also)
 # np.array(entrainment.labren.labren(72272)["ts"]).mean() ~ 4727.833
 def run_model(
     n = 10**3, tau_range = (23.5, 24.6), tau_mean = 24.15, tau_sd = 0.2, 

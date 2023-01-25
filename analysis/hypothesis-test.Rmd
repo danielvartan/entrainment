@@ -9,7 +9,7 @@ knit: (function(inputFile, encoding) {
 <!-- hypothesis-test.md is generated from hypothesis-test.Rmd. Please edit that file -->
 
 ```{r}
-#| label = "setup",
+#| label = "setup-r",
 #| include = FALSE
 
 knitr::opts_knit$set(root.dir = "../docs/source/")
@@ -20,6 +20,16 @@ knitr::opts_chunk$set(
   fig.path = "_static/hypothesis-test_",
   out.width = "100%"
 )
+
+```
+
+```{python}
+#| label = "setup-python",
+#| include = FALSE
+
+import matplotlib as plt
+plt.rcParams.update({'figure.max_open_warning': 0})
+
 ```
 
 ```{r}
@@ -43,13 +53,14 @@ cat(paste0(
 
 The following topics show the basic steps for testing the latitude hypothesis using the `entrainment` model.
 
-> Hypothesis statement: Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian phenotype when compared to populations residing near the planet's poles (i.e., with lower average insolation) (Leocadio-Miguel et al., 2017; Roenneberg et al., 2003).
+> Hypothesis statement: Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian phenotype when compared to populations residing near the planet's poles (i.e., with lower average insolation) ([Leocadio-Miguel et al., 2017](https://doi.org/10.1038/s41598-017-05797-w); [Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
 
 The latitude hypothesis is based on the idea that regions located at latitudes close to the poles have, on average, a lower incidence of annual sunlight when compared to regions close to the equator (latitude 0°).
 
 ```{r}
 #| label = "Pidwirny (2019) (Figure 6i-3)",
 #| fig.cap = "Monthly values of available insolation in Wm-2 for the equator (0°), 30°, 60°, and 90° North.",
+#| out.width = "75%",
 #| echo = FALSE
 
 knitr::include_graphics("_static/pidwirny_2019_figure-6i-3.png")
@@ -62,6 +73,7 @@ Thus, it is understood by deduction that the regions close to the equator have a
 ```{r}
 #| label = "Roenneberg et al. (2003) (Figure 7)",
 #| fig.cap = "Hypothetical distribution of chronotypes (circadian phenotypes) for populations exposed to a strong (black) solar zeitgeber and a weak (striped) zeitgeber based on mid-sleep phase.",
+#| out.width = "75%",
 #| echo = FALSE
 
 knitr::include_graphics("_static/roenneberg_2003_figure-7.png")
@@ -81,13 +93,34 @@ import entrainment.model as model
 
 ### By season
 
+```{python}
+#| include = FALSE
+
+labren.labren(id = 72272, by = "season")
+labren.plot_labren(by = "season")
+```
+
+```{python}
+#| echo = TRUE
+
+n = 10**3
+lam_c = 3750
+n_cycles = 3
+repetitions = 10**2
+x_name = "Nascente do rio Ailã"
+y_name = "Arroio Chuí"
+```
+
 * North group (Location: Nascente do Rio Ailã) (Latitude: 5.272)
 
 ```{python}
 #| label = "run_north_by_season",
 #| results = FALSE
 
-north_by_season = model.run_model(labren_id = 72272, by = "season")
+north_by_season = model.run_model(
+    n = n, labren_id = 72272, by = "season", lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
 ```
 
 * South group (Location: Arroio Chuí) (Latitude: -33.752)
@@ -96,7 +129,10 @@ north_by_season = model.run_model(labren_id = 72272, by = "season")
 #| label = "run_south_by_season",
 #| results = FALSE
 
-south_by_season = model.run_model(labren_id = 1, by = "season")
+south_by_season = model.run_model(
+    n = n, labren_id = 1, by = "season", lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
 ```
 
 ### By year
@@ -107,7 +143,10 @@ south_by_season = model.run_model(labren_id = 1, by = "season")
 #| label = "run_north_by_year",
 #| results = FALSE
 
-north_by_year = model.run_model(labren_id = 72272, by = "year")
+north_by_year = model.run_model(
+    n = n, labren_id = 72272, by = "year", lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
 ```
 
 * South group (Location: Arroio Chuí) (Latitude: -33.752)
@@ -116,27 +155,26 @@ north_by_year = model.run_model(labren_id = 72272, by = "year")
 #| label = "run_south_by_year",
 #| results = FALSE
 
-south_by_year = model.run_model(labren_id = 1, by = "year")
+south_by_year = model.run_model(
+    n = n, labren_id = 1, by = "year", lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
 ```
 
 ## 3. Analyze the distributions of both groups
 
-For more information about the values presented, see [`scipy.stats.shapiro()`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.shapiro.html) and [`scipy.stats.kstest()`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstest.htmll).
+For more information about the values presented, see [`scipy.stats.kstest()`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstest.html) and [`scipy.stats.shapiro()`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.shapiro.html).
 
 ### North group (Location: Nascente do Rio Ailã) (Latitude: 5.272)
-
-```{python}
-#| echo = FALSE
-
-name = "Nascente do rio Ailã"
-```
 
 * Unentrained (Control)
 
 ```{python}
 #| label = "analyze_north_unentrain"
 
-hypothesis.analyze_data(north_by_season, "unentrain", name)
+stats = hypothesis.analyze_data(
+    x = north_by_season, key = "unentrain", name = x_name
+    )
 ```
 
 * Summer
@@ -144,7 +182,9 @@ hypothesis.analyze_data(north_by_season, "unentrain", name)
 ```{python}
 #| label = "analyze_north_summer"
 
-hypothesis.analyze_data(north_by_season, "summer", name)
+stats = hypothesis.analyze_data(
+    x = north_by_season, key = "summer", name = x_name
+    )
 ```
 
 * Autumn
@@ -152,7 +192,9 @@ hypothesis.analyze_data(north_by_season, "summer", name)
 ```{python}
 #| label = "analyze_north_autumn"
 
-hypothesis.analyze_data(north_by_season, "autumn", name)
+stats = hypothesis.analyze_data(
+    x = north_by_season, key = "autumn", name = x_name
+    )
 ```
 
 * Winter
@@ -160,7 +202,9 @@ hypothesis.analyze_data(north_by_season, "autumn", name)
 ```{python}
 #| label = "analyze_north_winter"
 
-hypothesis.analyze_data(north_by_season, "winter", name)
+stats = hypothesis.analyze_data(
+    x = north_by_season, key = "winter", name = x_name
+    )
 ```
 
 * Spring
@@ -168,7 +212,9 @@ hypothesis.analyze_data(north_by_season, "winter", name)
 ```{python}
 #| label = "analyze_north_spring"
 
-hypothesis.analyze_data(north_by_season, "spring", name)
+stats = hypothesis.analyze_data(
+    x = north_by_season, key = "spring", name = x_name
+    )
 ```
 
 * Annual
@@ -176,23 +222,21 @@ hypothesis.analyze_data(north_by_season, "spring", name)
 ```{python}
 #| label = "analyze_north_annual"
 
-hypothesis.analyze_data(north_by_year, "annual", name)
+stats = hypothesis.analyze_data(
+    x = north_by_year, key = "annual", name = x_name
+    )
 ```
 
 ### South group (Location: Arroio Chuí) (Latitude: -33.752)
-
-```{python}
-#| echo = FALSE
-
-name = "Arroio Chuí"
-```
 
 * Unentrained (Control)
 
 ```{python}
 #| label = "analyze_south_unentrain"
 
-hypothesis.analyze_data(south_by_season, "unentrain", name)
+stats = hypothesis.analyze_data(
+    x = south_by_season, key = "unentrain", name = y_name
+    )
 ```
 
 * Summer
@@ -200,7 +244,9 @@ hypothesis.analyze_data(south_by_season, "unentrain", name)
 ```{python}
 #| label = "analyze_south_summer"
 
-hypothesis.analyze_data(south_by_season, "summer", name)
+stats = hypothesis.analyze_data(
+    x = south_by_season, key = "summer", name = y_name
+    )
 ```
 
 * Autumn
@@ -208,7 +254,9 @@ hypothesis.analyze_data(south_by_season, "summer", name)
 ```{python}
 #| label = "analyze_south_autumn"
 
-hypothesis.analyze_data(south_by_season, "autumn", name)
+stats = hypothesis.analyze_data(
+    x = south_by_season, key = "autumn", name = y_name
+    )
 ```
 
 * Winter
@@ -216,7 +264,9 @@ hypothesis.analyze_data(south_by_season, "autumn", name)
 ```{python}
 #| label = "analyze_south_winter"
 
-hypothesis.analyze_data(south_by_season, "winter", name)
+stats = hypothesis.analyze_data(
+    x = south_by_season, key = "winter", name = y_name
+    )
 ```
 
 * Spring
@@ -224,7 +274,9 @@ hypothesis.analyze_data(south_by_season, "winter", name)
 ```{python}
 #| label = "analyze_south_spring"
 
-hypothesis.analyze_data(south_by_season, "spring", name)
+stats = hypothesis.analyze_data(
+    x = south_by_season, key = "spring", name = y_name
+    )
 ```
 
 * Annual
@@ -232,79 +284,149 @@ hypothesis.analyze_data(south_by_season, "spring", name)
 ```{python}
 #| label = "analyze_south_annual"
 
-hypothesis.analyze_data(south_by_year, "annual", name)
+stats = hypothesis.analyze_data(
+    x = south_by_year, key = "annual", name = y_name
+    )
 ```
 
 ## 4. Test the hypothesis
 
 For more information about the values presented, see [`scipy.stats.ttest_ind`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html).
 
-> Hypothesis statement: Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian phenotype when compared to populations residing near the planet's poles (i.e., with lower average insolation) (Leocadio-Miguel et al., 2017; Roenneberg et al., 2003).
+> Hypothesis statement: Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian phenotype when compared to populations residing near the planet's poles (i.e., with lower average insolation) ([Leocadio-Miguel et al., 2017](https://doi.org/10.1038/s41598-017-05797-w); [Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
+
+```{python}
+#| echo = FALSE
+
+def print_test_result(test):
+    if test.var_ratio < 2:
+        test_type = "Standard t-test"
+        test_p_value = test.std_t_test.pvalue
+    else:
+        test_type = "Welch’s t-test"
+        test_p_value = test.welch_t_test.pvalue
+    
+    req_1 = test_p_value < 0.05
+    req_2 = test.x_stats.mean < test.y_stats.mean
+    req_and = req_1 & req_2
+    result = "Confirmed" if req_and == True else "Rejected"
+    
+    print(
+        "> * (R1) Mean Tau North != Mean Tau South (p-value < 0.05) ", 
+        "(", test_type, "): ", 
+        "**", str(req_1).upper(), "**", "\n",
+        "> * (R2) Mean Tau North < Mean Tau South: ", 
+        "**", str(req_2).upper(), "**", "\n",
+        "> * Hypothesis: R1 & R2: ", 
+        "**", str(req_and).upper(), "**", " ",
+        "(**", result.upper(), "**)", "\n",
+        sep = ""
+    )
+```
 
 * Unentrained (Control)
 
 ```{python}
 #| label = "test_unentrain"
 
-test = hypothesis.test_hypothesis("unentrain", north_by_season, south_by_season)
+test = hypothesis.test_hypothesis(
+    key = "unentrain", x = north_by_season, y = south_by_season,
+    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
 ```
 
 * Summer
 
-    * (S1) Mean Tau North != Mean Tau South (or p-value < 0.05): **TRUE**
-    * (S2) Mean Tau North < Mean Tau South: **FALSE**
-    * Hypothesis: S1 & S2: **FALSE** (**Rejected**)
-
 ```{python}
 #| label = "test_summer"
 
-test = hypothesis.test_hypothesis("summer", north_by_season, south_by_season)
+test = hypothesis.test_hypothesis(
+    key = "summer", x = north_by_season, y = south_by_season,
+    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
+```
+
+```{python}
+#| results = "asis",
+#| echo = FALSE
+
+print_test_result(test)
 ```
 
 * Autumn
 
-    * (S1) Mean Tau North != Mean Tau South (or p-value < 0.05): **TRUE**
-    * (S2) Mean Tau North < Mean Tau South: **TRUE**
-    * Hypothesis: S1 & S2: **TRUE** (**Confirmed**)
-
 ```{python}
 #| label = "test_autumn"
 
-test = hypothesis.test_hypothesis("autumn", north_by_season, south_by_season)
+test = hypothesis.test_hypothesis(
+    key = "autumn", x = north_by_season, y = south_by_season,
+    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
+```
+
+```{python}
+#| results = "asis",
+#| echo = FALSE
+
+print_test_result(test)
 ```
 
 * Winter
 
-    * (S1) Mean Tau North != Mean Tau South (or p-value < 0.05): **TRUE**
-    * (S2) Mean Tau North < Mean Tau South: **TRUE**
-    * Hypothesis: S1 & S2: **TRUE** (**Confirmed**)
-
 ```{python}
 #| label = "test_winter"
 
-test = hypothesis.test_hypothesis("winter", north_by_season, south_by_season)
+test = hypothesis.test_hypothesis(
+    key = "winter", x = north_by_season, y = south_by_season,
+    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
+```
+
+```{python}
+#| results = "asis",
+#| echo = FALSE
+
+print_test_result(test)
 ```
 
 * Spring
 
-    * (S1) Mean Tau North != Mean Tau South (or p-value < 0.05): **TRUE**
-    * (S2) Mean Tau North < Mean Tau South: **TRUE**
-    * Hypothesis: S1 & S2: **TRUE** (**Confirmed**)
-
 ```{python}
 #| label = "test_spring"
 
-test = hypothesis.test_hypothesis("spring", north_by_season, south_by_season)
+test = hypothesis.test_hypothesis(
+    key = "spring", x = north_by_season, y = south_by_season,
+    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
+```
+
+```{python}
+#| results = "asis",
+#| echo = FALSE
+
+print_test_result(test)
 ```
 
 * Annual
 
-    * (S1) Mean Tau North != Mean Tau South (or p-value < 0.05): **TRUE**
-    * (S2) Mean Tau North < Mean Tau South:**TRUE**
-    * Hypothesis: S1 & S2: **TRUE** (**Confirmed**)
-
 ```{python}
 #| label = "test_annual"
 
-test = hypothesis.test_hypothesis("annual", north_by_year, south_by_year)
+test = hypothesis.test_hypothesis(
+    key = "annual", x = north_by_year, y = south_by_year,
+    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions
+    )
+```
+
+```{python}
+#| results = "asis",
+#| echo = FALSE
+
+print_test_result(test)
 ```

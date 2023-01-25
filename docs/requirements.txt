@@ -9,3 +9,4 @@ sphinx
 sphinx_bootstrap_theme
 sphinx_design
 sphinx_copybutton
+statsmodels

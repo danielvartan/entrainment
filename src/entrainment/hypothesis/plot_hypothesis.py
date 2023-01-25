@@ -1,11 +1,16 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
 
-def plot_hypothesis(key, p_value, x, y, 
-                    x_name = "Nascente do rio Ailã (Lat.: $5.272$)", 
-                    y_name = "Arroio Chuí (Lat.: $- 33.752$)", 
-                    lam_c = 4727.833, n_cycles = 3, repetitions = 100):
+def plot_hypothesis(x, y, key, p_value, x_name = None, y_name = None, 
+                    lam_c = None, n_cycles = None, repetitions = None):
+    """Plot results of 'test_hypothesis().'"""
+    x = [i["tau"] for i in np.array(x[key])]
+    y = [i["tau"] for i in np.array(y[key])]
     n = len(x)
+
+    if x_name == None: x_name = "None"
+    if y_name == None: y_name = "None"
 
     title = ("Key = {key}, N = ${n}$, $\\lambda_c = {lam_c}$, " +\
              "Cycles = ${n_cycles}$, " +\
