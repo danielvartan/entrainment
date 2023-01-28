@@ -18,12 +18,12 @@ delete = ["docs/source/"]
 for i in delete:
     for j in os.listdir():
         if j != "conf.py" and os.path.isfile(j):
-            con = open(j, "rt")
+            con = open(j, "rt", encoding = "utf8")
             data = con.read()
             data = data.replace(i, "")
             con.close()
-            
-            con = open(j, "wt")
+
+            con = open(j, "wt", encoding = "utf8")
             con.write(data)
             con.close()
 

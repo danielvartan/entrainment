@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy
 import seaborn as sns
 import statsmodels.api as sm
 from collections import namedtuple
@@ -54,32 +55,46 @@ def analyze_data(x, key, name = None, print_ = True, plot = True):
                      shapiro = round(out.shapiro.pvalue, 3)
                      )
         
-        plt.rcParams.update({'font.size': 10})
-        plt.clf()
-        
-        fig, ax = plt.subplots()
-        ax.hist(data, density = True, edgecolor = "white", color = "#bcbcbc")
-        sns.kdeplot(data, color = "red", linewidth = 1, warn_singular = False)
-        
-        ax.set_title(title, fontsize = 8)
-        ax.set_xlabel("$\\tau$")
-        ax.set_ylabel("Kernel Density Estimate (KDE)")
-        
-        plt.show()
-        
-        plt.clf()
-        
-        fig, ax = plt.subplots()
-        sm.qqplot(
-            np.array(data), line = "s", marker = "o", 
-            markerfacecolor = "None", markeredgecolor = "black",
-            markeredgewidth = 0.5, ax = ax
-            )
-        
-        ax.set_title(title, fontsize = 8)
-        ax.set_xlabel("Theoretical quantiles (Standard normal)")
-        ax.set_ylabel("Sample quantiles ($\\tau$)")
-        
-        plt.show()
+        plot_hist(data, title)
+        plot_qq(data, title)
     
     return out
+
+def plot_hist(data, title = None):
+    data = np.array(data)
+    
+    plt.rcParams.update({'font.size': 10})
+    plt.clf()
+    
+    fig, ax = plt.subplots()
+    ax.hist(data, density = True, edgecolor = "white", color = "#bcbcbc")
+    sns.kdeplot(data, color = "red", linewidth = 1, warn_singular = False)
+    
+    ax.set_title(title, fontsize = 8)
+    ax.set_xlabel("$\\tau$")
+    ax.set_ylabel("Kernel Density Estimate (KDE)")
+    
+    plt.show()
+    
+    return None
+
+def plot_qq(data, title = None, dist = scipy.stats.distributions.norm):
+    data = np.array(data)
+
+    plt.rcParams.update({'font.size': 10})
+    plt.clf()
+    
+    fig, ax = plt.subplots()
+    sm.qqplot(
+        np.array(data), dist = dist, line = "s", marker = "o", 
+        markerfacecolor = "None", markeredgecolor = "black",
+        markeredgewidth = 0.5, ax = ax
+        )
+    
+    ax.set_title(title, fontsize = 8)
+    ax.set_xlabel("Theoretical quantiles (Standard normal)")
+    ax.set_ylabel("Sample quantiles ($\\tau$)")
+    
+    plt.show()
+    
+    return None

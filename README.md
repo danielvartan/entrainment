@@ -44,32 +44,22 @@ You can install `entrainment` from GitHub with:
 pip install git+https://github.com/danielvartan/entrainment.git#egg=entrainment
 ```
 
-We don’t intend to publish this package to [PyPI](https://pypi.org/).
+We don’t intend to publish this package on [PyPI](https://pypi.org/).
 
 ## Usage
-
-`entrainment` comes with 5 subpackages:
-
-- `model`: The entrainment model.
-- `labren`: Tools for accessing [LABREN’s global horizontal solar
-  irradiation model](http://labren.ccst.inpe.br/atlas_2017.html).
-- `hypothesis`: Tools for hypothesis testing.
-- `demo`: Tools to plot the entrainment dynamics.
-- `utils`: Utility tools.
-
-You can learn more about each subpackage and its functions on the
-[package documentation website](https://entrainment.readthedocs.io).
 
 The following example illustrates how to run the model.
 
 Please note that in this example all of the model arguments are
 assigned. You don’t need to assign values to all arguments, you can just
-use the default values. Check `run_model()` documentation to learn more.
+use the default values. Check
+[`run_model()`](https://entrainment.readthedocs.io/en/latest/reference.html#entrainment.run_model)
+documentation to learn more.
 
 ``` python
-import entrainment.model as model
+import entrainment
 
-turtles = model.run_model(
+turtles = entrainment.run_model(
     n = 10**3, # Number of subjects/turtles to create
     tau_range = (23.5, 24.6), # Limits for assigning 'Tau' values
     tau_mean = 24.15, # Mean value for the 'Tau' distribution
@@ -88,6 +78,9 @@ turtles = model.run_model(
 ```
 
 <img src="docs/source/_static/readme_usage-example-1.png" alt="24h light/dark cycle entrainment of a population located at the south of Brazil by season" width="100%" />
+
+You can learn more about the available functions going to the [package
+documentation website](https://entrainment.readthedocs.io).
 
 ## Citation
 

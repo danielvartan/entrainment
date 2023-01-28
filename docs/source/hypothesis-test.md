@@ -26,7 +26,15 @@ latitudes close to the poles have, on average, a lower incidence of
 annual sunlight when compared to regions close to the equator (latitude
 0°).
 
-<img src="_static/pidwirny_2019_figure-6i-3.png" alt="Monthly values of available insolation in Wm-2 for the equator (0°), 30°, 60°, and 90° North." width="100%" />
+<div class="figure">
+
+<img src="_static/pidwirny_2019_figure-6i-3.png" alt="Monthly values of available insolation in Wm-2 for the equator (0°), 30°, 60°, and 90° North." width="75%" />
+<p class="caption">
+Monthly values of available insolation in Wm-2 for the equator (0°),
+30°, 60°, and 90° North.
+</p>
+
+</div>
 
 > Figure source: Pidwirny
 > ([2019](http://www.physicalgeography.net/fundamentals/6i.html)).
@@ -44,7 +52,16 @@ and an evening characteristic when compared to populations living near
 the equator. ([Roenneberg et al.,
 2003](https://doi.org/10.1177/0748730402239679)).
 
-<img src="_static/roenneberg_2003_figure-7.png" alt="Hypothetical distribution of chronotypes (circadian phenotypes) for populations exposed to a strong (black) solar zeitgeber and a weak (striped) zeitgeber based on mid-sleep phase." width="100%" />
+<div class="figure">
+
+<img src="_static/roenneberg_2003_figure-7.png" alt="Hypothetical distribution of chronotypes (circadian phenotypes) for populations exposed to a strong (black) solar zeitgeber and a weak (striped) zeitgeber based on mid-sleep phase." width="75%" />
+<p class="caption">
+Hypothetical distribution of chronotypes (circadian phenotypes) for
+populations exposed to a strong (black) solar zeitgeber and a weak
+(striped) zeitgeber based on mid-sleep phase.
+</p>
+
+</div>
 
 > Figure source: Roenneberg et
 > al. ([2003](https://doi.org/10.1177/0748730402239679)).
@@ -52,9 +69,7 @@ the equator. ([Roenneberg et al.,
 ## 1. Do the initial setup
 
 ``` python
-import entrainment.hypothesis as hypothesis
-import entrainment.labren as labren
-import entrainment.model as model
+import entrainment
 ```
 
 ## 2. Run the model for both groups
@@ -73,7 +88,7 @@ y_name = "Arroio Chuí"
 - North group (Location: Nascente do Rio Ailã) (Latitude: 5.272)
 
 ``` python
-north_by_season = model.run_model(
+north_by_season = entrainment.run_model(
     n = n, labren_id = 72272, by = "season", lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -84,7 +99,7 @@ north_by_season = model.run_model(
 - South group (Location: Arroio Chuí) (Latitude: -33.752)
 
 ``` python
-south_by_season = model.run_model(
+south_by_season = entrainment.run_model(
     n = n, labren_id = 1, by = "season", lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -97,7 +112,7 @@ south_by_season = model.run_model(
 - North group (Location: Nascente do Rio Ailã) (Latitude: 5.272)
 
 ``` python
-north_by_year = model.run_model(
+north_by_year = entrainment.run_model(
     n = n, labren_id = 72272, by = "year", lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -108,7 +123,7 @@ north_by_year = model.run_model(
 - South group (Location: Arroio Chuí) (Latitude: -33.752)
 
 ``` python
-south_by_year = model.run_model(
+south_by_year = entrainment.run_model(
     n = n, labren_id = 1, by = "year", lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -128,28 +143,28 @@ and
 - Unentrained (Control)
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "unentrain", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Nascente do rio Ailã | Key: Unentrain]
 #> 
-#> Mean = 24.153981670614982
-#> Var. = 0.04000840916939309
-#> SD = 0.20002102181869058
+#> Mean = 24.154505800464104
+#> Var. = 0.03761669520401661
+#> SD = 0.19395023898932584
 #> 
-#> Min. = 23.5
-#> 1st Qu. = 24.021067505316942
-#> Median = 24.15733603650458
-#> 3rd Qu. = 24.288490825112614
+#> Min. = 23.524402022644594
+#> 1st Qu. = 24.019680479024014
+#> Median = 24.15079590236212
+#> 3rd Qu. = 24.28857075512041
 #> Max. = 24.599999999999955
 #> 
-#> Kurtosis = -0.08172287299030812
-#> Skewness = -0.136452174143951
+#> Kurtosis = -0.20061392412377277
+#> Skewness = -0.0820745758743856
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 0.0055746519938111305
+#> Shapiro-Wilks test p-value = 0.059226516634225845
 #> 
 #> ---------------------------------------------------------
 ```
@@ -159,28 +174,28 @@ stats = hypothesis.analyze_data(
 - Summer
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "summer", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Nascente do rio Ailã | Key: Summer]
 #> 
-#> Mean = 24.007500312316605
-#> Var. = 0.00012585853411413927
-#> SD = 0.011218668999223538
+#> Mean = 24.00740532076041
+#> Var. = 0.00012314512796345812
+#> SD = 0.011097077451449012
 #> 
-#> Min. = 23.977287694332063
-#> 1st Qu. = 24.000826098073816
-#> Median = 24.00519609190592
-#> 3rd Qu. = 24.01298838211254
-#> Max. = 24.04644822430907
+#> Min. = 23.968932124575158
+#> 1st Qu. = 24.000639897555786
+#> Median = 24.005402162552144
+#> 3rd Qu. = 24.01279411074004
+#> Max. = 24.050497962465094
 #> 
-#> Kurtosis = 0.8722262867546493
-#> Skewness = 0.6676912664760524
+#> Kurtosis = 1.22371469610363
+#> Skewness = 0.6959777565527814
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 4.803230029325558e-16
+#> Shapiro-Wilks test p-value = 1.4401119173341646e-16
 #> 
 #> ---------------------------------------------------------
 ```
@@ -190,28 +205,28 @@ stats = hypothesis.analyze_data(
 - Autumn
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "autumn", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Nascente do rio Ailã | Key: Autumn]
 #> 
-#> Mean = 24.006856334442748
-#> Var. = 0.00010645358765508953
-#> SD = 0.010317634789770838
+#> Mean = 24.0067779627879
+#> Var. = 0.00010552638459691193
+#> SD = 0.010272603593875893
 #> 
-#> Min. = 23.97791790830482
-#> 1st Qu. = 24.00079848808784
-#> Median = 24.0047458976943
-#> 3rd Qu. = 24.011905188763823
-#> Max. = 24.043516338968434
+#> Min. = 23.96738320943539
+#> 1st Qu. = 24.00062090444882
+#> Median = 24.00475900411491
+#> 3rd Qu. = 24.01157725875815
+#> Max. = 24.048093680417715
 #> 
-#> Kurtosis = 0.9117777510798715
-#> Skewness = 0.6732870943381821
+#> Kurtosis = 1.3792768058525278
+#> Skewness = 0.6952488688779734
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 2.9245956556102457e-16
+#> Shapiro-Wilks test p-value = 2.6730384508042942e-17
 #> 
 #> ---------------------------------------------------------
 ```
@@ -221,28 +236,28 @@ stats = hypothesis.analyze_data(
 - Winter
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "winter", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Nascente do rio Ailã | Key: Winter]
 #> 
-#> Mean = 24.006590091086064
-#> Var. = 9.863818302093738e-05
-#> SD = 0.009931675740827295
+#> Mean = 24.006512119306784
+#> Var. = 9.542243179469406e-05
+#> SD = 0.009768440601994468
 #> 
-#> Min. = 23.979219672121413
-#> 1st Qu. = 24.000763566277733
-#> Median = 24.00450047874636
-#> 3rd Qu. = 24.011691424261343
-#> Max. = 24.04108842893429
+#> Min. = 23.97081846355716
+#> 1st Qu. = 24.000548681255594
+#> Median = 24.00478157693386
+#> 3rd Qu. = 24.01142887669284
+#> Max. = 24.046689143825514
 #> 
-#> Kurtosis = 0.9405910729668365
-#> Skewness = 0.6712386816505003
+#> Kurtosis = 1.2416968935500554
+#> Skewness = 0.6651751130877731
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 2.8456333913826277e-16
+#> Shapiro-Wilks test p-value = 1.799489997404035e-16
 #> 
 #> ---------------------------------------------------------
 ```
@@ -252,28 +267,28 @@ stats = hypothesis.analyze_data(
 - Spring
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "spring", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Nascente do rio Ailã | Key: Spring]
 #> 
-#> Mean = 24.00625564689865
-#> Var. = 8.775140305459706e-05
-#> SD = 0.009367571886812347
+#> Mean = 24.006265300940086
+#> Var. = 8.713282304979183e-05
+#> SD = 0.009334496400438099
 #> 
-#> Min. = 23.980384388706703
-#> 1st Qu. = 24.00075660862617
-#> Median = 24.004485956033015
-#> 3rd Qu. = 24.010771574105473
-#> Max. = 24.03903734232796
+#> Min. = 23.972868793777987
+#> 1st Qu. = 24.000544549687437
+#> Median = 24.00462929758823
+#> 3rd Qu. = 24.011039818345452
+#> Max. = 24.04176280822911
 #> 
-#> Kurtosis = 0.979661292972605
-#> Skewness = 0.676784519420967
+#> Kurtosis = 1.212510110006808
+#> Skewness = 0.6868467225609217
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 5.692209106919076e-16
+#> Shapiro-Wilks test p-value = 2.320138650768592e-16
 #> 
 #> ---------------------------------------------------------
 ```
@@ -283,28 +298,28 @@ stats = hypothesis.analyze_data(
 - Annual
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_year, key = "annual", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Nascente do rio Ailã | Key: Annual]
 #> 
-#> Mean = 24.03066549913019
-#> Var. = 0.0018223900810283458
-#> SD = 0.04268946100653352
+#> Mean = 24.030829408697947
+#> Var. = 0.0016894286084883892
+#> SD = 0.04110265938462363
 #> 
-#> Min. = 23.869030864822204
-#> 1st Qu. = 24.00292882323987
-#> Median = 24.027693837460998
-#> 3rd Qu. = 24.05679725065423
-#> Max. = 24.177573330151247
+#> Min. = 23.901069200190197
+#> 1st Qu. = 24.00461249943942
+#> Median = 24.027924459715425
+#> 3rd Qu. = 24.05526690985817
+#> Max. = 24.172882512090066
 #> 
-#> Kurtosis = 0.6537250433010837
-#> Skewness = 0.1862739442112428
+#> Kurtosis = 0.4222460359475768
+#> Skewness = 0.22552871489230233
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 6.248676072573289e-05
+#> Shapiro-Wilks test p-value = 0.00014762113278266042
 #> 
 #> ---------------------------------------------------------
 ```
@@ -316,28 +331,28 @@ stats = hypothesis.analyze_data(
 - Unentrained (Control)
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "unentrain", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Unentrain]
 #> 
-#> Mean = 24.14259647182555
-#> Var. = 0.03833415116583862
-#> SD = 0.19579109061915614
+#> Mean = 24.148973214245114
+#> Var. = 0.03863887103430195
+#> SD = 0.1965677263293798
 #> 
-#> Min. = 23.59889796814711
-#> 1st Qu. = 24.00092648300528
-#> Median = 24.147089034601475
-#> 3rd Qu. = 24.28134547126313
+#> Min. = 23.5
+#> 1st Qu. = 24.024096993077716
+#> Median = 24.15288032241974
+#> 3rd Qu. = 24.28379090091183
 #> Max. = 24.599999999999955
 #> 
-#> Kurtosis = -0.36765394167136556
-#> Skewness = -0.03998138805016263
+#> Kurtosis = -0.20232423860338322
+#> Skewness = -0.1139721388764928
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 0.01260786410421133
+#> Shapiro-Wilks test p-value = 0.027147427201271057
 #> 
 #> ---------------------------------------------------------
 ```
@@ -347,28 +362,28 @@ stats = hypothesis.analyze_data(
 - Summer
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "summer", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Summer]
 #> 
-#> Mean = 24.015055988742
-#> Var. = 0.00047774930369823477
-#> SD = 0.021857477066171995
+#> Mean = 24.0157770233931
+#> Var. = 0.00046006166546071583
+#> SD = 0.021449048124817002
 #> 
-#> Min. = 23.94689481244995
-#> 1st Qu. = 24.000069424333212
-#> Median = 24.01383224081763
-#> 3rd Qu. = 24.0284856850586
-#> Max. = 24.090212433867755
+#> Min. = 23.947759842941394
+#> 1st Qu. = 24.00220418664828
+#> Median = 24.014210464404194
+#> 3rd Qu. = 24.029068368305797
+#> Max. = 24.079975497962813
 #> 
-#> Kurtosis = 0.4201331042213785
-#> Skewness = 0.1950542748300403
+#> Kurtosis = 0.037925721829686676
+#> Skewness = 0.1952443272298217
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 0.0018138405866920948
+#> Shapiro-Wilks test p-value = 0.0037474092096090317
 #> 
 #> ---------------------------------------------------------
 ```
@@ -378,28 +393,28 @@ stats = hypothesis.analyze_data(
 - Autumn
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "autumn", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Autumn]
 #> 
-#> Mean = 24.05581234504408
-#> Var. = 0.005985737583467895
-#> SD = 0.07736754864584953
+#> Mean = 24.05828590657691
+#> Var. = 0.005951026206706464
+#> SD = 0.07714289472599835
 #> 
-#> Min. = 23.823639401510707
-#> 1st Qu. = 24.000318510357793
-#> Median = 24.055776570039903
-#> 3rd Qu. = 24.10873105435103
-#> Max. = 24.270393898412973
+#> Min. = 23.81139227243855
+#> 1st Qu. = 24.008655122360004
+#> Median = 24.05651249174045
+#> 3rd Qu. = 24.109058664344985
+#> Max. = 24.26012298372559
 #> 
-#> Kurtosis = -0.22692293012138354
-#> Skewness = 0.0032568906872570713
+#> Kurtosis = -0.215690992540698
+#> Skewness = -0.04751501090029335
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 0.37971231341362
+#> Shapiro-Wilks test p-value = 0.1342858076095581
 #> 
 #> ---------------------------------------------------------
 ```
@@ -409,28 +424,28 @@ stats = hypothesis.analyze_data(
 - Winter
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "winter", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Winter]
 #> 
-#> Mean = 24.035481644001106
-#> Var. = 0.002732255494023046
-#> SD = 0.05227098137612346
+#> Mean = 24.037557582385926
+#> Var. = 0.002706928630803384
+#> SD = 0.05202815229088367
 #> 
-#> Min. = 23.874895984242002
-#> 1st Qu. = 24.00014006033675
-#> Median = 24.031261556362864
-#> 3rd Qu. = 24.067366044287475
-#> Max. = 24.20134513199081
+#> Min. = 23.87012757312597
+#> 1st Qu. = 24.004276550041602
+#> Median = 24.032366711768862
+#> 3rd Qu. = 24.06958041999065
+#> Max. = 24.198872616169783
 #> 
-#> Kurtosis = 0.42536579535968855
-#> Skewness = 0.27724846510199297
+#> Kurtosis = 0.18311636987346258
+#> Skewness = 0.3248345498530939
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 6.818345354986377e-06
+#> Shapiro-Wilks test p-value = 3.12549241243687e-06
 #> 
 #> ---------------------------------------------------------
 ```
@@ -440,28 +455,28 @@ stats = hypothesis.analyze_data(
 - Spring
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "spring", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Spring]
 #> 
-#> Mean = 24.01635858475334
-#> Var. = 0.0005693646255408013
-#> SD = 0.02386136260863577
+#> Mean = 24.01726202357981
+#> Var. = 0.0005676677494118887
+#> SD = 0.02382577909349217
 #> 
-#> Min. = 23.944042931072087
-#> 1st Qu. = 24.000071337712775
-#> Median = 24.01454060012173
-#> 3rd Qu. = 24.03049973925903
-#> Max. = 24.095389819113567
+#> Min. = 23.934871812473812
+#> 1st Qu. = 24.00218829868047
+#> Median = 24.0149803741755
+#> 3rd Qu. = 24.03137954891986
+#> Max. = 24.09048276144206
 #> 
-#> Kurtosis = 0.3973141526025534
-#> Skewness = 0.23959697256459048
+#> Kurtosis = 0.1775933380388337
+#> Skewness = 0.2613640514874715
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 0.00013035570736974478
+#> Shapiro-Wilks test p-value = 4.7572080802638084e-05
 #> 
 #> ---------------------------------------------------------
 ```
@@ -471,28 +486,28 @@ stats = hypothesis.analyze_data(
 - Annual
 
 ``` python
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_year, key = "annual", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Annual]
 #> 
-#> Mean = 24.032487884365004
-#> Var. = 0.002328148390157346
-#> SD = 0.048250890045234876
+#> Mean = 24.035368985332344
+#> Var. = 0.002529064157943286
+#> SD = 0.05028980172901148
 #> 
-#> Min. = 23.860244673126147
-#> 1st Qu. = 24.003788111712588
-#> Median = 24.030157197713002
-#> 3rd Qu. = 24.06169110598058
-#> Max. = 24.181616067677282
+#> Min. = 23.871148028502073
+#> 1st Qu. = 24.002293041749617
+#> Median = 24.031003153756895
+#> 3rd Qu. = 24.06200565411423
+#> Max. = 24.197939958959232
 #> 
-#> Kurtosis = 0.5256828733320953
-#> Skewness = 0.025520497579107744
+#> Kurtosis = 0.5276776867366424
+#> Skewness = 0.36044562894907933
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 0.0016869448591023684
+#> Shapiro-Wilks test p-value = 5.5005273225106066e-08
 #> 
 #> ---------------------------------------------------------
 ```
@@ -515,7 +530,7 @@ For more information about the values presented, see
 - Unentrained (Control)
 
 ``` python
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "unentrain", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -524,29 +539,32 @@ test = hypothesis.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Unentrain]
 #> 
-#> Mean = 24.153981670614982
-#> Var. = 0.04000840916939309
-#> SD = 0.20002102181869058
+#> Mean = 24.154505800464104
+#> Var. = 0.03761669520401661
+#> SD = 0.19395023898932584
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Unentrain]
 #> 
-#> Mean = 24.14259647182555
-#> Var. = 0.03833415116583862
-#> SD = 0.19579109061915614
+#> Mean = 24.148973214245114
+#> Var. = 0.03863887103430195
+#> SD = 0.1965677263293798
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Unentrain]
 #> 
-#> Variance ratio: 0.04000840916939309 / 0.03833415116583862 = 1.0436753639414478
-#> Ratio test: 1.0436753639414478 < 2: TRUE
+#> Variance ratio: 0.03863887103430195 / 0.03761669520401661 = 1.0271734618031036
+#> Ratio test: 1.0271734618031036 < 2: TRUE
 #> 
-#> Standard t-test statistic = 1.285655114047359
-#> Standard t-test p-value = 0.19871244016050682
-#> Welch’s t-test statistic = 1.2856551140473593
-#> Welch’s t-test p-value = 0.19871250819685377
+#> Standard t-test statistic = 0.6332499433320171
+#> Standard t-test p-value = 0.5266429102858982
+#> Welch’s t-test statistic = 0.6332499433320171
+#> Welch’s t-test p-value = 0.5266429233071774
+#> 
+#> Cohen's d = 0.02833396892874807
+#> Coefficient of determination (R squared) = 0.00012766526997796563
 #> 
 #> ---------------------------------------------------------
 ```
@@ -556,7 +574,7 @@ test = hypothesis.test_hypothesis(
 - Summer
 
 ``` python
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "summer", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -565,29 +583,32 @@ test = hypothesis.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Summer]
 #> 
-#> Mean = 24.007500312316605
-#> Var. = 0.00012585853411413927
-#> SD = 0.011218668999223538
+#> Mean = 24.00740532076041
+#> Var. = 0.00012314512796345812
+#> SD = 0.011097077451449012
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Summer]
 #> 
-#> Mean = 24.015055988742
-#> Var. = 0.00047774930369823477
-#> SD = 0.021857477066171995
+#> Mean = 24.0157770233931
+#> Var. = 0.00046006166546071583
+#> SD = 0.021449048124817002
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Summer]
 #> 
-#> Variance ratio: 0.00047774930369823477 / 0.00012585853411413927 = 3.7959229945024697
-#> Ratio test: 3.7959229945024697 < 2: FALSE
+#> Variance ratio: 0.00046006166546071583 / 0.00012314512796345812 = 3.735930710935099
+#> Ratio test: 3.735930710935099 < 2: FALSE
 #> 
-#> Standard t-test statistic = -9.720277413563368
-#> Standard t-test p-value = 7.468122221975087e-22
-#> Welch’s t-test statistic = -9.720277413563368
-#> Welch’s t-test p-value = 1.0713503317880253e-21
+#> Standard t-test statistic = -10.956838254032183
+#> Standard t-test p-value = 3.593136925565794e-27
+#> Welch’s t-test statistic = -10.956838254032185
+#> Welch’s t-test p-value = 6.284535823392327e-27
+#> 
+#> Cohen's d = 0.4902498893462906
+#> Coefficient of determination (R squared) = 1.293899572258378e-06
 #> 
 #> ---------------------------------------------------------
 ```
@@ -602,7 +623,7 @@ test = hypothesis.test_hypothesis(
 - Autumn
 
 ``` python
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "autumn", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -611,29 +632,32 @@ test = hypothesis.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Autumn]
 #> 
-#> Mean = 24.006856334442748
-#> Var. = 0.00010645358765508953
-#> SD = 0.010317634789770838
+#> Mean = 24.0067779627879
+#> Var. = 0.00010552638459691193
+#> SD = 0.010272603593875893
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Autumn]
 #> 
-#> Mean = 24.05581234504408
-#> Var. = 0.005985737583467895
-#> SD = 0.07736754864584953
+#> Mean = 24.05828590657691
+#> Var. = 0.005951026206706464
+#> SD = 0.07714289472599835
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Autumn]
 #> 
-#> Variance ratio: 0.005985737583467895 / 0.00010645358765508953 = 56.228613007029246
-#> Ratio test: 56.228613007029246 < 2: FALSE
+#> Variance ratio: 0.005951026206706464 / 0.00010552638459691193 = 56.393727781332636
+#> Ratio test: 56.393727781332636 < 2: FALSE
 #> 
-#> Standard t-test statistic = -19.824489052272124
-#> Standard t-test p-value = 5.427384051266498e-80
-#> Welch’s t-test statistic = -19.824489052272124
-#> Welch’s t-test p-value = 2.1699768354697642e-74
+#> Standard t-test statistic = -20.919158516175976
+#> Standard t-test p-value = 4.976191185392721e-88
+#> Welch’s t-test statistic = -20.919158516175976
+#> Welch’s t-test p-value = 2.570195166678684e-81
+#> 
+#> Cohen's d = 0.9360013272075687
+#> Coefficient of determination (R squared) = 3.987751157045108e-05
 #> 
 #> ---------------------------------------------------------
 ```
@@ -648,7 +672,7 @@ test = hypothesis.test_hypothesis(
 - Winter
 
 ``` python
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "winter", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -657,29 +681,32 @@ test = hypothesis.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Winter]
 #> 
-#> Mean = 24.006590091086064
-#> Var. = 9.863818302093738e-05
-#> SD = 0.009931675740827295
+#> Mean = 24.006512119306784
+#> Var. = 9.542243179469406e-05
+#> SD = 0.009768440601994468
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Winter]
 #> 
-#> Mean = 24.035481644001106
-#> Var. = 0.002732255494023046
-#> SD = 0.05227098137612346
+#> Mean = 24.037557582385926
+#> Var. = 0.002706928630803384
+#> SD = 0.05202815229088367
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Winter]
 #> 
-#> Variance ratio: 0.002732255494023046 / 9.863818302093738e-05 = 27.699775181818637
-#> Ratio test: 27.699775181818637 < 2: FALSE
+#> Variance ratio: 0.002706928630803384 / 9.542243179469406e-05 = 28.367843701861116
+#> Ratio test: 28.367843701861116 < 2: FALSE
 #> 
-#> Standard t-test statistic = -17.162946575493436
-#> Standard t-test p-value = 1.068858822974819e-61
-#> Welch’s t-test statistic = -17.162946575493436
-#> Welch’s t-test p-value = 1.623748310466898e-58
+#> Standard t-test statistic = -18.53615345566007
+#> Standard t-test p-value = 6.619155911615602e-71
+#> Welch’s t-test statistic = -18.536153455660067
+#> Welch’s t-test p-value = 9.897975438093863e-67
+#> 
+#> Cohen's d = 0.8293767754761744
+#> Coefficient of determination (R squared) = 6.6048197514724445e-06
 #> 
 #> ---------------------------------------------------------
 ```
@@ -694,7 +721,7 @@ test = hypothesis.test_hypothesis(
 - Spring
 
 ``` python
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "spring", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -703,29 +730,32 @@ test = hypothesis.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Spring]
 #> 
-#> Mean = 24.00625564689865
-#> Var. = 8.775140305459706e-05
-#> SD = 0.009367571886812347
+#> Mean = 24.006265300940086
+#> Var. = 8.713282304979183e-05
+#> SD = 0.009334496400438099
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Spring]
 #> 
-#> Mean = 24.01635858475334
-#> Var. = 0.0005693646255408013
-#> SD = 0.02386136260863577
+#> Mean = 24.01726202357981
+#> Var. = 0.0005676677494118887
+#> SD = 0.02382577909349217
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Spring]
 #> 
-#> Variance ratio: 0.0005693646255408013 / 8.775140305459706e-05 = 6.488382016941139
-#> Ratio test: 6.488382016941139 < 2: FALSE
+#> Variance ratio: 0.0005676677494118887 / 8.713282304979183e-05 = 6.5149702436187145
+#> Ratio test: 6.5149702436187145 < 2: FALSE
 #> 
-#> Standard t-test statistic = -12.4568832834903
-#> Standard t-test p-value = 2.3378582424830284e-34
-#> Welch’s t-test statistic = -12.456883283490297
-#> Welch’s t-test p-value = 9.930085962170789e-34
+#> Standard t-test statistic = -13.58286831576456
+#> Standard t-test p-value = 2.9273420748365536e-40
+#> Welch’s t-test statistic = -13.58286831576456
+#> Welch’s t-test p-value = 2.162972064720672e-39
+#> 
+#> Cohen's d = 0.6077482878200068
+#> Coefficient of determination (R squared) = 9.787719569348773e-05
 #> 
 #> ---------------------------------------------------------
 ```
@@ -740,7 +770,7 @@ test = hypothesis.test_hypothesis(
 - Annual
 
 ``` python
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "annual", x = north_by_year, y = south_by_year,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -749,29 +779,32 @@ test = hypothesis.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Annual]
 #> 
-#> Mean = 24.03066549913019
-#> Var. = 0.0018223900810283458
-#> SD = 0.04268946100653352
+#> Mean = 24.030829408697947
+#> Var. = 0.0016894286084883892
+#> SD = 0.04110265938462363
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Annual]
 #> 
-#> Mean = 24.032487884365004
-#> Var. = 0.002328148390157346
-#> SD = 0.048250890045234876
+#> Mean = 24.035368985332344
+#> Var. = 0.002529064157943286
+#> SD = 0.05028980172901148
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Annual]
 #> 
-#> Variance ratio: 0.002328148390157346 / 0.0018223900810283458 = 1.277524726673012
-#> Ratio test: 1.277524726673012 < 2: TRUE
+#> Variance ratio: 0.002529064157943286 / 0.0016894286084883892 = 1.496993803251715
+#> Ratio test: 1.496993803251715 < 2: TRUE
 #> 
-#> Standard t-test statistic = -0.894068327727477
-#> Standard t-test p-value = 0.37139301638141087
-#> Welch’s t-test statistic = -0.8940683277274772
-#> Welch’s t-test p-value = 0.3713946150956766
+#> Standard t-test statistic = -2.209120682769497
+#> Standard t-test p-value = 0.0272793341368823
+#> Welch’s t-test statistic = -2.209120682769497
+#> Welch’s t-test p-value = 0.027283816669099147
+#> 
+#> Cohen's d = 0.09884431486261917
+#> Coefficient of determination (R squared) = 2.0827222699101472e-05
 #> 
 #> ---------------------------------------------------------
 ```
@@ -779,6 +812,6 @@ test = hypothesis.test_hypothesis(
 <img src="_static/hypothesis-test_test_annual-68.png" width="100%" />
 
 > - (R1) Mean Tau North != Mean Tau South (p-value \< 0.05) (Standard
->   t-test): **FALSE**
+>   t-test): **TRUE**
 > - (R2) Mean Tau North \< Mean Tau South: **TRUE**
-> - Hypothesis: R1 & R2: **FALSE** (**REJECTED**)
+> - Hypothesis: R1 & R2: **TRUE** (**CONFIRMED**)

@@ -1,7 +1,13 @@
 import numpy as np
 
 def reorder(x, start_at = 0):
-    """Reorder a list or array by a starting point.""" 
+    """Reorder a list or array by a starting point.
+    
+    :Example:
+    
+    >>> reorder([1, 2, 3], 1)
+    [2, 3, 1]
+    """ 
     n = len(x)
     
     if (not start_at == 0):

@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
   fig.path = "_static/hypothesis-test_",
   out.width = "100%"
 )
-
 ```
 
 ```{python}
@@ -29,7 +28,6 @@ knitr::opts_chunk$set(
 
 import matplotlib as plt
 plt.rcParams.update({'figure.max_open_warning': 0})
-
 ```
 
 ```{r}
@@ -84,9 +82,7 @@ knitr::include_graphics("_static/roenneberg_2003_figure-7.png")
 ## 1. Do the initial setup
 
 ```{python}
-import entrainment.hypothesis as hypothesis
-import entrainment.labren as labren
-import entrainment.model as model
+import entrainment
 ```
 
 ## 2. Run the model for both groups
@@ -94,10 +90,11 @@ import entrainment.model as model
 ### By season
 
 ```{python}
+#| label = "plot_labren"
 #| include = FALSE
 
-labren.labren(id = 72272, by = "season")
-labren.plot_labren(by = "season")
+entrainment.labren(id = 72272, by = "season")
+entrainment.plot_labren(by = "season")
 ```
 
 ```{python}
@@ -117,7 +114,7 @@ y_name = "Arroio Chuí"
 #| label = "run_north_by_season",
 #| results = FALSE
 
-north_by_season = model.run_model(
+north_by_season = entrainment.run_model(
     n = n, labren_id = 72272, by = "season", lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -129,7 +126,7 @@ north_by_season = model.run_model(
 #| label = "run_south_by_season",
 #| results = FALSE
 
-south_by_season = model.run_model(
+south_by_season = entrainment.run_model(
     n = n, labren_id = 1, by = "season", lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -143,7 +140,7 @@ south_by_season = model.run_model(
 #| label = "run_north_by_year",
 #| results = FALSE
 
-north_by_year = model.run_model(
+north_by_year = entrainment.run_model(
     n = n, labren_id = 72272, by = "year", lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -155,7 +152,7 @@ north_by_year = model.run_model(
 #| label = "run_south_by_year",
 #| results = FALSE
 
-south_by_year = model.run_model(
+south_by_year = entrainment.run_model(
     n = n, labren_id = 1, by = "year", lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -172,7 +169,7 @@ For more information about the values presented, see [`scipy.stats.kstest()`](ht
 ```{python}
 #| label = "analyze_north_unentrain"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "unentrain", name = x_name
     )
 ```
@@ -182,7 +179,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_north_summer"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "summer", name = x_name
     )
 ```
@@ -192,7 +189,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_north_autumn"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "autumn", name = x_name
     )
 ```
@@ -202,7 +199,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_north_winter"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "winter", name = x_name
     )
 ```
@@ -212,7 +209,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_north_spring"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_season, key = "spring", name = x_name
     )
 ```
@@ -222,7 +219,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_north_annual"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = north_by_year, key = "annual", name = x_name
     )
 ```
@@ -234,7 +231,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_south_unentrain"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "unentrain", name = y_name
     )
 ```
@@ -244,7 +241,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_south_summer"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "summer", name = y_name
     )
 ```
@@ -254,7 +251,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_south_autumn"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "autumn", name = y_name
     )
 ```
@@ -264,7 +261,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_south_winter"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "winter", name = y_name
     )
 ```
@@ -274,7 +271,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_south_spring"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_season, key = "spring", name = y_name
     )
 ```
@@ -284,7 +281,7 @@ stats = hypothesis.analyze_data(
 ```{python}
 #| label = "analyze_south_annual"
 
-stats = hypothesis.analyze_data(
+stats = entrainment.analyze_data(
     x = south_by_year, key = "annual", name = y_name
     )
 ```
@@ -329,7 +326,7 @@ def print_test_result(test):
 ```{python}
 #| label = "test_unentrain"
 
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "unentrain", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -341,7 +338,7 @@ test = hypothesis.test_hypothesis(
 ```{python}
 #| label = "test_summer"
 
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "summer", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -360,7 +357,7 @@ print_test_result(test)
 ```{python}
 #| label = "test_autumn"
 
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "autumn", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -379,7 +376,7 @@ print_test_result(test)
 ```{python}
 #| label = "test_winter"
 
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "winter", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -398,7 +395,7 @@ print_test_result(test)
 ```{python}
 #| label = "test_spring"
 
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "spring", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
@@ -417,7 +414,7 @@ print_test_result(test)
 ```{python}
 #| label = "test_annual"
 
-test = hypothesis.test_hypothesis(
+test = entrainment.test_hypothesis(
     key = "annual", x = north_by_year, y = south_by_year,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
