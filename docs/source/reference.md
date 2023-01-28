@@ -2,7 +2,6 @@
 
 ```{eval-rst}
 .. module:: entrainment
-package:: import entrainment
 
 .. autofunction:: entrainment.run_model
 .. autofunction:: entrainment.analyze_data
