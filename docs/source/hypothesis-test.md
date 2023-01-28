@@ -1,13 +1,6 @@
 
 <!-- hypothesis-test.md is generated from hypothesis-test.Rmd. Please edit that file -->
 
-``` {toctree}
-:maxdepth: 2
-:hidden:
-
-hypothesis-test
-```
-
 # Latitude hypothesis test
 
 The following topics show the basic steps for testing the latitude

@@ -30,23 +30,6 @@ import matplotlib as plt
 plt.rcParams.update({'figure.max_open_warning': 0})
 ```
 
-```{r}
-#| label = "toctree",
-#| results = "asis",
-#| echo = FALSE
-
-file <- "hypothesis-test"
-
-cat(paste0(
-    "```{toctree}", "\n",
-    ":maxdepth: 2", "\n",
-    ":hidden:", "\n",
-    "\n",
-    file, "\n",
-    "```"
-))
-```
-
 # Latitude hypothesis test
 
 The following topics show the basic steps for testing the latitude hypothesis using the `entrainment` model.

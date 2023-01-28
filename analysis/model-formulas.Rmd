@@ -22,23 +22,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
-#| label = "toctree",
-#| results = "asis",
-#| echo = FALSE
-
-file <- "model-formulas"
-
-cat(paste0(
-    "```{toctree}", "\n",
-    ":maxdepth: 2", "\n",
-    ":hidden:", "\n",
-    "\n",
-    file, "\n",
-    "```"
-))
-```
-
 # Model formulas
 
 * Logistic function

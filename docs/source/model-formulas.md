@@ -1,13 +1,6 @@
 
 <!-- model-formulas.md is generated from model-formulas.Rmd. Please edit that file -->
 
-``` {toctree}
-:maxdepth: 2
-:hidden:
-
-model-formulas
-```
-
 # Model formulas
 
 - Logistic function

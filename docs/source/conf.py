@@ -8,6 +8,11 @@
 import os, shutil, sys
 
 sys.path
+sys.path.append(os.path.abspath("src/"))
+sys.path.append(os.path.abspath("src/entrainment/"))
+sys.path.append(os.path.abspath("../src/"))
+sys.path.append(os.path.abspath("../src/entrainment/"))
+sys.path.append(os.path.abspath("../../src/"))
 sys.path.append(os.path.abspath("../../src/entrainment/"))
 
 # -- Fixes and Tweaks ---------------------------------------------------------
