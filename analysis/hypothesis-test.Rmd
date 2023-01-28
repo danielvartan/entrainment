@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "_static/hypothesis-test_",
+  fig.align = "center",
   out.width = "100%"
 )
 ```
@@ -35,6 +36,23 @@ plt.rcParams.update({'figure.max_open_warning': 0})
 The following topics show the basic steps for testing the latitude hypothesis using the `entrainment` model.
 
 > Hypothesis statement: Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian phenotype when compared to populations residing near the planet's poles (i.e., with lower average insolation) ([Leocadio-Miguel et al., 2017](https://doi.org/10.1038/s41598-017-05797-w); [Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
+
+In mathematical terms, this hypothesis can be written as follows:
+
+<!-- $$ -->
+<!-- \begin{cases} -->
+<!-- H_{0} : \mu_{\text{equator}} \ge \mu_{\text{poles}} \\ -->
+<!-- H_{a} : \mu_{\text{equator}} < \mu_{\text{poles}} \\ -->
+<!-- \end{cases} -->
+<!-- $$ -->
+
+```{r}
+#| fig.alt = "Latitude hypothesis scheme.",
+#| out.width = "25%",
+#| echo = FALSE
+
+knitr::include_graphics("_static/hypothesis-scheme.png")
+```
 
 The latitude hypothesis is based on the idea that regions located at latitudes close to the poles have, on average, a lower incidence of annual sunlight when compared to regions close to the equator (latitude 0°).
 
@@ -73,11 +91,15 @@ import entrainment
 ### By season
 
 ```{python}
-#| label = "plot_labren"
+#| label = "plot_labren",
 #| include = FALSE
 
 entrainment.labren(id = 72272, by = "season")
-entrainment.plot_labren(by = "season")
+entrainment.plot_labren(
+    label_1 = "Nascente do Rio Ailã (Latitude: $5.272$)", 
+    label_2 = "Arroio Chuí (Latitude: $- 33.752$)",
+    by = "season"
+    )
 ```
 
 ```{python}
@@ -275,6 +297,14 @@ For more information about the values presented, see [`scipy.stats.ttest_ind`](h
 
 > Hypothesis statement: Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian phenotype when compared to populations residing near the planet's poles (i.e., with lower average insolation) ([Leocadio-Miguel et al., 2017](https://doi.org/10.1038/s41598-017-05797-w); [Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
 
+```{r}
+#| fig.alt = "Latitude hypothesis scheme.",
+#| out.width = "25%",
+#| echo = FALSE
+
+knitr::include_graphics("_static/hypothesis-scheme.png")
+```
+
 ```{python}
 #| echo = FALSE
 
@@ -286,20 +316,19 @@ def print_test_result(test):
         test_type = "Welch’s t-test"
         test_p_value = test.welch_t_test.pvalue
     
-    req_1 = test_p_value < 0.05
-    req_2 = test.x_stats.mean < test.y_stats.mean
-    req_and = req_1 & req_2
-    result = "Confirmed" if req_and == True else "Rejected"
+    if test_p_value < 0.05:
+        h_result = "Reject H0 in favour of Ha"
+    else:
+        h_result = "Do not reject H0"
     
     print(
-        "> * (R1) Mean Tau North != Mean Tau South (p-value < 0.05) ", 
-        "(", test_type, "): ", 
-        "**", str(req_1).upper(), "**", "\n",
-        "> * (R2) Mean Tau North < Mean Tau South: ", 
-        "**", str(req_2).upper(), "**", "\n",
-        "> * Hypothesis: R1 & R2: ", 
-        "**", str(req_and).upper(), "**", " ",
-        "(**", result.upper(), "**)", "\n",
+        "> Directional Student's t-test (", test_type, ")", "\n",
+        "> ", "\n",
+        "> * (H0) Mean Tau North >= Mean Tau South", "\n",
+        "> * (Ha) Mean Tau North < Mean Tau South", "\n",
+        "> ", "\n",
+        "> **", h_result, "**", " ",
+        "(p-value = ", "{:1.5f}".format(test_p_value), ")",
         sep = ""
     )
 ```

@@ -7,5 +7,4 @@ contributing
 hypothesis-test
 model-formulas
 reference
-toctree
 ```

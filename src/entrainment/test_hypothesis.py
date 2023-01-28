@@ -5,8 +5,9 @@ from scipy import stats
 from .analyze_data import analyze_data
 from collections import namedtuple
 
-def test_hypothesis(x, y, key, x_name = None, y_name = None, lam_c = None, 
-                    n_cycles = None, repetitions = None, print_ = True,
+def test_hypothesis(x, y, key, alternative = "less", x_name = None, 
+                    y_name = None, lam_c = None, n_cycles = None, 
+                    repetitions = None, print_ = True,
                     plot = True):
     """Compute a bilateral Student's t test for model's means.
     
@@ -24,8 +25,12 @@ def test_hypothesis(x, y, key, x_name = None, y_name = None, lam_c = None,
     x_tau = [i["tau"] for i in np.array(x[key])]
     y_tau = [i["tau"] for i in np.array(y[key])]
     
-    std_t_test = stats.ttest_ind(x_tau, y_tau, equal_var = True)
-    welch_t_test = stats.ttest_ind(x_tau, y_tau, equal_var = False)
+    std_t_test = stats.ttest_ind(
+        x_tau, y_tau, equal_var = True, alternative = alternative
+        )
+    welch_t_test = stats.ttest_ind(
+        x_tau, y_tau, equal_var = False, alternative = alternative
+        )
     linear_reg = stats.linregress(x_tau, y_tau)
     r_squared = linear_reg.rvalue**2
     
