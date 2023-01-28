@@ -1,8 +1,6 @@
 # Function reference
 
 ```{eval-rst}
-.. module:: entrainment
-
 .. autofunction:: entrainment.run_model
 .. autofunction:: entrainment.analyze_data
 .. autofunction:: entrainment.test_hypothesis
