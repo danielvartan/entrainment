@@ -6,5 +6,7 @@ changelog
 contributing
 hypothesis-test
 model-formulas
+notable-features
 reference
+toctree
 ```

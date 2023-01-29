@@ -1,0 +1,57 @@
+---
+output: github_document
+knit: (function(inputFile, encoding) {
+  out_dir <- "../docs/source/";
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = out_dir)
+  })
+---
+
+<!-- extra-figures.md is generated from extra-figures.Rmd. Please edit that file -->
+
+```{r}
+#| label = "setup",
+#| include = FALSE
+
+knitr::opts_knit$set(root.dir = "../docs/source/")
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "_static/extra-figures_",
+  out.width = "100%"
+)
+```
+
+```{python}
+#| label = "setup-python",
+#| include = FALSE
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams.update({'figure.max_open_warning': 0})
+```
+
+# Extra figures
+
+```{python}
+import entrainment
+```
+
+## Limitations
+
+```{python}
+#| include = FALSE
+
+np.random.seed(1000)
+```
+
+```{python}
+#| label = "limitations",
+#| results = FALSE
+
+x = entrainment.run_model(n_cycles = 1, plot = False)
+y = entrainment.run_model(n_cycles = 10, plot = False)
+
+entrainment.plot_model_line_1_2(x, y)
+```

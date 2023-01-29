@@ -62,7 +62,7 @@ def run_model(
         [labren_data.extend(labren_data_0) for i in range(n_cycles - 1)]
     
     if repetitions == 0:
-        turtles = {"unentrain": turtles_0}
+        turtles = {"unentrained": turtles_0}
         
         for i in range(cycle * n_cycles):
             key = list(turtles)[-1]
@@ -75,7 +75,7 @@ def run_model(
         turtles_n = {}
         
         for i in range(repetitions + 1):
-            turtles_i = {"unentrain": turtles_0}
+            turtles_i = {"unentrained": turtles_0}
             
             for j in range(cycle * n_cycles):
                 key = list(turtles_i)[-1]
@@ -90,19 +90,16 @@ def run_model(
         turtles = average_turtles(turtles_n)
 
     if plot == True: 
-        plot_model(turtles, lam_c, labren_id, n_cycles, repetitions)
+        plot_model_line(
+            turtles, lam_c, labren_id, n_cycles, start_at, repetitions
+            )
     
     return turtles
 
 def create_turtles(n = 10**2, tau_range = (23.5, 24.6), tau_mean = 24.15, 
                    tau_sd = 0.2, k_range = (0.001, 0.01), k_mean = 0.001, 
                    k_sd = 0.005):
-    """Create turtles/subjects for the entrainment model.
-    
-    :Example:
-    
-    >>> create_turtles(1)
-    """
+    """Create turtles/subjects for the entrainment model."""
     turtles = []
     
     for i in range(n):
@@ -119,12 +116,7 @@ def create_turtles(n = 10**2, tau_range = (23.5, 24.6), tau_mean = 24.15,
     return turtles
 
 def entrain(lam, lam_c, k, tau, tau_ref = 24):
-    """Compute the (un)entrainment function.
-    
-    :Example:
-    
-    >>> entrain(lam = 10, lam_c = 4, k = 10, tau = 19, tau_ref = 24)
-    """
+    """Compute the (un)entrainment function."""
     logi_f = (tau_ref - tau) / (1 + np.exp(1) ** (- k * (lam - lam_c)))
     out = tau + logi_f
     error = np.random.uniform(low = 0, high = 1) * np.abs(out - tau)
@@ -137,15 +129,7 @@ def entrain(lam, lam_c, k, tau, tau_ref = 24):
     return out
 
 def entrain_turtles(turtles, turtles_0, lam, lam_c):
-    """Entrain turtles/subjects.
-    
-    :Example:
-    
-    >>> entrain_turtles(
-        turtles =create_turtles(5), turtles_0 = create_turtles(5),
-        lam = 10, lam_c = 4
-        )
-    """
+    """Entrain turtles/subjects."""
     n = len(turtles)
     out = []
     
@@ -164,17 +148,12 @@ def entrain_turtles(turtles, turtles_0, lam, lam_c):
     return out
 
 def average_turtles(turtles_n):
-    """Average turtles/subjects values after n repetitions.
-    
-    :Example:
-    
-    >>> average_turtles(create_turtles(5))
-    """
+    """Average turtles/subjects values after n repetitions."""
     n = len(turtles_n)
     keys = list(turtles_n[list(turtles_n)[0]])
     out = {}
     
-    for i in keys: # i = 0 => "unentrain"
+    for i in keys: # i = 0 => "unentrained"
         turtles_i = []
         
         for a, b in enumerate(turtles_n): # a = 0 => b = "r_1"
@@ -200,18 +179,9 @@ def average_turtles(turtles_n):
         
     return out
 
-def plot_model(turtles, lam_c, labren_id, n_cycles, repetitions):
-    """Plot the entrainment model.
-    
-    :Example:
-    
-    >>> plot_model(
-        turtles = entrainment.run_model(
-            labren_id = 1000, plot = False, repetitions = 10
-            ),
-            lam_c = 3750, labren_id = 1000, n_cycles = 3, repetitions = 10
-            )
-    """
+def plot_model_line(turtles, lam_c = None, labren_id = None, n_cycles = None, 
+                      start_at = 0, repetitions = None):
+    """Plot the entrainment model."""
     if len(turtles) == 13:
         colors = sns.color_palette("tab10", 12)
     elif len(turtles) == 5:
@@ -219,17 +189,25 @@ def plot_model(turtles, lam_c, labren_id, n_cycles, repetitions):
     else:
         colors = ["red"]
     
+    if not len(colors) == 1: colors = reorder(colors, start_at)
+    labels = [i.title() for i in list(turtles)]
+    
     n = len(turtles[list(turtles)[0]])
-    lat = labren(labren_id)["lat"]
     start = list(turtles)[1].title()
     labels = [i.title() for i in list(turtles)]
+    
+    if not labren_id == None:
+        lat = labren(labren_id)["lat"]
+    else:
+        lat = None
     
     title = ("N = ${n}$, $\\lambda_c = {lam_c}$, Latitude = ${lat}$, " +\
              "Cycles = ${n_cycles}$, Start = {start}, " +\
              "Repetitions = ${repetitions}$")\
-             .format(n = str(n), lam_c = str(lam_c), lat = str(lat), 
-              n_cycles = str(n_cycles), start = start, 
-              repetitions = str(repetitions))
+             .format(
+                 n = n, lam_c = lam_c, lat = lat, n_cycles = n_cycles, 
+                 start = start, repetitions = repetitions
+                     )
     
     plt.rcParams.update({'font.size': 10})
     plt.clf()
@@ -237,9 +215,8 @@ def plot_model(turtles, lam_c, labren_id, n_cycles, repetitions):
     fig, ax = plt.subplots()
     
     for i, j in enumerate(turtles):
-        tau_i = [i["tau"] for i in np.array(turtles[j])]
-        n = len(tau_i)
-        
+        tau_i = [k["tau"] for k in np.array(turtles[j])]
+
         if (i == 0):
             color = "black"
             linewidth = 3
@@ -256,6 +233,235 @@ def plot_model(turtles, lam_c, labren_id, n_cycles, repetitions):
     ax.set_title(title, fontsize = 8)
     
     plt.legend(fontsize = 8)
+    plt.show()
+    
+    return None
+
+def plot_model_line_1_2(x, y, x_start_at = 0, y_start_at = 0, x_title = "(A)",
+                        y_title = "(B)", legend_plot = "y", 
+                        legend_loc = "upper right", legend_fontsize = "small"):
+    if len(x) == 13:
+        colors = sns.color_palette("tab10", 12)
+    elif len(x) == 5:
+        colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
+    else:
+        colors = ["red"]
+    
+    if not len(colors) == 1:
+        x_colors = reorder(colors, x_start_at)
+        y_colors = reorder(colors, y_start_at)
+    else:
+        x_colors, y_colors = colors, colors
+    
+    x_labels = [i.title() for i in list(x)]
+    y_labels = [i.title() for i in list(y)]
+    
+    plt.rcParams.update({'font.size': 10})
+    plt.clf()
+    
+    fig, [ax_x, ax_y] = plt.subplots(nrows = 1, ncols = 2)
+    
+    for i, j in enumerate(x):
+        tau_i = [k["tau"] for k in np.array(x[j])]
+
+        if (i == 0):
+            color_i = "black"
+            linewidth = 3
+        else:
+            color_i = x_colors[i - 1]
+            linewidth = 1
+        
+        sns.kdeplot(tau_i, ax = ax_x, color = color_i, label = x_labels[i], 
+                    linewidth = linewidth, warn_singular = False)
+    
+    for i, j in enumerate(y):
+        tau_i = [k["tau"] for k in np.array(y[j])]
+        
+        if (i == 0):
+            color_i = "black"
+            linewidth = 3
+        else:
+            color_i = y_colors[i - 1]
+            linewidth = 1
+        
+        sns.kdeplot(tau_i, ax = ax_y, color = color_i, label = y_labels[i], 
+                    linewidth = linewidth, warn_singular = False)
+    
+    y_max = np.max([ax_x.get_ylim()[1], ax_y.get_ylim()[1]])
+    
+    ax_x.set_xlabel("$\\tau$")
+    ax_x.set_ylabel("Kernel Density Estimate (KDE)")
+    ax_x.set_title(x_title, fontsize = 10)
+    ax_x.set_xlim(23.5, 24.6)
+    ax_x.set_ylim(0, y_max)
+
+    ax_y.set_xlabel("$\\tau$")
+    ax_y.set_ylabel("")
+    ax_y.set_title(y_title, fontsize = 10)
+    ax_y.set_xlim(23.5, 24.6)
+    ax_y.set_ylim(0, y_max)
+    ax_y.get_yaxis().set_visible(False)
+    
+    if legend_plot == "x":
+        ax_x.legend(loc = legend_loc, fontsize = legend_fontsize)
+    else:
+        ax_y.legend(loc = legend_loc, fontsize = legend_fontsize)
+    
+    plt.show()
+    
+    return None
+
+def plot_model_violin(turtles, lam_c = None, labren_id = None, n_cycles = None, 
+                      start_at = 0, repetitions = None):
+    """Plot the entrainment model."""
+    if len(turtles) == 13:
+        colors = sns.color_palette("tab10", 12)
+    elif len(turtles) == 5:
+        colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
+    else:
+        colors = ["red"]
+    
+    if not len(colors) == 1: colors = reorder(colors, start_at)
+
+    data = []
+    means = []
+    
+    for i in list(turtles):
+        data_i = [j["tau"] for j in np.array(turtles[i])]
+        data.append(data_i)
+        means.append(np.mean(data_i))
+
+    n = len(turtles[list(turtles)[0]])
+    start = list(turtles)[1].title()
+    
+    if not labren_id == None:
+        lat = labren(labren_id)["lat"]
+    else:
+        lat = None
+    
+    title = ("N = ${n}$, $\\lambda_c = {lam_c}$, Latitude = ${lat}$, " +\
+             "Cycles = ${n_cycles}$, Start = {start}, " +\
+             "Repetitions = ${repetitions}$")\
+             .format(
+                 n = n, lam_c = lam_c, lat = lat, n_cycles = n_cycles, 
+                 start = start, repetitions = repetitions
+                     )
+    
+    labels = list(map(str.title, list(turtles)))
+    labels_pos = np.arange(1, len(data) + 1)
+    colors.insert(0, "#000000")
+    
+    plt.rcParams.update({'font.size': 10})
+    plt.clf()
+    
+    fig, ax = plt.subplots()
+    plot = ax.violinplot(
+        data, vert = True, showextrema = False, showmeans = False
+        )
+    ax.scatter(
+        labels_pos, means, marker = "o", color = "red", s = 10, zorder = 3
+        )
+    
+    for i, pc in enumerate(plot["bodies"]):
+        pc.set_facecolor(colors[i])
+        pc.set_edgecolor('black')
+    
+    ax.set_xticks(labels_pos, labels = labels)
+    ax.set_title(title, fontsize = 8)
+    ax.set_ylabel("$\\tau$")
+    
+    plt.show()
+    
+    return None
+
+def plot_model_violin_1_2(x, y, x_start_at = 0, y_start_at = 0, x_title = "(A)",
+                          y_title = "(B)", legend_plot = "y", 
+                          legend_loc = "upper right", 
+                          legend_fontsize = "small"):
+    if len(x) == 13:
+        colors = sns.color_palette("tab10", 12)
+    elif len(x) == 5:
+        colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
+    else:
+        colors = ["red"]
+    
+    if not len(colors) == 1:
+        x_colors = reorder(colors, x_start_at)
+        y_colors = reorder(colors, y_start_at)
+    else:
+        x_colors, y_colors = colors, colors
+    
+    x_data = []
+    x_means = []
+    
+    for i in list(x):
+        data_i = [j["tau"] for j in np.array(x[i])]
+        x_data.append(data_i)
+        x_means.append(np.mean(data_i))
+    
+    y_data = []
+    y_means = []
+    
+    for i in list(y):
+        data_i = [j["tau"] for j in np.array(y[i])]
+        y_data.append(data_i)
+        y_means.append(np.mean(data_i))
+    
+    x_labels = list(map(str.title, list(x)))
+    x_labels_pos = np.arange(1, len(x) + 1)
+    x_labels_pos = x_labels_pos[::-1]
+    
+    y_labels = list(map(str.title, list(y)))
+    y_labels_pos = np.arange(1, len(y) + 1)
+    y_labels_pos = y_labels_pos[::-1]
+    
+    x_colors = ["#000000"] + x_colors
+    x_colors.reverse()
+    
+    y_colors = ["#000000"] + y_colors
+    y_colors.reverse()
+    
+    x_data.reverse()
+    y_data.reverse()
+    
+    plt.rcParams.update({'font.size': 10})
+    plt.clf()
+    
+    fig, [ax_x, ax_y] = plt.subplots(nrows = 1, ncols = 2)
+
+    x_plot = ax_x.violinplot(
+        x_data, vert = False, showextrema = False, showmeans = False
+        )
+    ax_x.scatter(
+        x_means, x_labels_pos, marker = "o", color = "red", s = 10, 
+        zorder = 3
+        )
+    
+    for i, pc in enumerate(x_plot["bodies"]):
+        pc.set_facecolor(x_colors[i])
+        pc.set_edgecolor('black')
+    
+    y_plot = ax_y.violinplot(
+        y_data, vert = False, showextrema = False, showmeans = False
+        )
+    ax_y.scatter(
+        y_means, y_labels_pos, marker = "o", color = "red", s = 10, zorder = 3
+        )
+    
+    for i, pc in enumerate(y_plot["bodies"]):
+        pc.set_facecolor(y_colors[i])
+        pc.set_edgecolor('black')
+    
+    ax_x.set_yticks(x_labels_pos, labels = x_labels)
+    ax_x.set_ylabel("$\\tau$")
+    ax_x.set_title(x_title, fontsize = 10)
+    ax_x.set_xlim(23.5, 24.6)
+    
+    ax_y.set_yticks(y_labels_pos, labels = y_labels)
+    ax_y.set_title(y_title, fontsize = 10)
+    ax_y.set_xlim(23.5, 24.6)
+    ax_y.get_yaxis().set_visible(False)
+    
     plt.show()
     
     return None

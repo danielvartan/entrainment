@@ -27,31 +27,40 @@ knitr::opts_chunk$set(
 #| label = "setup-python",
 #| include = FALSE
 
-import matplotlib as plt
+import matplotlib.pyplot as plt
+import numpy as np
+
 plt.rcParams.update({'figure.max_open_warning': 0})
+np.random.seed(1000)
 ```
 
 # Latitude hypothesis test
 
 The following topics show the basic steps for testing the latitude hypothesis using the `entrainment` model.
 
-> Hypothesis statement: Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian phenotype when compared to populations residing near the planet's poles (i.e., with lower average insolation) ([Leocadio-Miguel et al., 2017](https://doi.org/10.1038/s41598-017-05797-w); [Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
+```{python}
+#| echo = FALSE,
+#| comment = "<#)#&#*>"
+
+print(
+r"""```{admonition} Hypothesis statement
+Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian period when compared to populations residing near the planet's poles (i.e., with lower average insolation) ([Leocadio-Miguel et al., 2017](https://doi.org/10.1038/s41598-017-05797-w); [Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
+```""")
+```
 
 In mathematical terms, this hypothesis can be written as follows:
 
-<!-- $$ -->
-<!-- \begin{cases} -->
-<!-- H_{0} : \mu_{\text{equator}} \ge \mu_{\text{poles}} \\ -->
-<!-- H_{a} : \mu_{\text{equator}} < \mu_{\text{poles}} \\ -->
-<!-- \end{cases} -->
-<!-- $$ -->
+```{python}
+#| echo = FALSE,
+#| comment = "<#)#&#*>"
 
-```{r}
-#| fig.alt = "Latitude hypothesis scheme.",
-#| out.width = "25%",
-#| echo = FALSE
-
-knitr::include_graphics("_static/hypothesis-scheme.png")
+print(
+r"""```{math}
+\begin{cases}
+H_{0} : \mu_{\text{equator}} \ge \mu_{\text{poles}} \\
+H_{a} : \mu_{\text{equator}} < \mu_{\text{poles}}
+\end{cases}
+```""")
 ```
 
 The latitude hypothesis is based on the idea that regions located at latitudes close to the poles have, on average, a lower incidence of annual sunlight when compared to regions close to the equator (latitude 0°).
@@ -65,7 +74,7 @@ The latitude hypothesis is based on the idea that regions located at latitudes c
 knitr::include_graphics("_static/pidwirny_2019_figure-6i-3.png")
 ```
 
-> Figure source: Pidwirny ([2019](http://www.physicalgeography.net/fundamentals/6i.html)).
+> Figure credits: Pidwirny ([2019](http://www.physicalgeography.net/fundamentals/6i.html)).
 
 Thus, it is understood by deduction that the regions close to the equator have a stronger solar [zeitgeber](https://en.wikipedia.org/wiki/Zeitgeber), which, according to theory, should generate a greater propensity for synchronizing the circadian rhythms of these populations to the light-dark cycle, reducing the amplitude and the diversity of circadian phenotypes. This would also give these populations a morning characteristic when compared to populations living far from the equator, in which the opposite would occur, i.e., a greater amplitude and diversity of circadian phenotypes and an evening characteristic when compared to populations living near the equator. ([Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
 
@@ -78,7 +87,7 @@ Thus, it is understood by deduction that the regions close to the equator have a
 knitr::include_graphics("_static/roenneberg_2003_figure-7.png")
 ```
 
-> Figure source: Roenneberg et al. ([2003](https://doi.org/10.1177/0748730402239679)).
+> Figure credits: Roenneberg et al. ([2003](https://doi.org/10.1177/0748730402239679)).
 
 ## 1. Do the initial setup
 
@@ -89,6 +98,55 @@ import entrainment
 ## 2. Run the model for both groups
 
 ### By season
+
+```{python}
+n = 10**3
+lam_c = 3750
+n_cycles = 3
+repetitions = 10**2
+x_name = "Nascente do rio Ailã"
+y_name = "Arroio Chuí"
+```
+
+* North group (Location: Nascente do Rio Ailã) (Latitude: 5.272)
+
+```{python}
+#| label = "run_north_by-season",
+
+north_by_season = entrainment.run_model(
+    n = n, labren_id = 72272, by = "season", lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions, plot = False
+    )
+```
+
+* South group (Location: Arroio Chuí) (Latitude: -33.752)
+
+```{python}
+#| label = "run_south_by-season",
+
+south_by_season = entrainment.run_model(
+    n = n, labren_id = 1, by = "season", lam_c = lam_c, n_cycles = n_cycles,
+    repetitions = repetitions, plot = False
+    )
+```
+
+```{python}
+#| label = "run_by-season_line",
+#| results = FALSE
+
+entrainment.plot_model_line_1_2(
+    north_by_season, south_by_season, x_title = x_name, y_title = y_name
+    )
+```
+
+```{python}
+#| label = "run_by-season_violin",
+#| results = FALSE
+
+entrainment.plot_model_violin_1_2(
+    north_by_season, south_by_season, x_title = x_name, y_title = y_name
+    )
+```
 
 ```{python}
 #| label = "plot_labren",
@@ -102,64 +160,36 @@ entrainment.plot_labren(
     )
 ```
 
-```{python}
-#| echo = TRUE
-
-n = 10**3
-lam_c = 3750
-n_cycles = 3
-repetitions = 10**2
-x_name = "Nascente do rio Ailã"
-y_name = "Arroio Chuí"
-```
-
-* North group (Location: Nascente do Rio Ailã) (Latitude: 5.272)
-
-```{python}
-#| label = "run_north_by_season",
-#| results = FALSE
-
-north_by_season = entrainment.run_model(
-    n = n, labren_id = 72272, by = "season", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
-    )
-```
-
-* South group (Location: Arroio Chuí) (Latitude: -33.752)
-
-```{python}
-#| label = "run_south_by_season",
-#| results = FALSE
-
-south_by_season = entrainment.run_model(
-    n = n, labren_id = 1, by = "season", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
-    )
-```
-
 ### By year
 
 * North group (Location: Nascente do Rio Ailã) (Latitude: 5.272)
 
 ```{python}
-#| label = "run_north_by_year",
-#| results = FALSE
+#| label = "run_north_by-year",
 
 north_by_year = entrainment.run_model(
     n = n, labren_id = 72272, by = "year", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
+    repetitions = repetitions, plot = False
     )
 ```
 
 * South group (Location: Arroio Chuí) (Latitude: -33.752)
 
 ```{python}
-#| label = "run_south_by_year",
-#| results = FALSE
+#| label = "run_south_by-year",
 
 south_by_year = entrainment.run_model(
     n = n, labren_id = 1, by = "year", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
+    repetitions = repetitions, plot = False
+    )
+```
+
+```{python}
+#| label = "run_by-year",
+#| results = FALSE
+
+entrainment.plot_model_line_1_2(
+    north_by_year, south_by_year, x_title = x_name, y_title = y_name
     )
 ```
 
@@ -175,7 +205,7 @@ For more information about the values presented, see [`scipy.stats.kstest()`](ht
 #| label = "analyze_north_unentrain"
 
 stats = entrainment.analyze_data(
-    x = north_by_season, key = "unentrain", name = x_name
+    turtles = north_by_season, key = "unentrained", name = x_name
     )
 ```
 
@@ -185,7 +215,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_north_summer"
 
 stats = entrainment.analyze_data(
-    x = north_by_season, key = "summer", name = x_name
+    turtles = north_by_season, key = "summer", name = x_name
     )
 ```
 
@@ -195,7 +225,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_north_autumn"
 
 stats = entrainment.analyze_data(
-    x = north_by_season, key = "autumn", name = x_name
+    turtles = north_by_season, key = "autumn", name = x_name
     )
 ```
 
@@ -205,7 +235,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_north_winter"
 
 stats = entrainment.analyze_data(
-    x = north_by_season, key = "winter", name = x_name
+    turtles = north_by_season, key = "winter", name = x_name
     )
 ```
 
@@ -215,7 +245,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_north_spring"
 
 stats = entrainment.analyze_data(
-    x = north_by_season, key = "spring", name = x_name
+    turtles = north_by_season, key = "spring", name = x_name
     )
 ```
 
@@ -225,7 +255,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_north_annual"
 
 stats = entrainment.analyze_data(
-    x = north_by_year, key = "annual", name = x_name
+    turtles = north_by_year, key = "annual", name = x_name
     )
 ```
 
@@ -237,7 +267,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_south_unentrain"
 
 stats = entrainment.analyze_data(
-    x = south_by_season, key = "unentrain", name = y_name
+    turtles = south_by_season, key = "unentrained", name = y_name
     )
 ```
 
@@ -247,7 +277,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_south_summer"
 
 stats = entrainment.analyze_data(
-    x = south_by_season, key = "summer", name = y_name
+    turtles = south_by_season, key = "summer", name = y_name
     )
 ```
 
@@ -257,7 +287,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_south_autumn"
 
 stats = entrainment.analyze_data(
-    x = south_by_season, key = "autumn", name = y_name
+    turtles = south_by_season, key = "autumn", name = y_name
     )
 ```
 
@@ -267,7 +297,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_south_winter"
 
 stats = entrainment.analyze_data(
-    x = south_by_season, key = "winter", name = y_name
+    turtles = south_by_season, key = "winter", name = y_name
     )
 ```
 
@@ -277,7 +307,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_south_spring"
 
 stats = entrainment.analyze_data(
-    x = south_by_season, key = "spring", name = y_name
+    turtles = south_by_season, key = "spring", name = y_name
     )
 ```
 
@@ -287,7 +317,7 @@ stats = entrainment.analyze_data(
 #| label = "analyze_south_annual"
 
 stats = entrainment.analyze_data(
-    x = south_by_year, key = "annual", name = y_name
+    turtles = south_by_year, key = "annual", name = y_name
     )
 ```
 
@@ -295,14 +325,14 @@ stats = entrainment.analyze_data(
 
 For more information about the values presented, see [`scipy.stats.ttest_ind`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html).
 
-> Hypothesis statement: Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian phenotype when compared to populations residing near the planet's poles (i.e., with lower average insolation) ([Leocadio-Miguel et al., 2017](https://doi.org/10.1038/s41598-017-05797-w); [Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
+```{python}
+#| echo = FALSE,
+#| comment = "<#)#&#*>"
 
-```{r}
-#| fig.alt = "Latitude hypothesis scheme.",
-#| out.width = "25%",
-#| echo = FALSE
-
-knitr::include_graphics("_static/hypothesis-scheme.png")
+print(
+r"""```{admonition} Hypothesis statement
+Populations residing close to the equator (latitude 0°) (i.e., with greater average insolation) have, on average, a shorter duration/morning circadian period when compared to populations residing near the planet's poles (i.e., with lower average insolation) ([Leocadio-Miguel et al., 2017](https://doi.org/10.1038/s41598-017-05797-w); [Roenneberg et al., 2003](https://doi.org/10.1177/0748730402239679)).
+```""")
 ```
 
 ```{python}
@@ -317,18 +347,23 @@ def print_test_result(test):
         test_p_value = test.welch_t_test.pvalue
     
     if test_p_value < 0.05:
-        h_result = "Reject H0 in favour of Ha"
+        h_result = r"Reject {math}`H_{0}` in favour of {math}`H_{a}`"
     else:
-        h_result = "Do not reject H0"
+        h_result = r"Do not reject {math}`H_{0}`"
     
     print(
-        "> Directional Student's t-test (", test_type, ")", "\n",
-        "> ", "\n",
-        "> * (H0) Mean Tau North >= Mean Tau South", "\n",
-        "> * (Ha) Mean Tau North < Mean Tau South", "\n",
-        "> ", "\n",
-        "> **", h_result, "**", " ",
-        "(p-value = ", "{:1.5f}".format(test_p_value), ")",
+        r"````{admonition} Directional Student's t-test (", test_type, ")", 
+        "\n\n",
+        r"```{math}", "\n",
+        r"\begin{cases}", "\n",
+        r"H_{0} : \mu_{\text{north}} \ge \mu_{\text{south}} \\", "\n",
+        r"H_{a} : \mu_{\text{north}} < \mu_{\text{south}}", "\n",
+        r"\end{cases}", "\n",
+        r"```", "\n\n",
+        "**", h_result, "**", " ",
+        r"({math}`\text{p-value} = ", 
+        "{:1.5f}".format(test_p_value), r"`)", "\n",
+        r"````",
         sep = ""
     )
 ```
@@ -339,7 +374,7 @@ def print_test_result(test):
 #| label = "test_unentrain"
 
 test = entrainment.test_hypothesis(
-    key = "unentrain", x = north_by_season, y = south_by_season,
+    key = "unentrained", x = north_by_season, y = south_by_season,
     x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
     repetitions = repetitions
     )
@@ -358,8 +393,8 @@ test = entrainment.test_hypothesis(
 ```
 
 ```{python}
-#| results = "asis",
-#| echo = FALSE
+#| echo = FALSE,
+#| comment = "<#)#&#*>"
 
 print_test_result(test)
 ```
@@ -377,8 +412,8 @@ test = entrainment.test_hypothesis(
 ```
 
 ```{python}
-#| results = "asis",
-#| echo = FALSE
+#| echo = FALSE,
+#| comment = "<#)#&#*>"
 
 print_test_result(test)
 ```
@@ -396,8 +431,8 @@ test = entrainment.test_hypothesis(
 ```
 
 ```{python}
-#| results = "asis",
-#| echo = FALSE
+#| echo = FALSE,
+#| comment = "<#)#&#*>"
 
 print_test_result(test)
 ```
@@ -415,8 +450,8 @@ test = entrainment.test_hypothesis(
 ```
 
 ```{python}
-#| results = "asis",
-#| echo = FALSE
+#| echo = FALSE,
+#| comment = "<#)#&#*>"
 
 print_test_result(test)
 ```
@@ -434,8 +469,8 @@ test = entrainment.test_hypothesis(
 ```
 
 ```{python}
-#| results = "asis",
-#| echo = FALSE
+#| echo = FALSE,
+#| comment = "<#)#&#*>"
 
 print_test_result(test)
 ```

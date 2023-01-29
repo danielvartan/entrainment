@@ -54,6 +54,15 @@ The following example illustrates how to run the model.
 Please note that in this example all of the model arguments are assigned. You don't need to assign values to all arguments, you can just use the default values. Check [`run_model()`](https://entrainment.readthedocs.io/en/latest/reference.html#entrainment.run_model) documentation to learn more.
 
 ```{python}
+#| label = "setup-python",
+#| include = FALSE
+
+import numpy as np
+
+np.random.seed(1000)
+```
+
+```{python}
 #| label = "usage-example",
 #| fig.alt = "24h light/dark cycle entrainment of a population located at the south of Brazil by season"
 

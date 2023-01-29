@@ -6,9 +6,10 @@ import statsmodels.api as sm
 from collections import namedtuple
 from scipy import stats
 
-def analyze_data(x, key, name = None, print_ = True, plot = True):
+def analyze_data(turtles, key, name = None, print_ = True, plot_hist_ = True,
+                 plot_qq_ = True):
     """Compute and plot 'tau' statistics."""
-    data = [i["tau"] for i in np.array(x[key])]
+    data = [i["tau"] for i in np.array(turtles[key])]
     
     out_data = namedtuple("analyze_data", [
         "mean", "var", "std", "min", "q_1", "median", "q_3", "max", "kurtosis",
@@ -45,23 +46,22 @@ def analyze_data(x, key, name = None, print_ = True, plot = True):
 
         print(line, title, summary, line, sep = "\n\n")
     
-    if plot == True:
-        title = ("Group = {name}, Key = {key}, Mean = ${mean}$, " +\
-                 "KS = ${kstest}$, Shapiro-Wilk = ${shapiro}$")\
-                 .format(
-                     name = name, key = key.title(),
-                     mean = round(out.mean, 3),
-                     kstest = round(out.kstest.pvalue, 3),
-                     shapiro = round(out.shapiro.pvalue, 3)
-                     )
-        
-        plot_hist(data, title)
-        plot_qq(data, title)
+    title = ("Group = {name}, Key = {key}, Mean = ${mean}$, " +\
+             "KS = ${kstest}$, Shapiro-Wilk = ${shapiro}$")\
+             .format(
+                 name = name, key = key.title(), mean = round(out.mean, 3),
+                 kstest = round(out.kstest.pvalue, 3),
+                 shapiro = round(out.shapiro.pvalue, 3)
+                 )
+    
+    if plot_hist_ == True: plot_hist(turtles, key, name)
+    if plot_qq_ == True: plot_qq(turtles, key, name)
     
     return out
 
-def plot_hist(data, title = None):
-    data = np.array(data)
+def plot_hist(turtles, key, name = None):
+    data = np.array([i["tau"] for i in np.array(turtles[key])])
+    title = analyze_data_title(data, key, name)
     
     plt.rcParams.update({'font.size': 10})
     plt.clf()
@@ -72,14 +72,15 @@ def plot_hist(data, title = None):
     
     ax.set_title(title, fontsize = 8)
     ax.set_xlabel("$\\tau$")
-    ax.set_ylabel("Kernel Density Estimate (KDE)")
+    ax.set_ylabel("Frequency")
     
     plt.show()
     
     return None
 
-def plot_qq(data, title = None, dist = scipy.stats.distributions.norm):
-    data = np.array(data)
+def plot_qq(turtles, key, name = None, dist = scipy.stats.distributions.norm):
+    data = np.array([i["tau"] for i in np.array(turtles[key])])
+    title = analyze_data_title(data, key, name)
 
     plt.rcParams.update({'font.size': 10})
     plt.clf()
@@ -98,3 +99,14 @@ def plot_qq(data, title = None, dist = scipy.stats.distributions.norm):
     plt.show()
     
     return None
+
+def analyze_data_title(data, key, name = None):
+    out = ("Group = {name}, Key = {key}, Mean = ${mean}$, " +\
+           "KS = ${kstest}$, Shapiro-Wilk = ${shapiro}$")\
+            .format(
+                name = name, key = key.title(), mean = round(np.mean(data), 3),
+                kstest = round(stats.kstest(data, stats.norm.cdf).pvalue, 3),
+                shapiro = round(stats.shapiro(data).pvalue, 3)
+                )
+    
+    return out

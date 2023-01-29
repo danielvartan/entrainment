@@ -7,7 +7,7 @@ from collections import namedtuple
 
 def test_hypothesis(x, y, key, alternative = "less", x_name = None, 
                     y_name = None, lam_c = None, n_cycles = None, 
-                    repetitions = None, print_ = True,
+                    repetitions = None, print_stats = True,
                     plot = True):
     """Compute a bilateral Student's t test for model's means.
     
@@ -19,8 +19,12 @@ def test_hypothesis(x, y, key, alternative = "less", x_name = None,
         "x_stats", "y_stats"
         ])
     
-    x_stats = analyze_data(x, key, print_ = False, plot = False)
-    y_stats = analyze_data(y, key, print_ = False, plot = False)
+    x_stats = analyze_data(
+        x, key, print_ = False, plot_hist_ = False, plot_qq_ = False
+        )
+    y_stats = analyze_data(
+        y, key, print_ = False, plot_hist_ = False, plot_qq_ = False
+        )
     
     x_tau = [i["tau"] for i in np.array(x[key])]
     y_tau = [i["tau"] for i in np.array(y[key])]
@@ -49,7 +53,7 @@ def test_hypothesis(x, y, key, alternative = "less", x_name = None,
     if x_name == None: x_name = "X"
     if y_name == None: y_name = "Y"
     
-    if print_ == True:
+    if print_stats == True:
         line = "---------------------------------------------------------"
         
         title_x = ("[Group: {x_name} | Key: {key}]")\
