@@ -72,8 +72,6 @@ import entrainment
 
 ## 2. Run the model for both groups
 
-### By season
-
 ``` python
 n = 10**3
 lam_c = 3750
@@ -82,6 +80,8 @@ repetitions = 10**2
 x_name = "Nascente do rio Ailã"
 y_name = "Arroio Chuí"
 ```
+
+### By season
 
 - North group (Location: Nascente do Rio Ailã) (Latitude: 5.272)
 
@@ -157,8 +157,8 @@ and
 - Unentrained (Control)
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = north_by_season, key = "unentrained", name = x_name
+stats = entrainment.analyze_model(
+    model = north_by_season, key = "unentrained", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -183,13 +183,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_north_unentrain-8.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_north_unentrain-9.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_north_unentrain-8.png" width="100%" style="display: block; margin: auto;" />
 
 - Summer
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = north_by_season, key = "summer", name = x_name
+stats = entrainment.analyze_model(
+    model = north_by_season, key = "summer", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -214,13 +214,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_north_summer-12.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_north_summer-13.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_north_summer-10.png" width="100%" style="display: block; margin: auto;" />
 
 - Autumn
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = north_by_season, key = "autumn", name = x_name
+stats = entrainment.analyze_model(
+    model = north_by_season, key = "autumn", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -245,13 +245,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_north_autumn-16.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_north_autumn-17.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_north_autumn-12.png" width="100%" style="display: block; margin: auto;" />
 
 - Winter
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = north_by_season, key = "winter", name = x_name
+stats = entrainment.analyze_model(
+    model = north_by_season, key = "winter", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -276,13 +276,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_north_winter-20.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_north_winter-21.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_north_winter-14.png" width="100%" style="display: block; margin: auto;" />
 
 - Spring
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = north_by_season, key = "spring", name = x_name
+stats = entrainment.analyze_model(
+    model = north_by_season, key = "spring", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -307,13 +307,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_north_spring-24.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_north_spring-25.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_north_spring-16.png" width="100%" style="display: block; margin: auto;" />
 
 - Annual
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = north_by_year, key = "annual", name = x_name
+stats = entrainment.analyze_model(
+    model = north_by_year, key = "annual", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -338,15 +338,15 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_north_annual-28.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_north_annual-29.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_north_annual-18.png" width="100%" style="display: block; margin: auto;" />
 
 ### South group (Location: Arroio Chuí) (Latitude: -33.752)
 
 - Unentrained (Control)
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = south_by_season, key = "unentrained", name = y_name
+stats = entrainment.analyze_model(
+    model = south_by_season, key = "unentrained", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -371,13 +371,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_south_unentrain-32.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_south_unentrain-33.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_south_unentrain-20.png" width="100%" style="display: block; margin: auto;" />
 
 - Summer
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = south_by_season, key = "summer", name = y_name
+stats = entrainment.analyze_model(
+    model = south_by_season, key = "summer", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -402,13 +402,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_south_summer-36.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_south_summer-37.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_south_summer-22.png" width="100%" style="display: block; margin: auto;" />
 
 - Autumn
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = south_by_season, key = "autumn", name = y_name
+stats = entrainment.analyze_model(
+    model = south_by_season, key = "autumn", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -433,13 +433,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_south_autumn-40.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_south_autumn-41.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_south_autumn-24.png" width="100%" style="display: block; margin: auto;" />
 
 - Winter
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = south_by_season, key = "winter", name = y_name
+stats = entrainment.analyze_model(
+    model = south_by_season, key = "winter", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -464,13 +464,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_south_winter-44.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_south_winter-45.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_south_winter-26.png" width="100%" style="display: block; margin: auto;" />
 
 - Spring
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = south_by_season, key = "spring", name = y_name
+stats = entrainment.analyze_model(
+    model = south_by_season, key = "spring", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -495,13 +495,13 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_south_spring-48.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_south_spring-49.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_south_spring-28.png" width="100%" style="display: block; margin: auto;" />
 
 - Annual
 
 ``` python
-stats = entrainment.analyze_data(
-    turtles = south_by_year, key = "annual", name = y_name
+stats = entrainment.analyze_model(
+    model = south_by_year, key = "annual", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -526,7 +526,7 @@ stats = entrainment.analyze_data(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_analyze_south_annual-52.png" width="100%" style="display: block; margin: auto;" /><img src="_static/hypothesis-test_analyze_south_annual-53.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_analyze_south_annual-30.png" width="100%" style="display: block; margin: auto;" />
 
 ## 4. Test the hypothesis
 
@@ -541,9 +541,8 @@ Populations residing close to the equator (latitude 0°) (i.e., with greater ave
 
 ``` python
 test = entrainment.test_hypothesis(
-    key = "unentrained", x = north_by_season, y = south_by_season,
-    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
+    x = north_by_season, y = south_by_season, key = "unentrained",
+    x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -579,15 +578,14 @@ test = entrainment.test_hypothesis(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_test_unentrain-56.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_test_unentrain-32.png" width="100%" style="display: block; margin: auto;" />
 
 - Summer
 
 ``` python
 test = entrainment.test_hypothesis(
-    key = "summer", x = north_by_season, y = south_by_season,
-    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
+    x = north_by_season, y = south_by_season, key = "summer",
+    x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -623,7 +621,7 @@ test = entrainment.test_hypothesis(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_test_summer-58.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_test_summer-34.png" width="100%" style="display: block; margin: auto;" />
 
 ````{admonition} Directional Student's t-test (Welch’s t-test)
 
@@ -641,9 +639,8 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 
 ``` python
 test = entrainment.test_hypothesis(
-    key = "autumn", x = north_by_season, y = south_by_season,
-    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
+    x = north_by_season, y = south_by_season, key = "autumn",
+    x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -679,7 +676,7 @@ test = entrainment.test_hypothesis(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_test_autumn-60.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_test_autumn-36.png" width="100%" style="display: block; margin: auto;" />
 
 ````{admonition} Directional Student's t-test (Welch’s t-test)
 
@@ -697,9 +694,8 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 
 ``` python
 test = entrainment.test_hypothesis(
-    key = "winter", x = north_by_season, y = south_by_season,
-    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
+    x = north_by_season, y = south_by_season, key = "winter",
+    x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -735,7 +731,7 @@ test = entrainment.test_hypothesis(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_test_winter-62.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_test_winter-38.png" width="100%" style="display: block; margin: auto;" />
 
 ````{admonition} Directional Student's t-test (Welch’s t-test)
 
@@ -753,9 +749,8 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 
 ``` python
 test = entrainment.test_hypothesis(
-    key = "spring", x = north_by_season, y = south_by_season,
-    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
+    x = north_by_season, y = south_by_season, key = "spring",
+    x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -791,7 +786,7 @@ test = entrainment.test_hypothesis(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_test_spring-64.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_test_spring-40.png" width="100%" style="display: block; margin: auto;" />
 
 ````{admonition} Directional Student's t-test (Welch’s t-test)
 
@@ -809,9 +804,8 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 
 ``` python
 test = entrainment.test_hypothesis(
-    key = "annual", x = north_by_year, y = south_by_year,
-    x_name = x_name, y_name = y_name, lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions
+    x = north_by_year, y = south_by_year, key = "annual",
+    x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
@@ -847,7 +841,7 @@ test = entrainment.test_hypothesis(
 #> ---------------------------------------------------------
 ```
 
-<img src="_static/hypothesis-test_test_annual-66.png" width="100%" style="display: block; margin: auto;" />
+<img src="_static/hypothesis-test_test_annual-42.png" width="100%" style="display: block; margin: auto;" />
 
 ````{admonition} Directional Student's t-test (Standard t-test)
 

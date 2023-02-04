@@ -88,13 +88,24 @@ def run_model(
             turtles_n["r_" + str(i + 1)] = turtles_i
         
         turtles = average_turtles(turtles_n)
-
-    if plot == True: 
-        plot_model_line(
-            turtles, lam_c, labren_id, n_cycles, start_at, repetitions
-            )
     
-    return turtles
+    out_data = namedtuple("model_data", ["turtles", "settings"])
+    
+    settings_data = namedtuple("model_settings", [
+        "n", "tau_range", "tau_mean", "tau_sd", "k_range", "k_mean", "k_sd",
+        "lam_c", "labren_id", "by", "n_cycles", "start_at", "repetitions"
+        ])
+    
+    settings = settings_data(
+        n, tau_range, tau_mean, tau_sd, k_range, k_mean, k_sd, lam_c, labren_id,
+        by, n_cycles, start_at, repetitions
+    )
+    
+    out = out_data(turtles, settings)
+    
+    if plot == True: plot_model_line(out)
+    
+    return out
 
 def create_turtles(n = 10**2, tau_range = (23.5, 24.6), tau_mean = 24.15, 
                    tau_sd = 0.2, k_range = (0.001, 0.01), k_mean = 0.001, 
@@ -179,9 +190,11 @@ def average_turtles(turtles_n):
         
     return out
 
-def plot_model_line(turtles, lam_c = None, labren_id = None, n_cycles = None, 
-                      start_at = 0, repetitions = None):
+def plot_model_line(model):
     """Plot the entrainment model."""
+    settings = model.settings
+    turtles = model.turtles
+    
     if len(turtles) == 13:
         colors = sns.color_palette("tab10", 12)
     elif len(turtles) == 5:
@@ -189,24 +202,20 @@ def plot_model_line(turtles, lam_c = None, labren_id = None, n_cycles = None,
     else:
         colors = ["red"]
     
-    if not len(colors) == 1: colors = reorder(colors, start_at)
+    if not len(colors) == 1: colors = reorder(colors, settings.start_at)
     labels = [i.title() for i in list(turtles)]
     
-    n = len(turtles[list(turtles)[0]])
     start = list(turtles)[1].title()
     labels = [i.title() for i in list(turtles)]
-    
-    if not labren_id == None:
-        lat = labren(labren_id)["lat"]
-    else:
-        lat = None
+    lat = labren(settings.labren_id)["lat"]
     
     title = ("N = ${n}$, $\\lambda_c = {lam_c}$, Latitude = ${lat}$, " +\
              "Cycles = ${n_cycles}$, Start = {start}, " +\
              "Repetitions = ${repetitions}$")\
              .format(
-                 n = n, lam_c = lam_c, lat = lat, n_cycles = n_cycles, 
-                 start = start, repetitions = repetitions
+                 n = settings.n, lam_c = settings.lam_c, lat = lat, 
+                 n_cycles = settings.n_cycles, 
+                 start = start, repetitions = settings.repetitions
                      )
     
     plt.rcParams.update({'font.size': 10})
@@ -237,32 +246,37 @@ def plot_model_line(turtles, lam_c = None, labren_id = None, n_cycles = None,
     
     return None
 
-def plot_model_line_1_2(x, y, x_start_at = 0, y_start_at = 0, x_title = "(A)",
-                        y_title = "(B)", legend_plot = "y", 
-                        legend_loc = "upper right", legend_fontsize = "small"):
-    if len(x) == 13:
+def plot_model_line_1_2(x, y, x_title = "(A)", y_title = "(B)", 
+                        legend_plot = "y", legend_loc = "upper right", 
+                        legend_fontsize = "small"):
+    x_settings = x.settings
+    y_settings = y.settings
+    x_turtles = x.turtles
+    y_turtles = y.turtles
+    
+    if len(x_turtles) == 13:
         colors = sns.color_palette("tab10", 12)
-    elif len(x) == 5:
+    elif len(x_turtles) == 5:
         colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
     else:
         colors = ["red"]
     
     if not len(colors) == 1:
-        x_colors = reorder(colors, x_start_at)
-        y_colors = reorder(colors, y_start_at)
+        x_colors = reorder(colors, x_settings.start_at)
+        y_colors = reorder(colors, y_settings.start_at)
     else:
         x_colors, y_colors = colors, colors
     
-    x_labels = [i.title() for i in list(x)]
-    y_labels = [i.title() for i in list(y)]
+    x_labels = [i.title() for i in list(x_turtles)]
+    y_labels = [i.title() for i in list(y_turtles)]
     
     plt.rcParams.update({'font.size': 10})
     plt.clf()
     
     fig, [ax_x, ax_y] = plt.subplots(nrows = 1, ncols = 2)
     
-    for i, j in enumerate(x):
-        tau_i = [k["tau"] for k in np.array(x[j])]
+    for i, j in enumerate(x_turtles):
+        tau_i = [k["tau"] for k in np.array(x_turtles[j])]
 
         if (i == 0):
             color_i = "black"
@@ -274,8 +288,8 @@ def plot_model_line_1_2(x, y, x_start_at = 0, y_start_at = 0, x_title = "(A)",
         sns.kdeplot(tau_i, ax = ax_x, color = color_i, label = x_labels[i], 
                     linewidth = linewidth, warn_singular = False)
     
-    for i, j in enumerate(y):
-        tau_i = [k["tau"] for k in np.array(y[j])]
+    for i, j in enumerate(y_turtles):
+        tau_i = [k["tau"] for k in np.array(y_turtles[j])]
         
         if (i == 0):
             color_i = "black"
@@ -311,9 +325,11 @@ def plot_model_line_1_2(x, y, x_start_at = 0, y_start_at = 0, x_title = "(A)",
     
     return None
 
-def plot_model_violin(turtles, lam_c = None, labren_id = None, n_cycles = None, 
-                      start_at = 0, repetitions = None):
+def plot_model_violin(model):
     """Plot the entrainment model."""
+    settings = model.settings
+    turtles = model.turtles
+    
     if len(turtles) == 13:
         colors = sns.color_palette("tab10", 12)
     elif len(turtles) == 5:
@@ -321,7 +337,7 @@ def plot_model_violin(turtles, lam_c = None, labren_id = None, n_cycles = None,
     else:
         colors = ["red"]
     
-    if not len(colors) == 1: colors = reorder(colors, start_at)
+    if not len(colors) == 1: colors = reorder(colors, settings.start_at)
 
     data = []
     means = []
@@ -331,21 +347,16 @@ def plot_model_violin(turtles, lam_c = None, labren_id = None, n_cycles = None,
         data.append(data_i)
         means.append(np.mean(data_i))
 
-    n = len(turtles[list(turtles)[0]])
-    start = list(turtles)[1].title()
-    
-    if not labren_id == None:
-        lat = labren(labren_id)["lat"]
-    else:
-        lat = None
-    
     title = ("N = ${n}$, $\\lambda_c = {lam_c}$, Latitude = ${lat}$, " +\
              "Cycles = ${n_cycles}$, Start = {start}, " +\
              "Repetitions = ${repetitions}$")\
              .format(
-                 n = n, lam_c = lam_c, lat = lat, n_cycles = n_cycles, 
-                 start = start, repetitions = repetitions
-                     )
+                 n = settings.n, lam_c = settings.lam_c, 
+                 lat = labren(settings.labren_id)["lat"], 
+                 n_cycles = settings.n_cycles, 
+                 start = list(turtles)[1].title(), 
+                 repetitions = settings.repetitions
+                 )
     
     labels = list(map(str.title, list(turtles)))
     labels_pos = np.arange(1, len(data) + 1)
@@ -374,45 +385,49 @@ def plot_model_violin(turtles, lam_c = None, labren_id = None, n_cycles = None,
     
     return None
 
-def plot_model_violin_1_2(x, y, x_start_at = 0, y_start_at = 0, x_title = "(A)",
-                          y_title = "(B)", legend_plot = "y", 
-                          legend_loc = "upper right", 
+def plot_model_violin_1_2(x, y, x_title = "(A)", y_title = "(B)", 
+                          legend_plot = "y", legend_loc = "upper right", 
                           legend_fontsize = "small"):
-    if len(x) == 13:
+    x_settings = x.settings
+    y_settings = y.settings
+    x_turtles = x.turtles
+    y_turtles = y.turtles
+    
+    if len(x_turtles) == 13:
         colors = sns.color_palette("tab10", 12)
-    elif len(x) == 5:
+    elif len(x_turtles) == 5:
         colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
     else:
         colors = ["red"]
     
     if not len(colors) == 1:
-        x_colors = reorder(colors, x_start_at)
-        y_colors = reorder(colors, y_start_at)
+        x_colors = reorder(colors, x_settings.start_at)
+        y_colors = reorder(colors, y_settings.start_at)
     else:
         x_colors, y_colors = colors, colors
     
     x_data = []
     x_means = []
     
-    for i in list(x):
-        data_i = [j["tau"] for j in np.array(x[i])]
+    for i in list(x_turtles):
+        data_i = [j["tau"] for j in np.array(x_turtles[i])]
         x_data.append(data_i)
         x_means.append(np.mean(data_i))
     
     y_data = []
     y_means = []
     
-    for i in list(y):
-        data_i = [j["tau"] for j in np.array(y[i])]
+    for i in list(y_turtles):
+        data_i = [j["tau"] for j in np.array(y_turtles[i])]
         y_data.append(data_i)
         y_means.append(np.mean(data_i))
     
-    x_labels = list(map(str.title, list(x)))
-    x_labels_pos = np.arange(1, len(x) + 1)
+    x_labels = list(map(str.title, list(x_turtles)))
+    x_labels_pos = np.arange(1, len(x_turtles) + 1)
     x_labels_pos = x_labels_pos[::-1]
     
-    y_labels = list(map(str.title, list(y)))
-    y_labels_pos = np.arange(1, len(y) + 1)
+    y_labels = list(map(str.title, list(y_turtles)))
+    y_labels_pos = np.arange(1, len(y_turtles) + 1)
     y_labels_pos = y_labels_pos[::-1]
     
     x_colors = ["#000000"] + x_colors

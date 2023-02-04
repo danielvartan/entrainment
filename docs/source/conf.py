@@ -117,6 +117,7 @@ html_theme_options = {
     'navbar_links': [
         ("Reference", "reference"),
         ("Latitude hypothesis", "hypothesis-test"),
+        ("Notable features", "notable-features"),
         ("Contributing", "contributing"),
         ("Changelog", "changelog"),
     ],
