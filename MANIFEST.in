@@ -2,13 +2,13 @@
 ## https://setuptools.pypa.io/en/latest/userguide/miscellaneous.html
 ## https://packaging.python.org/en/latest/guides/using-manifest-in/
 
-graft src
-graft docs
+graft entrainment
 # graft tests
 # `-> adds all files inside a directory
 
 prune .github
-prune analysis
+prune .Rproj.user
+prune docs/build
 # `-> remove all files inside a directory
 
 include CHANGELOG.md
@@ -22,6 +22,9 @@ include README.md
 
 exclude .gitignore
 exclude .readthedocs.yaml
+exclude .RData
+exclude .Rhistory
+exclude entrainment.Rproj
 exclude README.Rmd
 # `-> matches file paths relative to the root of the project
 

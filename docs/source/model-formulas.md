@@ -12,23 +12,23 @@ $$
 - Entrainment function
 
 $$
-\text{Entrain}(\lambda, \lambda_{c}, k, \tau) = \tau +  \cfrac{24 - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
+\text{Entrain}(\tau, k, \lambda, \lambda_{c}) = \tau +  \cfrac{24 - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
 $$
 
 - Unentrainment function
 
 $$
-\text{Unentrain}(\lambda, \lambda_{c}, k, \tau, \tau_{0}) = \tau +  \cfrac{\tau_{0} - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
+\text{Unentrain}(\tau, k, \lambda, \lambda_{c}, \tau_{0}) = \tau +  \cfrac{\tau_{0} - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
 $$
 
 - General (un)entrainment function
 
 $$
-\text{(un)Entrain}(\lambda, \lambda_{c}, k, \tau, \tau_{\text{ref}}) = \tau +  \cfrac{\tau_{\text{ref}} - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
+\text{(un)Entrain}(\tau, k, \lambda, \lambda_{c}, \tau_{\text{ref}}) = \tau +  \cfrac{\tau_{\text{ref}} - \tau}{1 + e^{-k (\lambda - \lambda_{c})}} \pm E
 $$
 
 $$
-\text{Entrain}(\lambda, \lambda_{c}, k, \tau, \tau_{\text{ref}}) = 
+\text{Entrain}(\tau, k, \lambda, \lambda_{c}, \tau_{\text{ref}}) = 
 \overbrace{\tau + \cfrac{\tau_{\text{ref}} - \tau}{1 + e^{-k (\lambda - \lambda_{c})}}}^{F_{- E}} \pm E
 $$
 

@@ -1,7 +1,7 @@
 ---
 output: github_document
 knit: (function(inputFile, encoding) {
-  out_dir <- "../docs/source/";
+  out_dir <- "../source/";
   rmarkdown::render(inputFile, encoding = encoding, output_dir = out_dir)
   })
 ---
@@ -12,7 +12,7 @@ knit: (function(inputFile, encoding) {
 #| label = "setup",
 #| include = FALSE
 
-knitr::opts_knit$set(root.dir = "../docs/source/")
+knitr::opts_knit$set(root.dir = "../source/")
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -50,8 +50,8 @@ np.random.seed(1000)
 #| label = "limitations",
 #| results = FALSE
 
-x = entrainment.run_model(n_cycles = 1, plot = False)
-y = entrainment.run_model(n_cycles = 10, plot = False)
+x = entrainment.run_model(n_cycles = 1, repetitions = 0, plot = False)
+y = entrainment.run_model(n_cycles = 10, repetitions = 0, plot = False)
 
 entrainment.plot_model_line_1_2(x, y)
 ```

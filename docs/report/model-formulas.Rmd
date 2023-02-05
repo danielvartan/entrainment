@@ -1,7 +1,7 @@
 ---
 output: github_document
 knit: (function(inputFile, encoding) {
-  out_dir <- "../docs/source/";
+  out_dir <- "../source/";
   rmarkdown::render(inputFile, encoding = encoding, output_dir = out_dir)
   })
 ---
@@ -12,7 +12,7 @@ knit: (function(inputFile, encoding) {
 #| label = "setup",
 #| include = FALSE
 
-knitr::opts_knit$set(root.dir = "../docs/source/")
+knitr::opts_knit$set(root.dir = "../source/")
 
 knitr::opts_chunk$set(
   collapse = TRUE,
