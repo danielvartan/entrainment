@@ -3,6 +3,7 @@ requires = [
     "matplotlib >= 3.6.3",
     "numpy >= 1.24.1",
     "pandas >= 1.5.2",
+    "python-box >= 7.0.0",
     "scipy >= 1.10.0",
     "seaborn >= 0.12.2",
     "setuptools >= 66.0.0",

@@ -3,24 +3,23 @@ import numpy as np
 import scipy
 import seaborn as sns
 import statsmodels.api as sm
+from box import Box
 from collections import namedtuple
 from scipy import stats
 
-def analyze_model(model, key, name = None, print_stats = True, plot = True):
-    """Compute and plot 'tau' statistics."""
-    data = [i["tau"] for i in np.array(model.turtles[key])]
+def analyze_model(
+    model, key, param = "tau", name = None, print_stats = True, plot = True
+    ):
+    """Compute and plot model statistics."""
+    data = [i[param] for i in np.array(model.turtles[key])]
     
-    out_data = namedtuple("model_exposure_stats", [
-        "mean", "var", "std", "min", "q_1", "median", "q_3", "max", "kurtosis",
-        "skew", "kstest", "shapiro"
-        ])
-    
-    out = out_data(
-        np.mean(data), np.var(data), np.std(data), np.quantile(data, 0), 
-        np.quantile(data, 0.25), np.quantile(data, 0.5), 
-        np.quantile(data, 0.75), np.quantile(data, 1), stats.kurtosis(data),
-        stats.skew(data), stats.kstest(data, stats.norm.cdf), 
-        stats.shapiro(data)
+    out = Box(
+        mean = np.mean(data), var = np.var(data), std = np.std(data), 
+        min = np.quantile(data, 0), q_1 = np.quantile(data, 0.25), 
+        median = np.quantile(data, 0.5), q_3 = np.quantile(data, 0.75), 
+        max = np.quantile(data, 1), kurtosis = stats.kurtosis(data),
+        skew = stats.skew(data), kstest = stats.kstest(data, stats.norm.cdf), 
+        shapiro = stats.shapiro(data)
         )
     
     if print_stats == True: print_model_analysis(out, key, name)
@@ -52,8 +51,9 @@ def print_model_analysis(stats, key, name = None):
     
     return None
 
-def plot_model_analysis(data, key, name = None, 
-                        dist = scipy.stats.distributions.norm):
+def plot_model_analysis(
+    data, key, name = None, dist = scipy.stats.distributions.norm
+    ):
     title = ("Group = {name}, Key = {key}, Mean = ${mean}$, " +\
              "KS = ${kstest}$, Shapiro-Wilk = ${shapiro}$")\
              .format(

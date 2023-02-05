@@ -3,21 +3,19 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 from .analyze_model import analyze_model
+from box import Box
 from collections import namedtuple
 
-def test_hypothesis(x, y, key, alternative = "less", x_name = None, 
-                    y_name = None, print_stats = True, plot = True):
+def test_hypothesis(
+    x, y, key, alternative = "less", x_name = "X", y_name = "Y", 
+    print_stats = True, plot = True
+    ):
     """Compute a directional Student's t test for model's means.
     
     This function assumes that ``x`` and ``y`` have equal sizes and that
     all Student's t test assumptions, except the equal variance between groups, 
     are not violated.
     """
-    out_data = namedtuple("test_hypothesis", [
-        "std_t_test", "welch_t_test", "cohens_d", "r_squared", "var_ratio",
-        "p_value", "x_stats", "y_stats"
-        ])
-    
     x_stats = analyze_model(x, key, print_stats = False, plot = False)
     y_stats = analyze_model(y, key, print_stats = False, plot = False)
     
@@ -44,13 +42,11 @@ def test_hypothesis(x, y, key, alternative = "less", x_name = None,
     else:
         cohens_d_stat = cohens_d(x_tau, y_tau, t = welch_t_test.statistic)
         p_value = welch_t_test.pvalue
-    
-    if x_name == None: x_name = "X"
-    if y_name == None: y_name = "Y"
-    
-    out = out_data(
-        std_t_test, welch_t_test, cohens_d_stat, r_squared, var_ratio, p_value,
-        x_stats, y_stats
+
+    out = Box(
+        std_t_test = std_t_test, welch_t_test = welch_t_test, 
+        cohens_d = cohens_d_stat, r_squared = r_squared, var_ratio = var_ratio,
+        p_value = p_value, x_stats = x_stats, y_stats = y_stats
         )
     
     if print_stats == True:
@@ -149,7 +145,7 @@ def print_hypothesis_test(key, test_stats, x_name = None, y_name = None):
     
     return None
 
-def plot_hypothesis_test(x, y, key, test_stats, x_name = None, y_name = None):
+def plot_hypothesis_test(x, y, key, test_stats, x_name = "X", y_name = "Y"):
     """Plot results of 'test_hypothesis()'."""
     x_tau = [i["tau"] for i in np.array(x.turtles[key])]
     y_tau = [i["tau"] for i in np.array(y.turtles[key])]

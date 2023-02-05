@@ -108,5 +108,7 @@ y = entrainment.run_model(
     start_at = 2, repetitions = repetitions, plot = False
     )
 
-entrainment.plot_model_line_1_2(x, y, 0, 2)
+entrainment.plot_model_line_1_2(
+    x, y, x_title = "Starting on Summer", y_title = "Starting on Winter"
+    )
 ```

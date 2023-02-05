@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_dynamics(lam_c = 5, k = 2, tau = 26, tau_ref = 24, lam_0 = 0, 
-                  lam_n = 10, h = 10**(- 3)):
+def plot_dynamics(
+    tau = 26, k = 2, lam_c = 5, tau_ref = 24, lam_0 = 0, lam_n = 10, 
+    h = 10**(- 3)
+    ):
     """Plot the (un)entrainment dynamic in a given interval.
     
     ``plot_dynamics()`` computes the entrainment or unentrainment function of 
@@ -18,34 +20,34 @@ def plot_dynamics(lam_c = 5, k = 2, tau = 26, tau_ref = 24, lam_0 = 0,
     function.
     
     .. math::
-        \\text{f}(\\lambda, \\lambda_{c}, k, \\tau, \\tau_{\\text{ref}}) = 
+        \\text{f}(\\tau, k, \\lambda, \\lambda_{c}, \\tau_{\\text{ref}}) = 
         \\tau +  \\cfrac{\\tau_{\\text{ref}} - \\tau}{1 + e^{-k (\\lambda - 
         \\lambda_{c})}}
     
     Where:
     
+    * :math:`\\tau` = The actual subject's circadian phenotype (period) given 
+      in decimal hours.
+    * :math:`k` = Exposure factor, indicating the subject's sensibility to
+      entrainment. It gives the slope of the sigmoid.
     * :math:`\\lambda` = Global horizontal solar irradiation mean value present
       in the environment.
     * :math:`\\lambda_{c}` = Threshold/critial value of the global horizontal 
       solar irradiation, indicating the onset of the entrainment phenomenon.
-    * :math:`k` = Exposure factor, indicating the subject's sensibility to
-      entrainment. It gives the slope of the sigmoid.
-    * :math:`\\tau` = The actual subject's circadian phenotype (period) given 
-      in decimal hours.
     * :math:`\\tau_{\\text{ref}}` = Reference period to which the subject must
       entrain. This can be 24 hour light/dark period or the subject's own 
       endogenous period.
     
+    :param tau: (optional) The actual subject's circadian phenotype (period) 
+        given in decimal hours (default: ``26``).
+    :type tau: int, float
+    :param k: (optional) Exposure factor, indicating the subject's sensibility 
+        to entrainment (default: ``2``).
+    :type k: int, float
     :param lam_c: (optional) Threshold/critial value of the global horizontal 
         solar irradiation, indicating the onset of the entrainment phenomenon
         (default: ``5``).
     :type lam_c: int, float
-    :param k: (optional) Exposure factor, indicating the subject's sensibility 
-        to entrainment (default: ``2``).
-    :type k: int, float
-    :param tau: (optional) The actual subject's circadian phenotype (period) 
-        given in decimal hours (default: ``26``).
-    :type tau: int, float
     :param tau_ref: (optional) reference period to which the subject must 
         entrain. This can be 24 hour light/dark period or the subject's own 
         endogenous period (default: ``24``).
@@ -65,16 +67,16 @@ def plot_dynamics(lam_c = 5, k = 2, tau = 26, tau_ref = 24, lam_0 = 0,
     :Example:
     
     >>> entrainment.plot_dynamics(
-        lam_c = 5, k = 2, tau = 22, tau_ref = 24, lam_0 = 0, lam_n = 10,
+        tau = 22, k = 2, lam_c = 5, tau_ref = 24, lam_0 = 0, lam_n = 10,
         h = 10**(- 3)
         )
     """
-    data = exact(lam_c, k, tau, tau_ref, lam_0, lam_n)
+    data = exact(tau, k, lam_c, tau_ref, lam_0, lam_n)
 
-    title = ("$\\lambda_c = {lam_c}$, $k = {k}$, $\\tau = {tau}$, " +\
+    title = ("$\\tau = {tau}$, $k = {k}$, $\\lambda_c = {lam_c}$, " +\
              "$\\tau_{ref_latex} = {tau_ref}$")\
             .format(
-                lam_c = lam_c, k = k, tau = tau, tau_ref = tau_ref,
+                tau = tau, k = k, lam_c = lam_c, tau_ref = tau_ref,
                 ref_latex = "{ref}"
                 )
 
@@ -90,22 +92,22 @@ def plot_dynamics(lam_c = 5, k = 2, tau = 26, tau_ref = 24, lam_0 = 0,
     
     return None
 
-def f_exact(lam, lam_c, k, tau, tau_ref = 24):
+def f_exact(tau, k, lam, lam_c, tau_ref = 24):
     """Compute the exact (un)entrainment function."""
     logi_f = (tau_ref - tau) / (1 + np.exp(1) ** (- k * (lam - lam_c)))
     out = tau + logi_f
 
     return out
 
-def exact(lam_c, k, tau, tau_ref = 24, lam_0 = 0, lam_n = 10, h = 10 ** (- 3)):
+def exact(tau, k, lam_c, tau_ref = 24, lam_0 = 0, lam_n = 10, h = 10 ** (- 3)):
     """Compute the exact (un)entrainment function data points in a interval."""
-    lam_list, y_list = [lam_0], [f_exact(lam_0, lam_c, k, tau, tau_ref)]
+    lam_list, y_list = [lam_0], [f_exact(tau, k, lam_0, lam_c, tau_ref)]
     
     while lam_0 < lam_n:
         x_next = lam_0 + h
-        y_next = f_exact(x_next, lam_c, k, tau)
+        y_next = f_exact(tau, k, x_next, lam_c)
         lam_0 = x_next
         lam_list.append(x_next)
         y_list.append(y_next)
     
-    return [lam_list, y_list]
+    return lam_list, y_list

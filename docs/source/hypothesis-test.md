@@ -88,7 +88,7 @@ y_name = "Arroio Chuí"
 ``` python
 north_by_season = entrainment.run_model(
     n = n, labren_id = 72272, by = "season", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions, plot = False
+    repetitions = repetitions, plot = False, show_progress = False
     )
 ```
 
@@ -97,7 +97,7 @@ north_by_season = entrainment.run_model(
 ``` python
 south_by_season = entrainment.run_model(
     n = n, labren_id = 1, by = "season", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions, plot = False
+    repetitions = repetitions, plot = False, show_progress = False
     )
 ```
 
@@ -124,7 +124,7 @@ entrainment.plot_model_violin_1_2(
 ``` python
 north_by_year = entrainment.run_model(
     n = n, labren_id = 72272, by = "year", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions, plot = False
+    repetitions = repetitions, plot = False, show_progress = False
     )
 ```
 
@@ -133,7 +133,7 @@ north_by_year = entrainment.run_model(
 ``` python
 south_by_year = entrainment.run_model(
     n = n, labren_id = 1, by = "year", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions, plot = False
+    repetitions = repetitions, plot = False, show_progress = False
     )
 ```
 
@@ -165,17 +165,17 @@ stats = entrainment.analyze_model(
 #> [Group: Nascente do rio Ailã | Key: Unentrained]
 #> 
 #> Mean = 24.148469728740682
-#> Var. = 0.040818961194739246
-#> SD = 0.202037029266269
+#> Var. = 0.04081896119474018
+#> SD = 0.20203702926627135
 #> 
-#> Min. = 23.568829164997585
-#> 1st Qu. = 24.014887822945944
-#> Median = 24.14823433287365
-#> 3rd Qu. = 24.295774246856055
-#> Max. = 24.599999999999955
+#> Min. = 23.56882916499755
+#> 1st Qu. = 24.01488782294597
+#> Median = 24.148234332873688
+#> 3rd Qu. = 24.29577424685605
+#> Max. = 24.6
 #> 
-#> Kurtosis = -0.3244705732420554
-#> Skewness = -0.0689316807932809
+#> Kurtosis = -0.32447057324198303
+#> Skewness = -0.06893168079322273
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
 #> Shapiro-Wilks test p-value = 0.009946780279278755
@@ -195,21 +195,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Summer]
 #> 
-#> Mean = 24.006995965050482
-#> Var. = 0.0001234271288915939
-#> SD = 0.011109776275496907
+#> Mean = 24.006999634122447
+#> Var. = 0.00012367951240324957
+#> SD = 0.01112112909749948
 #> 
-#> Min. = 23.971257525111987
-#> 1st Qu. = 24.00037154834934
-#> Median = 24.00525352529282
-#> 3rd Qu. = 24.012539381260158
-#> Max. = 24.050329256493637
+#> Min. = 23.971999202966348
+#> 1st Qu. = 24.00037498014924
+#> Median = 24.005294156727402
+#> 3rd Qu. = 24.012480086444633
+#> Max. = 24.050759364023435
 #> 
-#> Kurtosis = 0.9538802011502892
-#> Skewness = 0.5351120303123005
+#> Kurtosis = 0.954467089729472
+#> Skewness = 0.542218351646886
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 3.317826699142379e-14
+#> Shapiro-Wilks test p-value = 2.853525927918113e-14
 #> 
 #> ---------------------------------------------------------
 ```
@@ -226,21 +226,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Autumn]
 #> 
-#> Mean = 24.0064154810211
-#> Var. = 0.00010467715230505737
-#> SD = 0.010231185283487801
+#> Mean = 24.006421180918203
+#> Var. = 0.00010496412004668206
+#> SD = 0.01024519985391608
 #> 
-#> Min. = 23.97363986774036
-#> 1st Qu. = 24.00036055377057
-#> Median = 24.00468835116519
-#> 3rd Qu. = 24.011513729496713
-#> Max. = 24.045825944566282
+#> Min. = 23.97441171192965
+#> 1st Qu. = 24.00036012524516
+#> Median = 24.004706190747772
+#> 3rd Qu. = 24.011407636606492
+#> Max. = 24.046190020477425
 #> 
-#> Kurtosis = 0.9953106392268829
-#> Skewness = 0.5554329744519115
+#> Kurtosis = 1.0022899618902805
+#> Skewness = 0.5642171633726051
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 8.974242925391743e-15
+#> Shapiro-Wilks test p-value = 7.410792052448597e-15
 #> 
 #> ---------------------------------------------------------
 ```
@@ -257,21 +257,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Winter]
 #> 
-#> Mean = 24.00617431989238
-#> Var. = 9.574757678018412e-05
-#> SD = 0.009785069073858607
+#> Mean = 24.006179180043823
+#> Var. = 9.583665584921525e-05
+#> SD = 0.009789619801055364
 #> 
-#> Min. = 23.97383642696353
-#> 1st Qu. = 24.00038329843497
-#> Median = 24.00461954889405
-#> 3rd Qu. = 24.01119341652435
-#> Max. = 24.04356678006749
+#> Min. = 23.97531283237005
+#> 1st Qu. = 24.000383212627224
+#> Median = 24.004636268415513
+#> 3rd Qu. = 24.011182950769722
+#> Max. = 24.04395631085106
 #> 
-#> Kurtosis = 0.9966881870158679
-#> Skewness = 0.5648724503943595
+#> Kurtosis = 0.9914111157597341
+#> Skewness = 0.5758926553372482
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 1.0411014938875324e-14
+#> Shapiro-Wilks test p-value = 8.827903584193459e-15
 #> 
 #> ---------------------------------------------------------
 ```
@@ -288,21 +288,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Spring]
 #> 
-#> Mean = 24.005911840975
-#> Var. = 8.685058474338858e-05
-#> SD = 0.009319366112745468
+#> Mean = 24.005914032779206
+#> Var. = 8.699382467490699e-05
+#> SD = 0.009327048015042434
 #> 
-#> Min. = 23.976282510465744
-#> 1st Qu. = 24.000354842709402
-#> Median = 24.004664591590412
-#> 3rd Qu. = 24.01054831834171
-#> Max. = 24.042270666438387
+#> Min. = 23.97768925022717
+#> 1st Qu. = 24.00035523993313
+#> Median = 24.00462978028537
+#> 3rd Qu. = 24.01054975682405
+#> Max. = 24.042608994334554
 #> 
-#> Kurtosis = 0.9999880338095837
-#> Skewness = 0.5367843387525771
+#> Kurtosis = 0.9983552057654963
+#> Skewness = 0.5463574023628693
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 6.150836133825277e-14
+#> Shapiro-Wilks test p-value = 5.0126478082267514e-14
 #> 
 #> ---------------------------------------------------------
 ```
@@ -319,21 +319,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Annual]
 #> 
-#> Mean = 24.030234201105507
-#> Var. = 0.001909599460644535
-#> SD = 0.04369896406832243
+#> Mean = 24.029673997464037
+#> Var. = 0.001781775485573474
+#> SD = 0.04221108249705845
 #> 
-#> Min. = 23.861649150736188
-#> 1st Qu. = 24.0013162712693
-#> Median = 24.027996977038732
-#> 3rd Qu. = 24.05595032071614
-#> Max. = 24.170386035139455
+#> Min. = 23.87209663246515
+#> 1st Qu. = 24.00268353458175
+#> Median = 24.028647842601398
+#> 3rd Qu. = 24.05371460537481
+#> Max. = 24.158942185902564
 #> 
-#> Kurtosis = 0.5440819937986716
-#> Skewness = 0.25174587159298395
+#> Kurtosis = 0.557423923128376
+#> Skewness = 0.12169374905078593
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 1.025050733005628e-05
+#> Shapiro-Wilks test p-value = 0.00020785177184734493
 #> 
 #> ---------------------------------------------------------
 ```
@@ -352,21 +352,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Arroio Chuí | Key: Unentrained]
 #> 
-#> Mean = 24.140273866805636
-#> Var. = 0.037689591881623914
-#> SD = 0.19413807427092686
+#> Mean = 24.151103412847707
+#> Var. = 0.039084572161572656
+#> SD = 0.19769818451764462
 #> 
-#> Min. = 23.519294176886472
-#> 1st Qu. = 24.002384878676054
-#> Median = 24.140140554918542
-#> 3rd Qu. = 24.269489700115212
-#> Max. = 24.599999999999955
+#> Min. = 23.5
+#> 1st Qu. = 24.017414375153443
+#> Median = 24.14923151925353
+#> 3rd Qu. = 24.290143195679494
+#> Max. = 24.6
 #> 
-#> Kurtosis = -0.310118586924363
-#> Skewness = -0.007950294324615526
+#> Kurtosis = -0.2662781596078876
+#> Skewness = -0.04667181704412612
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 0.04520909860730171
+#> Shapiro-Wilks test p-value = 0.02459321916103363
 #> 
 #> ---------------------------------------------------------
 ```
@@ -383,21 +383,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Arroio Chuí | Key: Summer]
 #> 
-#> Mean = 24.014613662467003
-#> Var. = 0.00045508737258969566
-#> SD = 0.021332776954482408
+#> Mean = 24.01629854661018
+#> Var. = 0.0004917129360020812
+#> SD = 0.02217460114640354
 #> 
-#> Min. = 23.96122232562166
-#> 1st Qu. = 24.000249199451257
-#> Median = 24.013659764592724
-#> 3rd Qu. = 24.02750512064022
-#> Max. = 24.08822024315919
+#> Min. = 23.939237898632822
+#> 1st Qu. = 24.001478216514602
+#> Median = 24.014984627202693
+#> 3rd Qu. = 24.029971643550606
+#> Max. = 24.100225814299897
 #> 
-#> Kurtosis = 0.4592799696305674
-#> Skewness = 0.33786937780808246
+#> Kurtosis = 0.39990146838379914
+#> Skewness = 0.28557138948926486
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 8.680566679686308e-06
+#> Shapiro-Wilks test p-value = 0.00014794745948165655
 #> 
 #> ---------------------------------------------------------
 ```
@@ -414,21 +414,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Arroio Chuí | Key: Autumn]
 #> 
-#> Mean = 24.05448107382895
-#> Var. = 0.005801675506208097
-#> SD = 0.07616873050148662
+#> Mean = 24.05929683328895
+#> Var. = 0.006145459645120493
+#> SD = 0.07839298211651662
 #> 
-#> Min. = 23.830693988601798
-#> 1st Qu. = 24.000959497378975
-#> Median = 24.054268026247517
-#> 3rd Qu. = 24.107969366389785
-#> Max. = 24.271478300476986
+#> Min. = 23.811796024070986
+#> 1st Qu. = 24.006162585268896
+#> Median = 24.057382743803288
+#> 3rd Qu. = 24.11123992648173
+#> Max. = 24.27454364082857
 #> 
-#> Kurtosis = -0.18073782846278652
-#> Skewness = 0.07503340864718515
+#> Kurtosis = -0.12323675651170385
+#> Skewness = 0.02800175398604576
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 0.23703059554100037
+#> Shapiro-Wilks test p-value = 0.5083744525909424
 #> 
 #> ---------------------------------------------------------
 ```
@@ -445,21 +445,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Arroio Chuí | Key: Winter]
 #> 
-#> Mean = 24.03444513237023
-#> Var. = 0.0026482850031919456
-#> SD = 0.051461490487469806
+#> Mean = 24.038179750581207
+#> Var. = 0.0029098528246764266
+#> SD = 0.05394305168116119
 #> 
-#> Min. = 23.90250623200703
-#> 1st Qu. = 24.00058057379242
-#> Median = 24.03090241355089
-#> 3rd Qu. = 24.06214931367104
-#> Max. = 24.212034829919492
+#> Min. = 23.851850036956012
+#> 1st Qu. = 24.003339438897118
+#> Median = 24.033182025434385
+#> 3rd Qu. = 24.06865858890189
+#> Max. = 24.2171437908377
 #> 
-#> Kurtosis = 0.602181410835974
-#> Skewness = 0.44420062481386435
+#> Kurtosis = 0.5440305211695189
+#> Skewness = 0.34956426859449286
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 1.7472565616571956e-08
+#> Shapiro-Wilks test p-value = 2.987544007737597e-07
 #> 
 #> ---------------------------------------------------------
 ```
@@ -476,21 +476,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Arroio Chuí | Key: Spring]
 #> 
-#> Mean = 24.01591273986558
-#> Var. = 0.0005546405024829464
-#> SD = 0.023550806832950466
+#> Mean = 24.01763571236592
+#> Var. = 0.0006076399054779642
+#> SD = 0.024650353049763086
 #> 
-#> Min. = 23.951319961209837
-#> 1st Qu. = 24.000251681867304
-#> Median = 24.01441412758797
-#> 3rd Qu. = 24.02928835048165
-#> Max. = 24.096676560695613
+#> Min. = 23.932207338966595
+#> 1st Qu. = 24.001569417900804
+#> Median = 24.015586551801725
+#> 3rd Qu. = 24.032190379181696
+#> Max. = 24.10501381125711
 #> 
-#> Kurtosis = 0.5768150413929845
-#> Skewness = 0.402607827013546
+#> Kurtosis = 0.49878473675342017
+#> Skewness = 0.3112905269202585
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 2.791364863696799e-07
+#> Shapiro-Wilks test p-value = 6.234316515474347e-06
 #> 
 #> ---------------------------------------------------------
 ```
@@ -507,21 +507,21 @@ stats = entrainment.analyze_model(
 #> 
 #> [Group: Arroio Chuí | Key: Annual]
 #> 
-#> Mean = 24.03668436161031
-#> Var. = 0.0025144117614447252
-#> SD = 0.05014391051209235
+#> Mean = 24.03358038331667
+#> Var. = 0.002198528375430825
+#> SD = 0.04688846740330531
 #> 
-#> Min. = 23.856377882884228
-#> 1st Qu. = 24.005248685004304
-#> Median = 24.030332159906173
-#> 3rd Qu. = 24.064717866093254
-#> Max. = 24.20022358294799
+#> Min. = 23.869188721776947
+#> 1st Qu. = 24.00388076427332
+#> Median = 24.031453737390798
+#> 3rd Qu. = 24.059085689812864
+#> Max. = 24.186916928206053
 #> 
-#> Kurtosis = 0.5781916695220324
-#> Skewness = 0.32595701632356366
+#> Kurtosis = 0.626100024394669
+#> Skewness = 0.21178546601162576
 #> 
 #> Kolmogorov-Smirnov test p-value = 0.0
-#> Shapiro-Wilks test p-value = 5.427308824579313e-09
+#> Shapiro-Wilks test p-value = 2.19240951082611e-06
 #> 
 #> ---------------------------------------------------------
 ```
@@ -549,31 +549,31 @@ test = entrainment.test_hypothesis(
 #> [Group: Nascente do rio Ailã | Key: Unentrained]
 #> 
 #> Mean = 24.148469728740682
-#> Var. = 0.040818961194739246
-#> SD = 0.202037029266269
+#> Var. = 0.04081896119474018
+#> SD = 0.20203702926627135
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Unentrained]
 #> 
-#> Mean = 24.140273866805636
-#> Var. = 0.037689591881623914
-#> SD = 0.19413807427092686
+#> Mean = 24.151103412847707
+#> Var. = 0.039084572161572656
+#> SD = 0.19769818451764462
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Unentrained]
 #> 
-#> Variance ratio: 0.040818961194739246 / 0.037689591881623914 = 1.083030066309662
-#> Ratio test: 1.083030066309662 < 2: TRUE
+#> Variance ratio: 0.04081896119474018 / 0.039084572161572656 = 1.0443752851124402
+#> Ratio test: 1.0443752851124402 < 2: TRUE
 #> 
-#> Standard t-test statistic = 0.9245254936204793
-#> Standard t-test p-value = 0.822337786309475
-#> Welch’s t-test statistic = 0.9245254936204793
-#> Welch’s t-test p-value = 0.822337697628776
+#> Standard t-test statistic = -0.29448517401917873
+#> Standard t-test p-value = 0.38420889134993497
+#> Welch’s t-test statistic = -0.29448517401917873
+#> Welch’s t-test p-value = 0.384208898556161
 #> 
-#> Cohen's d = 0.0413667255495413
-#> Coefficient of determination (R squared) = 0.0016318660396056571
+#> Cohen's d = 0.013176367180915164
+#> Coefficient of determination (R squared) = 0.002072050279476478
 #> 
 #> ---------------------------------------------------------
 ```
@@ -591,32 +591,32 @@ test = entrainment.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Summer]
 #> 
-#> Mean = 24.006995965050482
-#> Var. = 0.0001234271288915939
-#> SD = 0.011109776275496907
+#> Mean = 24.006999634122447
+#> Var. = 0.00012367951240324957
+#> SD = 0.01112112909749948
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Summer]
 #> 
-#> Mean = 24.014613662467003
-#> Var. = 0.00045508737258969566
-#> SD = 0.021332776954482408
+#> Mean = 24.01629854661018
+#> Var. = 0.0004917129360020812
+#> SD = 0.02217460114640354
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Summer]
 #> 
-#> Variance ratio: 0.00045508737258969566 / 0.0001234271288915939 = 3.6870935642471196
-#> Ratio test: 3.6870935642471196 < 2: FALSE
+#> Variance ratio: 0.0004917129360020812 / 0.00012367951240324957 = 3.9757024138232446
+#> Ratio test: 3.9757024138232446 < 2: FALSE
 #> 
-#> Standard t-test statistic = -10.01035172624954
-#> Standard t-test p-value = 2.3723670765598562e-23
-#> Welch’s t-test statistic = -10.01035172624954
-#> Welch’s t-test p-value = 3.505864776935381e-23
+#> Standard t-test statistic = -11.8478302547822
+#> Standard t-test p-value = 1.2045417316886225e-31
+#> Welch’s t-test statistic = -11.8478302547822
+#> Welch’s t-test p-value = 2.692513130269752e-31
 #> 
-#> Cohen's d = 0.447900545059636
-#> Coefficient of determination (R squared) = 0.0031110581280527705
+#> Cohen's d = 0.5301162011096661
+#> Coefficient of determination (R squared) = 0.0011273452492010561
 #> 
 #> ---------------------------------------------------------
 ```
@@ -646,32 +646,32 @@ test = entrainment.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Autumn]
 #> 
-#> Mean = 24.0064154810211
-#> Var. = 0.00010467715230505737
-#> SD = 0.010231185283487801
+#> Mean = 24.006421180918203
+#> Var. = 0.00010496412004668206
+#> SD = 0.01024519985391608
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Autumn]
 #> 
-#> Mean = 24.05448107382895
-#> Var. = 0.005801675506208097
-#> SD = 0.07616873050148662
+#> Mean = 24.05929683328895
+#> Var. = 0.006145459645120493
+#> SD = 0.07839298211651662
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Autumn]
 #> 
-#> Variance ratio: 0.005801675506208097 / 0.00010467715230505737 = 55.42446826696674
-#> Ratio test: 55.42446826696674 < 2: FALSE
+#> Variance ratio: 0.006145459645120493 / 0.00010496412004668206 = 58.548193824588274
+#> Ratio test: 58.548193824588274 < 2: FALSE
 #> 
-#> Standard t-test statistic = -19.767755458075516
-#> Standard t-test p-value = 6.956198190137544e-80
-#> Welch’s t-test statistic = -19.767755458075516
-#> Welch’s t-test p-value = 2.4258983827028553e-74
+#> Standard t-test statistic = -21.13896654825122
+#> Standard t-test p-value = 5.604139343659317e-90
+#> Welch’s t-test statistic = -21.138966548251215
+#> Welch’s t-test p-value = 5.198081931292546e-83
 #> 
-#> Cohen's d = 0.8844832515784975
-#> Coefficient of determination (R squared) = 0.0022161864233293
+#> Cohen's d = 0.9458363599883669
+#> Coefficient of determination (R squared) = 0.0013431191121989533
 #> 
 #> ---------------------------------------------------------
 ```
@@ -701,32 +701,32 @@ test = entrainment.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Winter]
 #> 
-#> Mean = 24.00617431989238
-#> Var. = 9.574757678018412e-05
-#> SD = 0.009785069073858607
+#> Mean = 24.006179180043823
+#> Var. = 9.583665584921525e-05
+#> SD = 0.009789619801055364
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Winter]
 #> 
-#> Mean = 24.03444513237023
-#> Var. = 0.0026482850031919456
-#> SD = 0.051461490487469806
+#> Mean = 24.038179750581207
+#> Var. = 0.0029098528246764266
+#> SD = 0.05394305168116119
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Winter]
 #> 
-#> Variance ratio: 0.0026482850031919456 / 9.574757678018412e-05 = 27.65902900364611
-#> Ratio test: 27.65902900364611 < 2: FALSE
+#> Variance ratio: 0.0029098528246764266 / 9.583665584921525e-05 = 30.362628984619914
+#> Ratio test: 30.362628984619914 < 2: FALSE
 #> 
-#> Standard t-test statistic = -17.057932922606906
-#> Standard t-test p-value = 2.575243332161182e-61
-#> Welch’s t-test statistic = -17.057932922606906
-#> Welch’s t-test p-value = 3.340259605387855e-58
+#> Standard t-test statistic = -18.448812194563214
+#> Standard t-test p-value = 1.3196311333268488e-70
+#> Welch’s t-test statistic = -18.448812194563214
+#> Welch’s t-test p-value = 1.8316243991266496e-66
 #> 
-#> Cohen's d = 0.7632356646961522
-#> Coefficient of determination (R squared) = 0.0032668264346061185
+#> Cohen's d = 0.8254688010591621
+#> Coefficient of determination (R squared) = 0.0009327582812622481
 #> 
 #> ---------------------------------------------------------
 ```
@@ -756,32 +756,32 @@ test = entrainment.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Spring]
 #> 
-#> Mean = 24.005911840975
-#> Var. = 8.685058474338858e-05
-#> SD = 0.009319366112745468
+#> Mean = 24.005914032779206
+#> Var. = 8.699382467490699e-05
+#> SD = 0.009327048015042434
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Spring]
 #> 
-#> Mean = 24.01591273986558
-#> Var. = 0.0005546405024829464
-#> SD = 0.023550806832950466
+#> Mean = 24.01763571236592
+#> Var. = 0.0006076399054779642
+#> SD = 0.024650353049763086
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Spring]
 #> 
-#> Variance ratio: 0.0005546405024829464 / 8.685058474338858e-05 = 6.38614586328583
-#> Ratio test: 6.38614586328583 < 2: FALSE
+#> Variance ratio: 0.0006076399054779642 / 8.699382467490699e-05 = 6.984862520399513
+#> Ratio test: 6.984862520399513 < 2: FALSE
 #> 
-#> Standard t-test statistic = -12.48034144796878
-#> Standard t-test p-value = 8.895772961733449e-35
-#> Welch’s t-test statistic = -12.480341447968781
-#> Welch’s t-test p-value = 3.7630512434594003e-34
+#> Standard t-test statistic = -14.05706509060415
+#> Standard t-test p-value = 3.5832554548401634e-43
+#> Welch’s t-test statistic = -14.05706509060415
+#> Welch’s t-test p-value = 3.8125556712327585e-42
 #> 
-#> Cohen's d = 0.5584171155961875
-#> Coefficient of determination (R squared) = 0.003372472617065091
+#> Cohen's d = 0.6289656236064435
+#> Coefficient of determination (R squared) = 0.0009828404429039334
 #> 
 #> ---------------------------------------------------------
 ```
@@ -811,32 +811,32 @@ test = entrainment.test_hypothesis(
 #> 
 #> [Group: Nascente do rio Ailã | Key: Annual]
 #> 
-#> Mean = 24.030234201105507
-#> Var. = 0.001909599460644535
-#> SD = 0.04369896406832243
+#> Mean = 24.029673997464037
+#> Var. = 0.001781775485573474
+#> SD = 0.04221108249705845
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Group: Arroio Chuí | Key: Annual]
 #> 
-#> Mean = 24.03668436161031
-#> Var. = 0.0025144117614447252
-#> SD = 0.05014391051209235
+#> Mean = 24.03358038331667
+#> Var. = 0.002198528375430825
+#> SD = 0.04688846740330531
 #> 
 #> ---------------------------------------------------------
 #> 
 #> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Annual]
 #> 
-#> Variance ratio: 0.0025144117614447252 / 0.001909599460644535 = 1.3167220735368514
-#> Ratio test: 1.3167220735368514 < 2: TRUE
+#> Variance ratio: 0.002198528375430825 / 0.001781775485573474 = 1.2338975326755137
+#> Ratio test: 1.2338975326755137 < 2: TRUE
 #> 
-#> Standard t-test statistic = -3.0651035833662386
-#> Standard t-test p-value = 0.001102528808631697
-#> Welch’s t-test statistic = -3.0651035833662386
-#> Welch’s t-test p-value = 0.0011028018624218785
+#> Standard t-test statistic = -1.9570402987776383
+#> Standard t-test p-value = 0.02524090110161829
+#> Welch’s t-test statistic = -1.9570402987776387
+#> Welch’s t-test p-value = 0.02524166355939163
 #> 
-#> Cohen's d = 0.13714418865563033
-#> Coefficient of determination (R squared) = 0.0002350714388816278
+#> Cohen's d = 0.08756529645483169
+#> Coefficient of determination (R squared) = 9.076611746535106e-06
 #> 
 #> ---------------------------------------------------------
 ```
@@ -852,5 +852,5 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 \end{cases}
 ```
 
-**Reject {math}`H_{0}` in favour of {math}`H_{a}`** ({math}`\text{p-value} = 0.00110`)
+**Reject {math}`H_{0}` in favour of {math}`H_{a}`** ({math}`\text{p-value} = 0.02524`)
 ````

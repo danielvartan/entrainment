@@ -2,6 +2,7 @@ matplotlib
 myst_parser
 numpy
 pandas
+python-box[all]~=7.0
 scipy
 seaborn
 setuptools

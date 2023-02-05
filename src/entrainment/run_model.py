@@ -4,15 +4,14 @@ import numpy as np
 import seaborn as sns
 from .labren import labren
 from .utils import reorder
-from collections import namedtuple
+from alive_progress import alive_bar
+from box import Box
 
-# TODO: Change dict to namedtuple (change labren functions also)
-# np.array(entrainment.labren.labren(72272)["ts"]).mean() ~ 4727.833
 def run_model(
     n = 10**3, tau_range = (23.5, 24.6), tau_mean = 24.15, tau_sd = 0.2, 
     k_range = (0.001, 0.01), k_mean = 0.001, k_sd = 0.005, lam_c = 3750, 
     labren_id = 1, by = "season", n_cycles = 3, start_at = 0, 
-    repetitions = 10**2, plot = True
+    repetitions = 10**2, plot = True, show_progress = True
     ):
     """Compute the entrainment model.
     
@@ -31,87 +30,59 @@ def run_model(
         n_cycles = 3, repetitions = 10**2
         )
     """
+    cli_progress_step("! Creating turtles", show_progress)
+    
     turtles_0 = create_turtles(
         n, tau_range, tau_mean, tau_sd, k_range, k_mean, k_sd
         )
     
-    if by == "month":
-        labels = [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", 
-            "Oct", "Nov", "Dec"
-            ]
-        
-        labren_data = labren(labren_id, by = "month")["ts"]
-        cycle = 12
-    elif by == "season":
-        labels = ["Summer", "Autumn", "Winter", "Spring"]
-        labren_data = labren(labren_id, by = "season")["ts"]
-        cycle = 4
-    else:
-        labels = ["Annual"]
-        labren_data = [labren(labren_id, by = "year")["ts"]]
-        cycle = 1
-    
-    if by != "year":
-        labels = reorder(labels, start_at)
-        labren_data = reorder(labren_data, start_at)
-    
-    if not n_cycles == 1:
-        labels_0, labren_data_0 = tuple(labels), tuple(labren_data)
-        [labels.extend(labels_0) for i in range(n_cycles - 1)]
-        [labren_data.extend(labren_data_0) for i in range(n_cycles - 1)]
-    
+    cli_progress_step("! Entraining turtles", show_progress)
+
     if repetitions == 0:
-        turtles = {"unentrained": turtles_0}
-        
-        for i in range(cycle * n_cycles):
-            key = list(turtles)[-1]
-            lam = labren_data[i]
-            turtles_i = entrain_turtles(
-                turtles[key], turtles_0, lam, lam_c
-                )
-            turtles[labels[i].lower()] = turtles_i
+        turtles = cycle_turtles(
+            turtles_0, lam_c, labren_id = labren_id, by = by, 
+            n_cycles = n_cycles, start_at = start_at
+            )
     else:
-        turtles_n = {}
+        turtles_n = Box()
         
-        for i in range(repetitions + 1):
-            turtles_i = {"unentrained": turtles_0}
-            
-            for j in range(cycle * n_cycles):
-                key = list(turtles_i)[-1]
-                lam = labren_data[j]
-                turtles_j = entrain_turtles(
-                    turtles_i[key], turtles_0, lam, lam_c,
+        with alive_bar(
+            repetitions, title = "- Repeating model", force_tty = True,
+            length = 10, disable = not show_progress
+            ) as bar:
+            for i in range(repetitions):
+                turtles_n["r_" + str(i + 1)] = cycle_turtles(
+                    turtles_0, lam_c, labren_id = labren_id, by = by, 
+                    n_cycles = n_cycles, start_at = start_at
                     )
-                turtles_i[labels[j].lower()] = turtles_j
-            
-            turtles_n["r_" + str(i + 1)] = turtles_i
+                bar()
         
         turtles = average_turtles(turtles_n)
     
-    out_data = namedtuple("model_data", ["turtles", "settings"])
+    out = Box(
+        turtles = Box(turtles, frozen_box = True), 
+        settings = Box(
+            n = n, tau_range = tau_range, tau_mean = tau_mean, tau_sd = tau_sd,
+            k_range = k_range, k_mean = k_mean, k_sd = k_sd, lam_c = lam_c,
+            labren_id = labren_id, by = by, n_cycles = n_cycles,
+            start_at = start_at, repetitions = repetitions, 
+            frozen_box = True
+            ),
+            frozen_box = True
+            )
     
-    settings_data = namedtuple("model_settings", [
-        "n", "tau_range", "tau_mean", "tau_sd", "k_range", "k_mean", "k_sd",
-        "lam_c", "labren_id", "by", "n_cycles", "start_at", "repetitions"
-        ])
-    
-    settings = settings_data(
-        n, tau_range, tau_mean, tau_sd, k_range, k_mean, k_sd, lam_c, labren_id,
-        by, n_cycles, start_at, repetitions
-    )
-    
-    out = out_data(turtles, settings)
-    
-    if plot == True: plot_model_line(out)
+    if plot == True:
+        cli_progress_step("! Plotting turtles", show_progress)
+        plot_model_line(out)
     
     return out
 
-def create_turtles(n = 10**2, tau_range = (23.5, 24.6), tau_mean = 24.15, 
-                   tau_sd = 0.2, k_range = (0.001, 0.01), k_mean = 0.001, 
-                   k_sd = 0.005):
+def create_turtles(
+    n = 10, tau_range = (23.5, 24.6), tau_mean = 24.15, tau_sd = 0.2, 
+    k_range = (0.001, 0.01), k_mean = 0.001, k_sd = 0.005
+    ):
     """Create turtles/subjects for the entrainment model."""
-    turtles = []
+    out = []
     
     for i in range(n):
         tau = np.random.normal(tau_mean, tau_sd)
@@ -122,11 +93,11 @@ def create_turtles(n = 10**2, tau_range = (23.5, 24.6), tau_mean = 24.15,
         if (k < k_range[0]): k = k_range[0]
         if (k > k_range[1]): k = k_range[1]
         
-        turtles.append({"tau": tau, "k": k})
+        out.append(Box(tau = tau, k = k, frozen_box = True))
     
-    return turtles
+    return tuple(out)
 
-def entrain(lam, lam_c, k, tau, tau_ref = 24):
+def entrain(tau, k, lam, lam_c, tau_ref = 24):
     """Compute the (un)entrainment function."""
     logi_f = (tau_ref - tau) / (1 + np.exp(1) ** (- k * (lam - lam_c)))
     out = tau + logi_f
@@ -141,53 +112,115 @@ def entrain(lam, lam_c, k, tau, tau_ref = 24):
 
 def entrain_turtles(turtles, turtles_0, lam, lam_c):
     """Entrain turtles/subjects."""
-    n = len(turtles)
     out = []
     
-    for i in range(n):
-        tau_0 = turtles_0[i]["tau"]
-        tau = turtles[i]["tau"]
-        k = turtles[i]["k"]
+    for i in range(len(turtles)):
+        tau_0 = turtles_0[i].tau
+        tau = turtles[i].tau
+        k = turtles[i].k
         
         if (lam >= lam_c):
-            tau_i = entrain(lam, lam_c, k, tau, tau_ref = 24)
+            tau_i = entrain(tau, k, lam, lam_c, tau_ref = 24)
         else:
-            tau_i = entrain(lam, lam_c, k, tau, tau_ref = tau_0)
+            tau_i = entrain(tau, k, lam, lam_c, tau_ref = tau_0)
         
-        out.append({"tau": tau_i, "k": k})
+        out.append(Box(tau = tau_i, k = k, frozen_box = True))
     
-    return out
+    return tuple(out)
+
+def cycle_turtles(
+    turtles_0, lam_c, labren_id = 1, by = "season", n_cycles = 3, start_at = 0
+    ):
+    if by == "month":
+        labels = [
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", 
+            "Oct", "Nov", "Dec"
+            ]
+        labren_data = list(labren(labren_id, by = "month")["ts"])
+        cycle = 12
+    elif by == "season":
+        labels = ["Summer", "Autumn", "Winter", "Spring"]
+        labren_data = list(labren(labren_id, by = "season")["ts"])
+        cycle = 4
+    else:
+        labels = ["Annual"]
+        labren_data = [labren(labren_id, by = "year")["ts"]]
+        cycle = 1
+    
+    if not by == "year":
+        labels = reorder(labels, start_at)
+        labren_data = reorder(labren_data, start_at)
+    
+    if not n_cycles == 1:
+        labels_0, labren_data_0 = tuple(labels), tuple(labren_data)
+        [labels.extend(labels_0) for i in range(n_cycles - 1)]
+        [labren_data.extend(labren_data_0) for i in range(n_cycles - 1)]
+    
+    out = Box({"unentrained": turtles_0})
+        
+    for i in range(cycle * n_cycles):
+        key = list(out)[-1]
+        lam = labren_data[i]
+        turtles_i = entrain_turtles(
+            out[key], turtles_0, lam, lam_c
+            )
+        
+        out[labels[i].lower()] = turtles_i
+    
+    return Box(out, frozen_box = True)
 
 def average_turtles(turtles_n):
     """Average turtles/subjects values after n repetitions."""
     n = len(turtles_n)
-    keys = list(turtles_n[list(turtles_n)[0]])
-    out = {}
+    keys = list(turtles_n.r_1)[1::]
+    out = Box({"unentrained": turtles_n.r_1.unentrained})
     
     for i in keys: # i = 0 => "unentrained"
         turtles_i = []
         
+        ## Group all turtles from key 'i' in 'turtles_i' (each repetition)
         for a, b in enumerate(turtles_n): # a = 0 => b = "r_1"
             turtles_i.append(turtles_n[b][i])
         
+        ## Separate 'tau' and 'k' value from each repetition
         tau_i, k_i = [], []
         
         for a in range(len(turtles_i)):
             tau_i.append([b["tau"] for b in np.array(turtles_i[a])])
             k_i.append([b["k"] for b in np.array(turtles_i[a])])
         
+        ## Average 'tau' and 'k' values
         tau_i = functools.reduce(lambda x, y: np.array(x) + np.array(y), 
                                  tau_i) / n
         k_i = functools.reduce(lambda x, y: np.array(x) + np.array(y), 
                                k_i) / n
         
+        ## Store the average turtles from key 'i' 'out'
         turtles_i = []
         
         for a in range(len(tau_i)):
-            turtles_i.append({"tau": tau_i[a], "k": k_i[a]})
+            turtles_i.append(
+                Box(tau = tau_i[a], k = k_i[a], frozen_box = True)
+                )
         
-        out[i] = turtles_i
+        out[i] = tuple(turtles_i)
         
+    return Box(out, frozen_box = True)
+
+def cli_progress_step(msg, show_progress = True):
+    if show_progress == True:
+        print(msg)
+    
+    return None
+
+def plot_model_colors(model):
+    if model.settings.by == "month":
+        out = sns.color_palette("tab10", 12)
+    elif model.settings.by == "season":
+        out = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
+    else:
+        out = ["red"]
+    
     return out
 
 def plot_model_line(model):
@@ -195,15 +228,8 @@ def plot_model_line(model):
     settings = model.settings
     turtles = model.turtles
     
-    if len(turtles) == 13:
-        colors = sns.color_palette("tab10", 12)
-    elif len(turtles) == 5:
-        colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
-    else:
-        colors = ["red"]
-    
+    colors = plot_model_colors(model)
     if not len(colors) == 1: colors = reorder(colors, settings.start_at)
-    labels = [i.title() for i in list(turtles)]
     
     start = list(turtles)[1].title()
     labels = [i.title() for i in list(turtles)]
@@ -246,37 +272,27 @@ def plot_model_line(model):
     
     return None
 
-def plot_model_line_1_2(x, y, x_title = "(A)", y_title = "(B)", 
-                        legend_plot = "y", legend_loc = "upper right", 
-                        legend_fontsize = "small"):
-    x_settings = x.settings
-    y_settings = y.settings
-    x_turtles = x.turtles
-    y_turtles = y.turtles
-    
-    if len(x_turtles) == 13:
-        colors = sns.color_palette("tab10", 12)
-    elif len(x_turtles) == 5:
-        colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
-    else:
-        colors = ["red"]
-    
+def plot_model_line_1_2(
+    x, y, x_title = "(A)", y_title = "(B)", legend_plot = "y", 
+    legend_loc = "upper right", legend_fontsize = "small"
+    ):
+    colors = plot_model_colors(x)
     if not len(colors) == 1:
-        x_colors = reorder(colors, x_settings.start_at)
-        y_colors = reorder(colors, y_settings.start_at)
+        x_colors = reorder(colors, x.settings.start_at)
+        y_colors = reorder(colors, y.settings.start_at)
     else:
         x_colors, y_colors = colors, colors
     
-    x_labels = [i.title() for i in list(x_turtles)]
-    y_labels = [i.title() for i in list(y_turtles)]
+    x_labels = [i.title() for i in list(x.turtles)]
+    y_labels = [i.title() for i in list(y.turtles)]
     
     plt.rcParams.update({'font.size': 10})
     plt.clf()
     
     fig, [ax_x, ax_y] = plt.subplots(nrows = 1, ncols = 2)
     
-    for i, j in enumerate(x_turtles):
-        tau_i = [k["tau"] for k in np.array(x_turtles[j])]
+    for i, j in enumerate(x.turtles):
+        tau_i = [k["tau"] for k in np.array(x.turtles[j])]
 
         if (i == 0):
             color_i = "black"
@@ -288,8 +304,8 @@ def plot_model_line_1_2(x, y, x_title = "(A)", y_title = "(B)",
         sns.kdeplot(tau_i, ax = ax_x, color = color_i, label = x_labels[i], 
                     linewidth = linewidth, warn_singular = False)
     
-    for i, j in enumerate(y_turtles):
-        tau_i = [k["tau"] for k in np.array(y_turtles[j])]
+    for i, j in enumerate(y.turtles):
+        tau_i = [k["tau"] for k in np.array(y.turtles[j])]
         
         if (i == 0):
             color_i = "black"
@@ -330,13 +346,7 @@ def plot_model_violin(model):
     settings = model.settings
     turtles = model.turtles
     
-    if len(turtles) == 13:
-        colors = sns.color_palette("tab10", 12)
-    elif len(turtles) == 5:
-        colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
-    else:
-        colors = ["red"]
-    
+    colors = plot_model_colors(model)
     if not len(colors) == 1: colors = reorder(colors, settings.start_at)
 
     data = []
@@ -385,49 +395,39 @@ def plot_model_violin(model):
     
     return None
 
-def plot_model_violin_1_2(x, y, x_title = "(A)", y_title = "(B)", 
-                          legend_plot = "y", legend_loc = "upper right", 
-                          legend_fontsize = "small"):
-    x_settings = x.settings
-    y_settings = y.settings
-    x_turtles = x.turtles
-    y_turtles = y.turtles
-    
-    if len(x_turtles) == 13:
-        colors = sns.color_palette("tab10", 12)
-    elif len(x_turtles) == 5:
-        colors = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
-    else:
-        colors = ["red"]
-    
+def plot_model_violin_1_2(
+    x, y, x_title = "(A)", y_title = "(B)", legend_plot = "y", 
+    legend_loc = "upper right", legend_fontsize = "small"
+    ):
+    colors = plot_model_colors(x)
     if not len(colors) == 1:
-        x_colors = reorder(colors, x_settings.start_at)
-        y_colors = reorder(colors, y_settings.start_at)
+        x_colors = reorder(colors, x.settings.start_at)
+        y_colors = reorder(colors, y.settings.start_at)
     else:
         x_colors, y_colors = colors, colors
     
     x_data = []
     x_means = []
     
-    for i in list(x_turtles):
-        data_i = [j["tau"] for j in np.array(x_turtles[i])]
+    for i in list(x.turtles):
+        data_i = [j["tau"] for j in np.array(x.turtles[i])]
         x_data.append(data_i)
         x_means.append(np.mean(data_i))
     
     y_data = []
     y_means = []
     
-    for i in list(y_turtles):
-        data_i = [j["tau"] for j in np.array(y_turtles[i])]
+    for i in list(y.turtles):
+        data_i = [j["tau"] for j in np.array(y.turtles[i])]
         y_data.append(data_i)
         y_means.append(np.mean(data_i))
     
-    x_labels = list(map(str.title, list(x_turtles)))
-    x_labels_pos = np.arange(1, len(x_turtles) + 1)
+    x_labels = list(map(str.title, list(x.turtles)))
+    x_labels_pos = np.arange(1, len(x.turtles) + 1)
     x_labels_pos = x_labels_pos[::-1]
     
-    y_labels = list(map(str.title, list(y_turtles)))
-    y_labels_pos = np.arange(1, len(y_turtles) + 1)
+    y_labels = list(map(str.title, list(y.turtles)))
+    y_labels_pos = np.arange(1, len(y.turtles) + 1)
     y_labels_pos = y_labels_pos[::-1]
     
     x_colors = ["#000000"] + x_colors

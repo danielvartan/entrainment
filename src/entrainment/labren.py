@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from box import Box
 from importlib.resources import files
 
 global_horizontal_means = (
@@ -31,7 +32,7 @@ def labren(id, name = None, by = "month"):
         .loc[[id - 1]]
     )
     
-    out = {"name": name}
+    out = Box({"name": name})
     for i in list(data): out[i] = data.loc[id - 1, i]
     
     data = (
@@ -74,10 +75,11 @@ def labren(id, name = None, by = "month"):
         
         out["ts"] = out["annual"]
     
-    return out
+    return Box(out, frozen_box = True)
 
-def plot_labren(id_1 = 72272, id_2 = 1, label_1 = None, 
-                label_2 = None, by = "month"):
+def plot_labren(
+    id_1 = 72272, id_2 = 1, label_1 = None, label_2 = None, by = "month"
+    ):
     """Plot and compare LABREN's global horizontal solar irradiation.
     
     :Example:

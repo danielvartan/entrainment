@@ -112,10 +112,11 @@ y_name = "Arroio Chuí"
 
 ```{python}
 #| label = "run_north_by-season",
+#| results = FALSE
 
 north_by_season = entrainment.run_model(
     n = n, labren_id = 72272, by = "season", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions, plot = False
+    repetitions = repetitions, plot = False, show_progress = False
     )
 ```
 
@@ -123,10 +124,11 @@ north_by_season = entrainment.run_model(
 
 ```{python}
 #| label = "run_south_by-season",
+#| results = FALSE
 
 south_by_season = entrainment.run_model(
     n = n, labren_id = 1, by = "season", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions, plot = False
+    repetitions = repetitions, plot = False, show_progress = False
     )
 ```
 
@@ -166,10 +168,11 @@ entrainment.plot_labren(
 
 ```{python}
 #| label = "run_north_by-year",
+#| results = FALSE
 
 north_by_year = entrainment.run_model(
     n = n, labren_id = 72272, by = "year", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions, plot = False
+    repetitions = repetitions, plot = False, show_progress = False
     )
 ```
 
@@ -177,10 +180,11 @@ north_by_year = entrainment.run_model(
 
 ```{python}
 #| label = "run_south_by-year",
+#| results = FALSE
 
 south_by_year = entrainment.run_model(
     n = n, labren_id = 1, by = "year", lam_c = lam_c, n_cycles = n_cycles,
-    repetitions = repetitions, plot = False
+    repetitions = repetitions, plot = False, show_progress = False
     )
 ```
 

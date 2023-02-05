@@ -179,6 +179,7 @@ html_sidebars = {
     "index": ["localtoc.html"],
     "reference": ["localtoc.html"],
     "hypothesis-test": ["localtoc.html"],
+    "notable-features": ["localtoc.html"],
     "contributing": ["localtoc.html"],
     "changelog": ["localtoc.html"],
     }

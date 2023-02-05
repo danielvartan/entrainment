@@ -64,11 +64,12 @@ np.random.seed(1000)
 
 ```{python}
 #| label = "usage-example",
+#| results = FALSE,
 #| fig.alt = "24h light/dark cycle entrainment of a population located at the south of Brazil by season"
 
 import entrainment
 
-turtles = entrainment.run_model(
+model = entrainment.run_model(
     n = 10**3, # Number of subjects/turtles to create
     tau_range = (23.5, 24.6), # Limits for assigning 'Tau' values
     tau_mean = 24.15, # Mean value for the 'Tau' distribution
@@ -82,7 +83,8 @@ turtles = entrainment.run_model(
     n_cycles = 3, # Number of cycles to run
     start_at = 0, # Index number indicating the start of the series
     repetitions = 10**2, # Number of repetitions
-    plot = True # Boolean value indicating if the function must plot the results
+    plot = True, # Activate or deactivate the plot output
+    show_progress = True # Activate or deactivate verbose mode
     )
 ```
 
