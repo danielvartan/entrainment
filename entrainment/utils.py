@@ -1,5 +1,11 @@
 import numpy as np
 
+def cli_progress_step(msg, show_progress = True):
+    if show_progress == True:
+        print(msg)
+    
+    return None
+
 def reorder(x, start_at = 0):
     """Reorder a list or array by a starting point.
     

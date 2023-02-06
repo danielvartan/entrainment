@@ -8,10 +8,10 @@ from collections import namedtuple
 from scipy import stats
 
 def analyze_model(
-    model, key, param = "tau", name = None, print_stats = True, plot = True
+    model, exposure, param = "tau", name = None, print_stats = True, plot = True
     ):
     """Compute and plot model statistics."""
-    data = [i[param] for i in np.array(model.turtles[key])]
+    data = [i[param] for i in np.array(model.turtles[exposure])]
     
     out = Box(
         mean = np.mean(data), var = np.var(data), std = np.std(data), 
@@ -22,16 +22,16 @@ def analyze_model(
         shapiro = stats.shapiro(data)
         )
     
-    if print_stats == True: print_model_analysis(out, key, name)
-    if plot == True: plot_model_analysis(data, key, name)
+    if print_stats == True: print_model_analysis(out, exposure, name)
+    if plot == True: plot_model_analysis(data, exposure, name)
     
     return out
 
-def print_model_analysis(stats, key, name = None):
+def print_model_analysis(stats, exposure, name = None):
     line = "---------------------------------------------------------"
     
-    title = ("[Group: {name} | Key: {key}]")\
-             .format(name = name, key = key.title())
+    title = ("[Group: {name} | Exposure: {exposure}]")\
+             .format(name = name, exposure = exposure.title())
     
     summary = ("Mean = {mean}\nVar. = {var}\nSD = {std}\n\n" +\
                "Min. = {min}\n1st Qu. = {q_1}\nMedian = {median}\n" +\
@@ -52,17 +52,18 @@ def print_model_analysis(stats, key, name = None):
     return None
 
 def plot_model_analysis(
-    data, key, name = None, dist = scipy.stats.distributions.norm
+    data, exposure, name = None, dist = scipy.stats.distributions.norm
     ):
-    title = ("Group = {name}, Key = {key}, Mean = ${mean}$, " +\
+    title = ("Group = {name}, Exposure = {exposure}, Mean = ${mean}$, " +\
              "KS = ${kstest}$, Shapiro-Wilk = ${shapiro}$")\
              .format(
-                 name = name, key = key.title(), mean = round(np.mean(data), 3),
+                 name = name, exposure = exposure.title(), 
+                 mean = round(np.mean(data), 3),
                  kstest = round(stats.kstest(data, stats.norm.cdf).pvalue, 3),
                  shapiro = round(stats.shapiro(data).pvalue, 3)
                  )
     
-    plt.rcParams.update({'font.size': 10})
+    plt.rcParams.update({'font.size': 8})
     plt.clf()
     
     fig, [ax_x, ax_y] = plt.subplots(nrows = 1, ncols = 2)
@@ -83,8 +84,12 @@ def plot_model_analysis(
     ax_y.set_ylabel("Sample quantiles ($\\tau$)")
     ax_y.set_xlim(-3.5, 3.5)
     
-    plt.suptitle(title, fontsize = 8)
-    plt.subplots_adjust(wspace = 0.5)
+    plt.suptitle(title, fontsize = 8, y = 0.9375)
+    # 0.0625 | 0.125 | 0.25 | 0.5 | 1
+    plt.subplots_adjust(
+        left = 0.10625, bottom = 0.1625, right = 0.95, top = 0.875,
+        wspace = 0.4, hspace = None
+        )
     plt.show()
     
     return None

@@ -1,9 +1,9 @@
 import functools
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
-from .labren import labren
-from .utils import reorder
+from .get_labren_data import get_labren_data
+from .plot_model import plot_model_line
+from .utils import cli_progress_step, reorder
 from alive_progress import alive_bar
 from box import Box
 
@@ -136,15 +136,15 @@ def cycle_turtles(
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", 
             "Oct", "Nov", "Dec"
             ]
-        labren_data = list(labren(labren_id, by = "month")["ts"])
+        labren_data = list(get_labren_data(labren_id, by = "month")["ts"])
         cycle = 12
     elif by == "season":
         labels = ["Summer", "Autumn", "Winter", "Spring"]
-        labren_data = list(labren(labren_id, by = "season")["ts"])
+        labren_data = list(get_labren_data(labren_id, by = "season")["ts"])
         cycle = 4
     else:
         labels = ["Annual"]
-        labren_data = [labren(labren_id, by = "year")["ts"]]
+        labren_data = [get_labren_data(labren_id, by = "year")["ts"]]
         cycle = 1
     
     if not by == "year":
@@ -159,10 +159,10 @@ def cycle_turtles(
     out = Box({"unentrained": turtles_0})
         
     for i in range(cycle * n_cycles):
-        key = list(out)[-1]
+        exposure = list(out)[-1]
         lam = labren_data[i]
         turtles_i = entrain_turtles(
-            out[key], turtles_0, lam, lam_c
+            out[exposure], turtles_0, lam, lam_c
             )
         
         out[labels[i].lower()] = turtles_i
@@ -178,7 +178,7 @@ def average_turtles(turtles_n):
     for i in keys: # i = 0 => "unentrained"
         turtles_i = []
         
-        ## Group all turtles from key 'i' in 'turtles_i' (each repetition)
+        ## Group all turtles from exposure 'i' in 'turtles_i' (each repetition)
         for a, b in enumerate(turtles_n): # a = 0 => b = "r_1"
             turtles_i.append(turtles_n[b][i])
         
@@ -195,7 +195,7 @@ def average_turtles(turtles_n):
         k_i = functools.reduce(lambda x, y: np.array(x) + np.array(y), 
                                k_i) / n
         
-        ## Store the average turtles from key 'i' 'out'
+        ## Store the average turtles from exposure 'i' in 'out'
         turtles_i = []
         
         for a in range(len(tau_i)):
@@ -206,277 +206,3 @@ def average_turtles(turtles_n):
         out[i] = tuple(turtles_i)
         
     return Box(out, frozen_box = True)
-
-def cli_progress_step(msg, show_progress = True):
-    if show_progress == True:
-        print(msg)
-    
-    return None
-
-def plot_model_colors(model):
-    if model.settings.by == "month":
-        out = sns.color_palette("tab10", 12)
-    elif model.settings.by == "season":
-        out = ["#f98e09", "#bc3754", "#57106e", "#5ec962"]
-    else:
-        out = ["red"]
-    
-    return out
-
-def plot_model_line(model):
-    """Plot the entrainment model."""
-    settings = model.settings
-    turtles = model.turtles
-    
-    colors = plot_model_colors(model)
-    if not len(colors) == 1: colors = reorder(colors, settings.start_at)
-    
-    start = list(turtles)[1].title()
-    labels = [i.title() for i in list(turtles)]
-    lat = labren(settings.labren_id)["lat"]
-    
-    title = ("N = ${n}$, $\\lambda_c = {lam_c}$, Latitude = ${lat}$, " +\
-             "Cycles = ${n_cycles}$, Start = {start}, " +\
-             "Repetitions = ${repetitions}$")\
-             .format(
-                 n = settings.n, lam_c = settings.lam_c, lat = lat, 
-                 n_cycles = settings.n_cycles, 
-                 start = start, repetitions = settings.repetitions
-                     )
-    
-    plt.rcParams.update({'font.size': 10})
-    plt.clf()
-    
-    fig, ax = plt.subplots()
-    
-    for i, j in enumerate(turtles):
-        tau_i = [k["tau"] for k in np.array(turtles[j])]
-
-        if (i == 0):
-            color = "black"
-            linewidth = 3
-        else:
-            color = colors[i - 1]
-            linewidth = 1
-        
-        sns.kdeplot(tau_i, color = color, label = labels[i], 
-                    linewidth = linewidth, warn_singular = False)
-
-    ax.set_xlabel("$\\tau$")
-    ax.set_ylabel("Kernel Density Estimate (KDE)")
-    ax.set_xlim(23.5, 24.6)
-    ax.set_title(title, fontsize = 8)
-    
-    plt.legend(fontsize = 8)
-    plt.show()
-    
-    return None
-
-def plot_model_line_1_2(
-    x, y, x_title = "(A)", y_title = "(B)", legend_plot = "y", 
-    legend_loc = "upper right", legend_fontsize = "small"
-    ):
-    colors = plot_model_colors(x)
-    if not len(colors) == 1:
-        x_colors = reorder(colors, x.settings.start_at)
-        y_colors = reorder(colors, y.settings.start_at)
-    else:
-        x_colors, y_colors = colors, colors
-    
-    x_labels = [i.title() for i in list(x.turtles)]
-    y_labels = [i.title() for i in list(y.turtles)]
-    
-    plt.rcParams.update({'font.size': 10})
-    plt.clf()
-    
-    fig, [ax_x, ax_y] = plt.subplots(nrows = 1, ncols = 2)
-    
-    for i, j in enumerate(x.turtles):
-        tau_i = [k["tau"] for k in np.array(x.turtles[j])]
-
-        if (i == 0):
-            color_i = "black"
-            linewidth = 3
-        else:
-            color_i = x_colors[i - 1]
-            linewidth = 1
-        
-        sns.kdeplot(tau_i, ax = ax_x, color = color_i, label = x_labels[i], 
-                    linewidth = linewidth, warn_singular = False)
-    
-    for i, j in enumerate(y.turtles):
-        tau_i = [k["tau"] for k in np.array(y.turtles[j])]
-        
-        if (i == 0):
-            color_i = "black"
-            linewidth = 3
-        else:
-            color_i = y_colors[i - 1]
-            linewidth = 1
-        
-        sns.kdeplot(tau_i, ax = ax_y, color = color_i, label = y_labels[i], 
-                    linewidth = linewidth, warn_singular = False)
-    
-    y_max = np.max([ax_x.get_ylim()[1], ax_y.get_ylim()[1]])
-    
-    ax_x.set_xlabel("$\\tau$")
-    ax_x.set_ylabel("Kernel Density Estimate (KDE)")
-    ax_x.set_title(x_title, fontsize = 10)
-    ax_x.set_xlim(23.5, 24.6)
-    ax_x.set_ylim(0, y_max)
-
-    ax_y.set_xlabel("$\\tau$")
-    ax_y.set_ylabel("")
-    ax_y.set_title(y_title, fontsize = 10)
-    ax_y.set_xlim(23.5, 24.6)
-    ax_y.set_ylim(0, y_max)
-    ax_y.get_yaxis().set_visible(False)
-    
-    if legend_plot == "x":
-        ax_x.legend(loc = legend_loc, fontsize = legend_fontsize)
-    else:
-        ax_y.legend(loc = legend_loc, fontsize = legend_fontsize)
-    
-    plt.show()
-    
-    return None
-
-def plot_model_violin(model):
-    """Plot the entrainment model."""
-    settings = model.settings
-    turtles = model.turtles
-    
-    colors = plot_model_colors(model)
-    if not len(colors) == 1: colors = reorder(colors, settings.start_at)
-
-    data = []
-    means = []
-    
-    for i in list(turtles):
-        data_i = [j["tau"] for j in np.array(turtles[i])]
-        data.append(data_i)
-        means.append(np.mean(data_i))
-
-    title = ("N = ${n}$, $\\lambda_c = {lam_c}$, Latitude = ${lat}$, " +\
-             "Cycles = ${n_cycles}$, Start = {start}, " +\
-             "Repetitions = ${repetitions}$")\
-             .format(
-                 n = settings.n, lam_c = settings.lam_c, 
-                 lat = labren(settings.labren_id)["lat"], 
-                 n_cycles = settings.n_cycles, 
-                 start = list(turtles)[1].title(), 
-                 repetitions = settings.repetitions
-                 )
-    
-    labels = list(map(str.title, list(turtles)))
-    labels_pos = np.arange(1, len(data) + 1)
-    colors.insert(0, "#000000")
-    
-    plt.rcParams.update({'font.size': 10})
-    plt.clf()
-    
-    fig, ax = plt.subplots()
-    plot = ax.violinplot(
-        data, vert = True, showextrema = False, showmeans = False
-        )
-    ax.scatter(
-        labels_pos, means, marker = "o", color = "red", s = 10, zorder = 3
-        )
-    
-    for i, pc in enumerate(plot["bodies"]):
-        pc.set_facecolor(colors[i])
-        pc.set_edgecolor('black')
-    
-    ax.set_xticks(labels_pos, labels = labels)
-    ax.set_title(title, fontsize = 8)
-    ax.set_ylabel("$\\tau$")
-    
-    plt.show()
-    
-    return None
-
-def plot_model_violin_1_2(
-    x, y, x_title = "(A)", y_title = "(B)", legend_plot = "y", 
-    legend_loc = "upper right", legend_fontsize = "small"
-    ):
-    colors = plot_model_colors(x)
-    if not len(colors) == 1:
-        x_colors = reorder(colors, x.settings.start_at)
-        y_colors = reorder(colors, y.settings.start_at)
-    else:
-        x_colors, y_colors = colors, colors
-    
-    x_data = []
-    x_means = []
-    
-    for i in list(x.turtles):
-        data_i = [j["tau"] for j in np.array(x.turtles[i])]
-        x_data.append(data_i)
-        x_means.append(np.mean(data_i))
-    
-    y_data = []
-    y_means = []
-    
-    for i in list(y.turtles):
-        data_i = [j["tau"] for j in np.array(y.turtles[i])]
-        y_data.append(data_i)
-        y_means.append(np.mean(data_i))
-    
-    x_labels = list(map(str.title, list(x.turtles)))
-    x_labels_pos = np.arange(1, len(x.turtles) + 1)
-    x_labels_pos = x_labels_pos[::-1]
-    
-    y_labels = list(map(str.title, list(y.turtles)))
-    y_labels_pos = np.arange(1, len(y.turtles) + 1)
-    y_labels_pos = y_labels_pos[::-1]
-    
-    x_colors = ["#000000"] + x_colors
-    x_colors.reverse()
-    
-    y_colors = ["#000000"] + y_colors
-    y_colors.reverse()
-    
-    x_data.reverse()
-    y_data.reverse()
-    
-    plt.rcParams.update({'font.size': 10})
-    plt.clf()
-    
-    fig, [ax_x, ax_y] = plt.subplots(nrows = 1, ncols = 2)
-
-    x_plot = ax_x.violinplot(
-        x_data, vert = False, showextrema = False, showmeans = False
-        )
-    ax_x.scatter(
-        x_means, x_labels_pos, marker = "o", color = "red", s = 10, 
-        zorder = 3
-        )
-    
-    for i, pc in enumerate(x_plot["bodies"]):
-        pc.set_facecolor(x_colors[i])
-        pc.set_edgecolor('black')
-    
-    y_plot = ax_y.violinplot(
-        y_data, vert = False, showextrema = False, showmeans = False
-        )
-    ax_y.scatter(
-        y_means, y_labels_pos, marker = "o", color = "red", s = 10, zorder = 3
-        )
-    
-    for i, pc in enumerate(y_plot["bodies"]):
-        pc.set_facecolor(y_colors[i])
-        pc.set_edgecolor('black')
-    
-    ax_x.set_yticks(x_labels_pos, labels = x_labels)
-    ax_x.set_ylabel("$\\tau$")
-    ax_x.set_title(x_title, fontsize = 10)
-    ax_x.set_xlim(23.5, 24.6)
-    
-    ax_y.set_yticks(y_labels_pos, labels = y_labels)
-    ax_y.set_title(y_title, fontsize = 10)
-    ax_y.set_xlim(23.5, 24.6)
-    ax_y.get_yaxis().set_visible(False)
-    
-    plt.show()
-    
-    return None

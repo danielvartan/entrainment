@@ -158,11 +158,11 @@ and
 
 ``` python
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "unentrained", name = x_name
+    model = north_by_season, exposure = "unentrained", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Unentrained]
+#> [Group: Nascente do rio Ailã | Exposure: Unentrained]
 #> 
 #> Mean = 24.148469728740682
 #> Var. = 0.04081896119474018
@@ -189,11 +189,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "summer", name = x_name
+    model = north_by_season, exposure = "summer", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Summer]
+#> [Group: Nascente do rio Ailã | Exposure: Summer]
 #> 
 #> Mean = 24.006999634122447
 #> Var. = 0.00012367951240324957
@@ -220,11 +220,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "autumn", name = x_name
+    model = north_by_season, exposure = "autumn", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Autumn]
+#> [Group: Nascente do rio Ailã | Exposure: Autumn]
 #> 
 #> Mean = 24.006421180918203
 #> Var. = 0.00010496412004668206
@@ -251,11 +251,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "winter", name = x_name
+    model = north_by_season, exposure = "winter", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Winter]
+#> [Group: Nascente do rio Ailã | Exposure: Winter]
 #> 
 #> Mean = 24.006179180043823
 #> Var. = 9.583665584921525e-05
@@ -282,11 +282,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "spring", name = x_name
+    model = north_by_season, exposure = "spring", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Spring]
+#> [Group: Nascente do rio Ailã | Exposure: Spring]
 #> 
 #> Mean = 24.005914032779206
 #> Var. = 8.699382467490699e-05
@@ -313,11 +313,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = north_by_year, key = "annual", name = x_name
+    model = north_by_year, exposure = "annual", name = x_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Annual]
+#> [Group: Nascente do rio Ailã | Exposure: Annual]
 #> 
 #> Mean = 24.029673997464037
 #> Var. = 0.001781775485573474
@@ -346,11 +346,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "unentrained", name = y_name
+    model = south_by_season, exposure = "unentrained", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Unentrained]
+#> [Group: Arroio Chuí | Exposure: Unentrained]
 #> 
 #> Mean = 24.151103412847707
 #> Var. = 0.039084572161572656
@@ -377,11 +377,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "summer", name = y_name
+    model = south_by_season, exposure = "summer", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Summer]
+#> [Group: Arroio Chuí | Exposure: Summer]
 #> 
 #> Mean = 24.01629854661018
 #> Var. = 0.0004917129360020812
@@ -408,11 +408,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "autumn", name = y_name
+    model = south_by_season, exposure = "autumn", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Autumn]
+#> [Group: Arroio Chuí | Exposure: Autumn]
 #> 
 #> Mean = 24.05929683328895
 #> Var. = 0.006145459645120493
@@ -439,11 +439,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "winter", name = y_name
+    model = south_by_season, exposure = "winter", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Winter]
+#> [Group: Arroio Chuí | Exposure: Winter]
 #> 
 #> Mean = 24.038179750581207
 #> Var. = 0.0029098528246764266
@@ -470,11 +470,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "spring", name = y_name
+    model = south_by_season, exposure = "spring", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Spring]
+#> [Group: Arroio Chuí | Exposure: Spring]
 #> 
 #> Mean = 24.01763571236592
 #> Var. = 0.0006076399054779642
@@ -501,11 +501,11 @@ stats = entrainment.analyze_model(
 
 ``` python
 stats = entrainment.analyze_model(
-    model = south_by_year, key = "annual", name = y_name
+    model = south_by_year, exposure = "annual", name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Annual]
+#> [Group: Arroio Chuí | Exposure: Annual]
 #> 
 #> Mean = 24.03358038331667
 #> Var. = 0.002198528375430825
@@ -541,12 +541,12 @@ Populations residing close to the equator (latitude 0°) (i.e., with greater ave
 
 ``` python
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "unentrained",
+    x = north_by_season, y = south_by_season, exposure = "unentrained",
     x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Unentrained]
+#> [Group: Nascente do rio Ailã | Exposure: Unentrained]
 #> 
 #> Mean = 24.148469728740682
 #> Var. = 0.04081896119474018
@@ -554,7 +554,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Unentrained]
+#> [Group: Arroio Chuí | Exposure: Unentrained]
 #> 
 #> Mean = 24.151103412847707
 #> Var. = 0.039084572161572656
@@ -562,7 +562,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Unentrained]
+#> [Groups: Nascente do rio Ailã & Arroio Chuí | Exposure: Unentrained]
 #> 
 #> Variance ratio: 0.04081896119474018 / 0.039084572161572656 = 1.0443752851124402
 #> Ratio test: 1.0443752851124402 < 2: TRUE
@@ -584,12 +584,12 @@ test = entrainment.test_hypothesis(
 
 ``` python
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "summer",
+    x = north_by_season, y = south_by_season, exposure = "summer",
     x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Summer]
+#> [Group: Nascente do rio Ailã | Exposure: Summer]
 #> 
 #> Mean = 24.006999634122447
 #> Var. = 0.00012367951240324957
@@ -597,7 +597,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Summer]
+#> [Group: Arroio Chuí | Exposure: Summer]
 #> 
 #> Mean = 24.01629854661018
 #> Var. = 0.0004917129360020812
@@ -605,7 +605,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Summer]
+#> [Groups: Nascente do rio Ailã & Arroio Chuí | Exposure: Summer]
 #> 
 #> Variance ratio: 0.0004917129360020812 / 0.00012367951240324957 = 3.9757024138232446
 #> Ratio test: 3.9757024138232446 < 2: FALSE
@@ -639,12 +639,12 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 
 ``` python
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "autumn",
+    x = north_by_season, y = south_by_season, exposure = "autumn",
     x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Autumn]
+#> [Group: Nascente do rio Ailã | Exposure: Autumn]
 #> 
 #> Mean = 24.006421180918203
 #> Var. = 0.00010496412004668206
@@ -652,7 +652,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Autumn]
+#> [Group: Arroio Chuí | Exposure: Autumn]
 #> 
 #> Mean = 24.05929683328895
 #> Var. = 0.006145459645120493
@@ -660,7 +660,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Autumn]
+#> [Groups: Nascente do rio Ailã & Arroio Chuí | Exposure: Autumn]
 #> 
 #> Variance ratio: 0.006145459645120493 / 0.00010496412004668206 = 58.548193824588274
 #> Ratio test: 58.548193824588274 < 2: FALSE
@@ -694,12 +694,12 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 
 ``` python
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "winter",
+    x = north_by_season, y = south_by_season, exposure = "winter",
     x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Winter]
+#> [Group: Nascente do rio Ailã | Exposure: Winter]
 #> 
 #> Mean = 24.006179180043823
 #> Var. = 9.583665584921525e-05
@@ -707,7 +707,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Winter]
+#> [Group: Arroio Chuí | Exposure: Winter]
 #> 
 #> Mean = 24.038179750581207
 #> Var. = 0.0029098528246764266
@@ -715,7 +715,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Winter]
+#> [Groups: Nascente do rio Ailã & Arroio Chuí | Exposure: Winter]
 #> 
 #> Variance ratio: 0.0029098528246764266 / 9.583665584921525e-05 = 30.362628984619914
 #> Ratio test: 30.362628984619914 < 2: FALSE
@@ -749,12 +749,12 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 
 ``` python
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "spring",
+    x = north_by_season, y = south_by_season, exposure = "spring",
     x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Spring]
+#> [Group: Nascente do rio Ailã | Exposure: Spring]
 #> 
 #> Mean = 24.005914032779206
 #> Var. = 8.699382467490699e-05
@@ -762,7 +762,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Spring]
+#> [Group: Arroio Chuí | Exposure: Spring]
 #> 
 #> Mean = 24.01763571236592
 #> Var. = 0.0006076399054779642
@@ -770,7 +770,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Spring]
+#> [Groups: Nascente do rio Ailã & Arroio Chuí | Exposure: Spring]
 #> 
 #> Variance ratio: 0.0006076399054779642 / 8.699382467490699e-05 = 6.984862520399513
 #> Ratio test: 6.984862520399513 < 2: FALSE
@@ -804,12 +804,12 @@ H_{a} : \mu_{\text{north}} < \mu_{\text{south}}
 
 ``` python
 test = entrainment.test_hypothesis(
-    x = north_by_year, y = south_by_year, key = "annual",
+    x = north_by_year, y = south_by_year, exposure = "annual",
     x_name = x_name, y_name = y_name
     )
 #> ---------------------------------------------------------
 #> 
-#> [Group: Nascente do rio Ailã | Key: Annual]
+#> [Group: Nascente do rio Ailã | Exposure: Annual]
 #> 
 #> Mean = 24.029673997464037
 #> Var. = 0.001781775485573474
@@ -817,7 +817,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Group: Arroio Chuí | Key: Annual]
+#> [Group: Arroio Chuí | Exposure: Annual]
 #> 
 #> Mean = 24.03358038331667
 #> Var. = 0.002198528375430825
@@ -825,7 +825,7 @@ test = entrainment.test_hypothesis(
 #> 
 #> ---------------------------------------------------------
 #> 
-#> [Groups: Nascente do rio Ailã & Arroio Chuí | Key: Annual]
+#> [Groups: Nascente do rio Ailã & Arroio Chuí | Exposure: Annual]
 #> 
 #> Variance ratio: 0.002198528375430825 / 0.001781775485573474 = 1.2338975326755137
 #> Ratio test: 1.2338975326755137 < 2: TRUE

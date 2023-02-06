@@ -34,7 +34,6 @@ of this phenomenon can bring contrasting results.
 ``` python
 x = entrainment.run_model(labren_id = 72272, by = "year", plot = False)
 y = entrainment.run_model(labren_id = 1, by = "year", plot = False)
-
 entrainment.plot_model_line_1_2(x, y)
 ```
 
@@ -74,8 +73,9 @@ y = entrainment.run_model(
     n = n, lam_c = lam_c, labren_id = labren_id, by = by, n_cycles = n_cycles,
     start_at = 2, repetitions = repetitions, plot = False
     )
-
-entrainment.plot_model_line_1_2(x, y, 0, 2)
+entrainment.plot_model_line_1_2(
+    x, y, x_title = "Starting on Summer", y_title = "Starting on Winter"
+    )
 ```
 
 <img src="_static/notable-features_graduation-5.png" width="100%" />

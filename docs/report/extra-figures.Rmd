@@ -38,6 +38,15 @@ plt.rcParams.update({'figure.max_open_warning': 0})
 import entrainment
 ```
 
+## Model dynamics
+
+```{python}
+#| label = "model-dynamics",
+#| results = FALSE
+
+entrainment.plot_model_dynamics()
+```
+
 ## Limitations
 
 ```{python}

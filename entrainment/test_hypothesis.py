@@ -7,7 +7,7 @@ from box import Box
 from collections import namedtuple
 
 def test_hypothesis(
-    x, y, key, alternative = "less", x_name = "X", y_name = "Y", 
+    x, y, exposure, alternative = "less", x_name = "X", y_name = "Y", 
     print_stats = True, plot = True
     ):
     """Compute a directional Student's t test for model's means.
@@ -16,11 +16,11 @@ def test_hypothesis(
     all Student's t test assumptions, except the equal variance between groups, 
     are not violated.
     """
-    x_stats = analyze_model(x, key, print_stats = False, plot = False)
-    y_stats = analyze_model(y, key, print_stats = False, plot = False)
+    x_stats = analyze_model(x, exposure, print_stats = False, plot = False)
+    y_stats = analyze_model(y, exposure, print_stats = False, plot = False)
     
-    x_tau = [i["tau"] for i in np.array(x.turtles[key])]
-    y_tau = [i["tau"] for i in np.array(y.turtles[key])]
+    x_tau = [i["tau"] for i in np.array(x.turtles[exposure])]
+    y_tau = [i["tau"] for i in np.array(y.turtles[exposure])]
     
     std_t_test = stats.ttest_ind(
         x_tau, y_tau, equal_var = True, alternative = alternative
@@ -50,10 +50,10 @@ def test_hypothesis(
         )
     
     if print_stats == True:
-        print_hypothesis_test(key, out, x_name, y_name)
+        print_hypothesis_test(exposure, out, x_name, y_name)
     
     if plot == True:
-        plot_hypothesis_test(x, y, key, out, x_name, y_name)
+        plot_hypothesis_test(x, y, exposure, out, x_name, y_name)
     
     return out
 
@@ -61,28 +61,32 @@ def cohens_d(x, y, t = None, abs = True):
     """Compute Cohen's :math:`d`.
     
     This function assumes that ``x`` and ``y`` have equal sizes.
+    
+    References
+    ==========
+    
+    Frey, B. B. (Ed.). (2022). The SAGE encyclopedia of research design. 
+    SAGE Publications. ISBN 9781071812129. 
+    https://doi.org/10.4135/9781071812082
     """
     x_n, y_n = len(x), len(y)
-    # x_var, y_var = np.var(x, ddof = 0), np.var(y, ddof = 0)
-    # x_std, y_std = np.std(x, ddof = 0), np.std(y, ddof = 0)
-    
     df = x_n + y_n - 2
     
-    # Salkind (2010) | Equation 9
+    # Frey (2022) | Equation 9
     if not t == None:
         out = (t * (x_n + y_n)) / (np.sqrt(df) * np.sqrt(x_n * y_n))
     else:
-        # Salkind (2010) | Equation 7
+        # Frey (2022) | Equation 7
         # Only when sample sizes are equal.
         sd_pooled = np.sqrt((np.var(x) + np.var(y)) / 2)
         
         out = (np.mean(x) - np.mean(y)) / sd_pooled
     
-    if abs == True: out = np.abs(out)
+    if abs == True: out = np.abs(out)\
     
     return out
 
-def print_hypothesis_test(key, test_stats, x_name = None, y_name = None):
+def print_hypothesis_test(exposure, test_stats, x_name = None, y_name = None):
     x_stats = test_stats.x_stats
     y_stats = test_stats.y_stats
     
@@ -93,8 +97,8 @@ def print_hypothesis_test(key, test_stats, x_name = None, y_name = None):
     
     line = "---------------------------------------------------------"
     
-    title_x = ("[Group: {x_name} | Key: {key}]")\
-               .format(x_name = x_name, key = key.title())
+    title_x = ("[Group: {x_name} | Exposure: {exposure}]")\
+               .format(x_name = x_name, exposure = exposure.title())
     
     summary_x = ("Mean = {x_mean}\nVar. = {x_var}\nSD = {x_std}")\
                  .format(
@@ -102,8 +106,8 @@ def print_hypothesis_test(key, test_stats, x_name = None, y_name = None):
                      x_std = x_stats.std
                      )
     
-    title_y = ("[Group: {y_name} | Key: {key}]")\
-               .format(y_name = y_name, key = key.title())
+    title_y = ("[Group: {y_name} | Exposure: {exposure}]")\
+               .format(y_name = y_name, exposure = exposure.title())
     
     summary_y = ("Mean = {y_mean}\nVar. = {y_var}\nSD = {y_std}")\
                  .format(
@@ -111,9 +115,9 @@ def print_hypothesis_test(key, test_stats, x_name = None, y_name = None):
                      y_std = y_stats.std
                      )
     
-    title_x_y = ("[Groups: {x_name} & {y_name} | Key: {key}]")\
+    title_x_y = ("[Groups: {x_name} & {y_name} | Exposure: {exposure}]")\
                  .format(
-                 x_name = x_name, y_name = y_name, key = key.title()
+                 x_name = x_name, y_name = y_name, exposure = exposure.title()
                      )
     
     summary_x_y = ("Variance ratio: {larger_var} / {smaller_var} = " +\
@@ -145,17 +149,18 @@ def print_hypothesis_test(key, test_stats, x_name = None, y_name = None):
     
     return None
 
-def plot_hypothesis_test(x, y, key, test_stats, x_name = "X", y_name = "Y"):
+def plot_hypothesis_test(x, y, exposure, test_stats, x_name = "X", y_name = "Y"):
     """Plot results of 'test_hypothesis()'."""
-    x_tau = [i["tau"] for i in np.array(x.turtles[key])]
-    y_tau = [i["tau"] for i in np.array(y.turtles[key])]
+    x_tau = [i["tau"] for i in np.array(x.turtles[exposure])]
+    y_tau = [i["tau"] for i in np.array(y.turtles[exposure])]
     settings = x.settings
 
-    title = ("Key = {key}, N = ${n}$, $\\lambda_c = {lam_c}$, " +\
+    title = ("Exposure = {exposure}, N = ${n}$, $\\lambda_c = {lam_c}$, " +\
              "Cycles = ${n_cycles}$, " +\
              "Repetitions = ${repetitions}$, p-value = {p_value}")\
              .format(
-                 key = key.title(), n = settings.n, lam_c = settings.lam_c, 
+                 exposure = exposure.title(), n = settings.n, 
+                 lam_c = settings.lam_c, 
                  n_cycles = settings.n_cycles, 
                  repetitions = settings.repetitions, 
                  p_value = round(test_stats.p_value, 5)
@@ -175,6 +180,11 @@ def plot_hypothesis_test(x, y, key, test_stats, x_name = "X", y_name = "Y"):
     ax.set_title(title, fontsize = 8)
     
     plt.legend(fontsize = 8)
+    # 0.0625 | 0.125 | 0.25 | 0.5 | 1
+    plt.subplots_adjust(
+        left = 0.11875, bottom = 0.16875, right = 0.93125, top = 0.8875, 
+        wspace = None, hspace = None
+        )
     plt.show()
     
     return None

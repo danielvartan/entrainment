@@ -151,14 +151,13 @@ entrainment.plot_model_violin_1_2(
 ```
 
 ```{python}
-#| label = "plot_labren",
+#| label = "plot_labren_data",
 #| include = FALSE
 
-entrainment.labren(id = 72272, by = "season")
-entrainment.plot_labren(
+entrainment.plot_labren_data(
+    id_1 = 72272, id_2 = 1, by = "season", start_at = 0,
     label_1 = "Nascente do Rio Ailã (Latitude: $5.272$)", 
     label_2 = "Arroio Chuí (Latitude: $- 33.752$)",
-    by = "season"
     )
 ```
 
@@ -209,7 +208,7 @@ For more information about the values presented, see [`scipy.stats.kstest()`](ht
 #| label = "analyze_north_unentrain"
 
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "unentrained", name = x_name
+    model = north_by_season, exposure = "unentrained", name = x_name
     )
 ```
 
@@ -219,7 +218,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_north_summer"
 
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "summer", name = x_name
+    model = north_by_season, exposure = "summer", name = x_name
     )
 ```
 
@@ -229,7 +228,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_north_autumn"
 
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "autumn", name = x_name
+    model = north_by_season, exposure = "autumn", name = x_name
     )
 ```
 
@@ -239,7 +238,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_north_winter"
 
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "winter", name = x_name
+    model = north_by_season, exposure = "winter", name = x_name
     )
 ```
 
@@ -249,7 +248,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_north_spring"
 
 stats = entrainment.analyze_model(
-    model = north_by_season, key = "spring", name = x_name
+    model = north_by_season, exposure = "spring", name = x_name
     )
 ```
 
@@ -259,7 +258,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_north_annual"
 
 stats = entrainment.analyze_model(
-    model = north_by_year, key = "annual", name = x_name
+    model = north_by_year, exposure = "annual", name = x_name
     )
 ```
 
@@ -271,7 +270,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_south_unentrain"
 
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "unentrained", name = y_name
+    model = south_by_season, exposure = "unentrained", name = y_name
     )
 ```
 
@@ -281,7 +280,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_south_summer"
 
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "summer", name = y_name
+    model = south_by_season, exposure = "summer", name = y_name
     )
 ```
 
@@ -291,7 +290,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_south_autumn"
 
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "autumn", name = y_name
+    model = south_by_season, exposure = "autumn", name = y_name
     )
 ```
 
@@ -301,7 +300,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_south_winter"
 
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "winter", name = y_name
+    model = south_by_season, exposure = "winter", name = y_name
     )
 ```
 
@@ -311,7 +310,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_south_spring"
 
 stats = entrainment.analyze_model(
-    model = south_by_season, key = "spring", name = y_name
+    model = south_by_season, exposure = "spring", name = y_name
     )
 ```
 
@@ -321,7 +320,7 @@ stats = entrainment.analyze_model(
 #| label = "analyze_south_annual"
 
 stats = entrainment.analyze_model(
-    model = south_by_year, key = "annual", name = y_name
+    model = south_by_year, exposure = "annual", name = y_name
     )
 ```
 
@@ -378,7 +377,7 @@ def print_test_result(test):
 #| label = "test_unentrain"
 
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "unentrained",
+    x = north_by_season, y = south_by_season, exposure = "unentrained",
     x_name = x_name, y_name = y_name
     )
 ```
@@ -389,7 +388,7 @@ test = entrainment.test_hypothesis(
 #| label = "test_summer"
 
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "summer",
+    x = north_by_season, y = south_by_season, exposure = "summer",
     x_name = x_name, y_name = y_name
     )
 ```
@@ -407,7 +406,7 @@ print_test_result(test)
 #| label = "test_autumn"
 
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "autumn",
+    x = north_by_season, y = south_by_season, exposure = "autumn",
     x_name = x_name, y_name = y_name
     )
 ```
@@ -425,7 +424,7 @@ print_test_result(test)
 #| label = "test_winter"
 
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "winter",
+    x = north_by_season, y = south_by_season, exposure = "winter",
     x_name = x_name, y_name = y_name
     )
 ```
@@ -443,7 +442,7 @@ print_test_result(test)
 #| label = "test_spring"
 
 test = entrainment.test_hypothesis(
-    x = north_by_season, y = south_by_season, key = "spring",
+    x = north_by_season, y = south_by_season, exposure = "spring",
     x_name = x_name, y_name = y_name
     )
 ```
@@ -461,7 +460,7 @@ print_test_result(test)
 #| label = "test_annual"
 
 test = entrainment.test_hypothesis(
-    x = north_by_year, y = south_by_year, key = "annual",
+    x = north_by_year, y = south_by_year, exposure = "annual",
     x_name = x_name, y_name = y_name
     )
 ```
