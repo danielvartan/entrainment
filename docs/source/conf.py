@@ -189,7 +189,7 @@ myst_substitutions = {"rtd": "[Read the Docs](https://readthedocs.org/)"}
 
 html_context = {
     "default_mode": "auto",
-    "github_user": "danielvartan",
+    "github_user": "giperbio",
     "github_repo": "entrainment",
     "github_version": "main",
     "doc_path": "docs",

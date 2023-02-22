@@ -1,5 +1,6 @@
 [build-system]
 requires = [
+    "alive_progress >= 3.0.1",
     "matplotlib >= 3.6.3",
     "numpy >= 1.24.1",
     "pandas >= 1.5.2",
@@ -38,8 +39,8 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/danielvartan/entrainment"
-"Documentatiom" = "https://github.com/danielvartan/entrainment"
-"Source" = "https://github.com/danielvartan/entrainment"
-"Download" = "https://github.com/danielvartan/entrainment/releases"
-"Bug Tracker" = "https://github.com/danielvartan/entrainment/issues"
+"Homepage" = "https://github.com/giperbio/entrainment"
+"Documentatiom" = "https://github.com/giperbio/entrainment"
+"Source" = "https://github.com/giperbio/entrainment"
+"Download" = "https://github.com/giperbio/entrainment/releases"
+"Bug Tracker" = "https://github.com/giperbio/entrainment/issues"

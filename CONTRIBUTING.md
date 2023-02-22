@@ -12,7 +12,7 @@ You can contribute in many ways:
 ### Report Bugs
 
 Report bugs at
-[https://github.com/danielvartan/entrainment/issues](https://github.com/danielvartan/entrainment/issues).
+[https://github.com/giperbio/entrainment/issues](https://github.com/giperbio/entrainment/issues).
 
 If you are reporting a bug, please include:
 
@@ -44,7 +44,7 @@ Whenever possible, it's best to try and implement feature ideas as separate proj
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at [https://github.com/danielvartan/entrainment/issues](https://github.com/danielvartan/entrainment/issues).
+The best way to send feedback is to file an issue at [https://github.com/giperbio/entrainment/issues](https://github.com/giperbio/entrainment/issues).
 
 If you are proposing a feature:
 

@@ -41,7 +41,7 @@ audit students).
 You can install `entrainment` from GitHub with:
 
 ``` bash
-pip install git+https://github.com/danielvartan/entrainment.git#egg=entrainment
+pip install git+https://github.com/giperbio/entrainment.git#egg=entrainment
 ```
 
 We don’t intend to publish this package on [PyPI](https://pypi.org/).
@@ -89,16 +89,16 @@ If you use `entrainment` in your research, please consider citing it. We
 put a lot of work to build and maintain a free and open-source Python
 package. You can find the `entrainment` citation below.
 
-    Vartanian, D. (2023). {entrainment}: A rule-based model of the 24h light/dark cycle entrainment phenomenon. (v. 0.0.0.9000). https://github.com/danielvartan/entrainment
+    Vartanian, D. (2023). {entrainment}: rule-based model of the 24h light/dark cycle entrainment phenomenon. Python package version 0.0.0.9000. https://github.com/giperbio/entrainment
 
 A BibTeX entry for LaTeX users is
 
     @Unpublished{,
-        title = {{entrainment}: A rule-based model of the 24h light/dark cycle entrainment phenomenon},
+        title = {{entrainment}: rule-based model of the 24h light/dark cycle entrainment phenomenon},
         author = {Daniel Vartanian},
         year = {2023},
-        url = {https://github.com/danielvartan/entrainment},
-        note = {(v. 0.0.0.9000). Lifecycle: experimental},
+        url = {https://github.com/giperbio/entrainment},
+        note = {Python package version 0.0.0.9000},
     }
 
 ## Contributing

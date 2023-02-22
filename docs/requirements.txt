@@ -1,3 +1,4 @@
+alive_progress
 matplotlib
 myst_parser
 numpy

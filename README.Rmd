@@ -42,7 +42,7 @@ In case you don't feel comfortable with Python, we strongly recommend checking J
 You can install `entrainment` from GitHub with:
 
 ```bash
-pip install git+https://github.com/danielvartan/entrainment.git#egg=entrainment
+pip install git+https://github.com/giperbio/entrainment.git#egg=entrainment
 ```
 
 We don't intend to publish this package on [PyPI](https://pypi.org/).
@@ -97,18 +97,18 @@ lot of work to build and maintain a free and open-source Python package. You
 can find the `entrainment` citation below.
 
 ``` 
-Vartanian, D. (2023). {entrainment}: A rule-based model of the 24h light/dark cycle entrainment phenomenon. (v. 0.0.0.9000). https://github.com/danielvartan/entrainment
+Vartanian, D. (2023). {entrainment}: rule-based model of the 24h light/dark cycle entrainment phenomenon. Python package version 0.0.0.9000. https://github.com/giperbio/entrainment
 ```
 
 A BibTeX entry for LaTeX users is
 
 ```
 @Unpublished{,
-    title = {{entrainment}: A rule-based model of the 24h light/dark cycle entrainment phenomenon},
+    title = {{entrainment}: rule-based model of the 24h light/dark cycle entrainment phenomenon},
     author = {Daniel Vartanian},
     year = {2023},
-    url = {https://github.com/danielvartan/entrainment},
-    note = {(v. 0.0.0.9000). Lifecycle: experimental},
+    url = {https://github.com/giperbio/entrainment},
+    note = {Python package version 0.0.0.9000},
 }
 ```
 
@@ -123,3 +123,9 @@ Take a moment to review our [Guidelines for Contributing](https://entrainment.re
 The initial development of `entrainment` was supported by a scholarship provided by the [University of Sao Paulo (USP)](http://usp.br/) (❤️).
 
 This model was initially created for the [SCX5002 - Complex System I](https://uspdigital.usp.br/janus/Disciplina?tipo=D&sgldis=SCX5002&nomdis=&origem=C) class of the [Graduate Program in Modeling Complex Systems (PPG-SCX)](https://www.prpg.usp.br/pt-br/faca-pos-na-usp/programas-de-pos-graduacao/621-modelagem-de-sistemas-complexos) of the [University of Sao Paulo (USP)](https://www5.usp.br/), under the guidance of [Prof. Dr. Camilo Rodrigues Neto](https://orcid.org/0000-0001-6783-6695).
+
+<br>
+
+Become an `entrainment` supporter!
+
+Click [here](https://github.com/sponsors/danielvartan) to make a donation. Please indicate the `entrainment` package in your donation message.
