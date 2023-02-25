@@ -87,7 +87,7 @@ documentation website](https://entrainment.readthedocs.io).
 
 If you use `entrainment` in your research, please consider citing it. We
 put a lot of work to build and maintain a free and open-source Python
-package. You can find the `entrainment` citation below.
+package. You can find the citation below.
 
     Vartanian, D. (2023). {entrainment}: rule-based model of the 24h light/dark cycle entrainment phenomenon. Python package version 0.0.0.9000. https://github.com/giperbio/entrainment
 
@@ -120,3 +120,11 @@ class of the [Graduate Program in Modeling Complex Systems
 of the [University of Sao Paulo (USP)](https://www5.usp.br/), under the
 guidance of [Prof. Dr. Camilo Rodrigues
 Neto](https://orcid.org/0000-0001-6783-6695).
+
+<br>
+
+Become an `entrainment` supporter!
+
+Click [here](https://github.com/sponsors/danielvartan) to make a
+donation. Please indicate the `entrainment` package in your donation
+message.
